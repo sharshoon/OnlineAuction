@@ -39,7 +39,9 @@ namespace OnlineAuction
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireDigit = false;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddSignInManager()
+                .AddDefaultTokenProviders();
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
