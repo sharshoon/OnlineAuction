@@ -62,7 +62,7 @@ namespace OnlineAuction.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl ??= Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -74,7 +74,11 @@ namespace OnlineAuction.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            if (User.Identity.IsAuthenticated)
+            {
+                await _signInManager.SignOutAsync();
+            }
+            returnUrl ??= Url.Content("~/");
 
             if (ModelState.IsValid)
             {
@@ -100,6 +104,7 @@ namespace OnlineAuction.Areas.Identity.Pages.Account
                 }
             }
 
+            // If we got this far, something failed, redisplay form
             return Page();
         }
     }

@@ -1,6 +1,10 @@
+using System;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using OnlineAuction.Data;
@@ -8,6 +12,7 @@ using OnlineAuction.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OnlineAuction.Engine;
 
 namespace OnlineAuction
 {
@@ -19,6 +24,7 @@ namespace OnlineAuction
         }
 
         public IConfiguration Configuration { get; }
+        private IApplicationBuilder app;
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -26,13 +32,28 @@ namespace OnlineAuction
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequiredLength = 5;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireDigit = false;
+                })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-            services.AddAuthentication()
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.Cookie.IsEssential = true;
+                    options.SlidingExpiration = true; 
+                    options.ExpireTimeSpan = TimeSpan.FromSeconds(10);
+                })
                 .AddIdentityServerJwt();
 
             services.AddControllersWithViews();
@@ -43,8 +64,10 @@ namespace OnlineAuction
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
+            applicationLifetime.ApplicationStopping.Register(OnShutdown);
+            this.app = app;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -83,5 +106,12 @@ namespace OnlineAuction
                 }
             });
         }
+
+        private void OnShutdown()
+        {
+            var manager = (SignInManager<ApplicationUser>)this.app.ApplicationServices.GetService(typeof(SignInManager<ApplicationUser>));
+            manager.SignOutAsync();
+        }
+
     }
 }

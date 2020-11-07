@@ -36,6 +36,9 @@
                 </div>
                 <div class="form-group">
                     <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                    <p>
                         <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                     </p>
                 </div>
@@ -43,3 +46,7 @@
         </section>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
