@@ -12,23 +12,28 @@ namespace OnlineAuction.Engine
     {
         public static async Task InitializeAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            var adminEmail = "admin@admin.com";
+            var adminEmail = "admin@domain.com";
             var adminPassword = "admin";
             if (await roleManager.FindByNameAsync(Roles.Admin.ToString()) == null)
             {
                 await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
             }
-            if (await roleManager.FindByNameAsync(Roles.RegularUser.ToString()) == null)
+            if (await roleManager.FindByNameAsync(Roles.User.ToString()) == null)
             {
-                await roleManager.CreateAsync(new IdentityRole(Roles.RegularUser.ToString()));
+                await roleManager.CreateAsync(new IdentityRole(Roles.User.ToString()));
             }
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {
-                ApplicationUser admin = new ApplicationUser { Email = adminEmail, UserName = adminEmail };
-                IdentityResult result = await userManager.CreateAsync(admin, adminPassword);
+                ApplicationUser adminUser = new ApplicationUser
+                {
+                    UserName = adminEmail,
+                    Email = adminEmail,
+                    EmailConfirmed = true,
+                };
+                IdentityResult result = await userManager.CreateAsync(adminUser, adminPassword);
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(admin, Roles.Admin.ToString());
+                    await userManager.AddToRoleAsync(adminUser, Roles.Admin.ToString());
                 }
             }
         }

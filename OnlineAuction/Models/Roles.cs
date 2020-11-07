@@ -8,6 +8,6 @@ namespace OnlineAuction.Models
     public enum Roles
     {
         Admin, 
-        RegularUser
+        User
     }
 }
