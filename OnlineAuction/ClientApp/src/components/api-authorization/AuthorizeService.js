@@ -1,5 +1,5 @@
 import { UserManager, WebStorageStateStore } from 'oidc-client';
-import { ApplicationPaths, ApplicationName } from './ApiAuthorizationConstants';
+import {ApplicationPaths, ApplicationName, UserRoles} from './ApiAuthorizationConstants';
 
 export class AuthorizeService {
     _callbacks = [];
@@ -197,6 +197,19 @@ export class AuthorizeService {
             await this.userManager.removeUser();
             this.updateState(undefined);
         });
+    }
+
+    async hasRole(role) {
+        const user = await this.getUser();
+
+        if (user) {
+            if (user.role instanceof Array) // if it has many roles role is an array
+                return user.role.includes(UserRoles.Administrator); // beware that UserRoles apears as undefined when debugging, though it works fine
+            else // otherwise it is a string
+                return user.role === UserRoles.Administrator;
+        }
+        else
+            return false;
     }
 
     static get instance() { return authService }
