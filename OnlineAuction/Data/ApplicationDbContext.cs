@@ -10,13 +10,15 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.Data
 {
-    public class UsersDbContext : ApiAuthorizationDbContext<ApplicationUser>
+    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
-        public UsersDbContext(
+        public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
             Database.EnsureCreated();
         }
+
+        private DbSet<Lot> Lots { get; set; }
     }
 }

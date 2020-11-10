@@ -13,7 +13,6 @@ namespace OnlineAuction.Engine
         Task<IdentityRole> GetRoleByNameAsync(string name);
         Task<int> GetAllUsersCountAsync(string searchString);
         Task<List<ApplicationUser>> GetAllUsersAsync(string searchString);
-        // Task<PaginatedList<ApplicationUser>> GetAllUsersPaginatedAsync(int pageIndex, int pageSize, string searchString, string sortOrder);
         Task<List<ApplicationUser>> GetUsersAsync(int offset, int limit, string sortOrder, string searchString);
         Task<string> GetUserRoleAsync(string userId, bool returnName);
         Task<string> GetUserRoleAsync(string email);

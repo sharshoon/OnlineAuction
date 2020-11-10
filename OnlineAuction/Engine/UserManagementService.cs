@@ -12,11 +12,11 @@ namespace OnlineAuction.Engine
 {
 	public class UserManagementService : IUserManagementService
 	{
-		private readonly UsersDbContext _context;
+		private readonly ApplicationDbContext _context;
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly RoleManager<IdentityRole> _roleManager;
 
-		public UserManagementService(UsersDbContext context, UserManager<ApplicationUser> userManager,
+		public UserManagementService(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
 			RoleManager<IdentityRole> roleManager)
 		{
 			_context = context;
@@ -137,10 +137,7 @@ namespace OnlineAuction.Engine
 		}
 		public async Task<IdentityResult> AddUserAsync(ApplicationUser user, string password, string role)
 		{
-			// In case of racing conditions the error will be returned by the CreateAsync method
-			// This extra check is made becuase CreateAsync produces errors for both email and username
-			// (when only the email is exposed to the GUI)
-			if (await _userManager.FindByEmailAsync(user.Email) != null)
+            if (await _userManager.FindByEmailAsync(user.Email) != null)
 				return IdentityResult.Failed(new IdentityError() { Description = "Email already in use!" });
 
 			var result = await _userManager.CreateAsync(user, password);
@@ -156,14 +153,10 @@ namespace OnlineAuction.Engine
 			if (existingUser != null && existingUser.Id != user.Id)
 				return IdentityResult.Failed(new IdentityError() { Description = "Email already in use!" });
 
-			// _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVersion;
 			_context.Entry(user).State = EntityState.Modified;
 			_context.Entry(user).Property("RowVersion").OriginalValue = rowVersion;
 
-			// var result = await _userManager.UpdateAsync(user);
-			// var result = _context.Users.Update(user);
-
-			await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
 			string[] existingRoles = (await _userManager.GetRolesAsync(user)).ToArray();
 			var result = await _userManager.RemoveFromRolesAsync(user, existingRoles);
