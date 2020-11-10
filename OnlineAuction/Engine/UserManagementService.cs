@@ -12,11 +12,11 @@ namespace OnlineAuction.Engine
 {
 	public class UserManagementService : IUserManagementService
 	{
-		private readonly UsersDbContext _context;
+		private readonly ApplicationDbContext _context;
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly RoleManager<IdentityRole> _roleManager;
 
-		public UserManagementService(UsersDbContext context, UserManager<ApplicationUser> userManager,
+		public UserManagementService(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
 			RoleManager<IdentityRole> roleManager)
 		{
 			_context = context;
@@ -30,19 +30,7 @@ namespace OnlineAuction.Engine
 				.FirstOrDefaultAsync();
 		}
 
-		public async Task<int> GetAllUsersCountAsync(string searchString)
-		{
-			var users = _userManager.Users.AsNoTracking();
-
-			if (!string.IsNullOrEmpty(searchString))
-				users = users.Where(user => (user.LastName.Contains(searchString)
-					|| user.FirstName.Contains(searchString)
-					|| user.Email.Contains(searchString)));
-
-			return await users.CountAsync();
-		}
-
-		public async Task<List<ApplicationUser>> GetAllUsersAsync(string searchString)
+        public async Task<List<ApplicationUser>> GetAllUsersAsync(string searchString)
 		{
 			var users = _userManager.Users.AsNoTracking();
 
@@ -54,54 +42,6 @@ namespace OnlineAuction.Engine
 			return await users.ToListAsync();
 		}
 
-		public async Task<List<ApplicationUser>> GetUsersAsync(int offset, int limit, string sortOrder, string searchString)
-		{
-			offset = offset < 0 ? 0 : offset;
-			limit = limit < 0 ? 0 : limit;
-
-
-			var pageUsers = _userManager.Users.AsNoTracking();
-
-			if (!string.IsNullOrEmpty(searchString))
-				pageUsers = pageUsers.Where(user => (user.LastName.Contains(searchString)
-					|| user.FirstName.Contains(searchString)
-					|| user.Email.Contains(searchString)));
-
-			switch (sortOrder)
-			{
-				case "Lname":
-					pageUsers = pageUsers.OrderBy(u => u.LastName);
-					break;
-				case "Lname_desc":
-					pageUsers = pageUsers.OrderByDescending(u => u.LastName);
-					break;
-				case "Fname":
-					pageUsers = pageUsers.OrderBy(u => u.FirstName);
-					break;
-				case "Fname_desc":
-					pageUsers = pageUsers.OrderByDescending(u => u.FirstName);
-					break;
-				case "Email":
-					pageUsers = pageUsers.OrderBy(u => u.Email);
-					break;
-				case "Email_desc":
-					pageUsers = pageUsers.OrderByDescending(u => u.Email);
-					break;
-				case "Approved":
-					pageUsers = pageUsers.OrderBy(u => u.Approved);
-					break;
-				case "Approved_desc":
-					pageUsers = pageUsers.OrderByDescending(u => u.Approved);
-					break;
-				default:
-					pageUsers = pageUsers.OrderBy(u => u.LastName);
-					break;
-			}
-
-			pageUsers = pageUsers.Skip(offset).Take(limit);
-
-			return await pageUsers.ToListAsync();
-		}
 		public async Task<string> GetUserRoleAsync(string userId, bool returnName)
 		{
 			ApplicationUser user = await _context.Users.AsNoTracking().Where(u => u.Id == userId).FirstOrDefaultAsync();
@@ -137,10 +77,7 @@ namespace OnlineAuction.Engine
 		}
 		public async Task<IdentityResult> AddUserAsync(ApplicationUser user, string password, string role)
 		{
-			// In case of racing conditions the error will be returned by the CreateAsync method
-			// This extra check is made becuase CreateAsync produces errors for both email and username
-			// (when only the email is exposed to the GUI)
-			if (await _userManager.FindByEmailAsync(user.Email) != null)
+            if (await _userManager.FindByEmailAsync(user.Email) != null)
 				return IdentityResult.Failed(new IdentityError() { Description = "Email already in use!" });
 
 			var result = await _userManager.CreateAsync(user, password);
@@ -156,14 +93,10 @@ namespace OnlineAuction.Engine
 			if (existingUser != null && existingUser.Id != user.Id)
 				return IdentityResult.Failed(new IdentityError() { Description = "Email already in use!" });
 
-			// _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVersion;
 			_context.Entry(user).State = EntityState.Modified;
 			_context.Entry(user).Property("RowVersion").OriginalValue = rowVersion;
 
-			// var result = await _userManager.UpdateAsync(user);
-			// var result = _context.Users.Update(user);
-
-			await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
 			string[] existingRoles = (await _userManager.GetRolesAsync(user)).ToArray();
 			var result = await _userManager.RemoveFromRolesAsync(user, existingRoles);

@@ -6,17 +6,21 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace OnlineAuction.Data
 {
-    public class UsersDbContext : ApiAuthorizationDbContext<ApplicationUser>
+    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
-        public UsersDbContext(
+        public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
             Database.EnsureCreated();
         }
+
+        private DbSet<Lot> Lots { get; set; }
+        private DbSet<Winner> Winners { get; set; }
     }
 }
