@@ -25,12 +25,6 @@ namespace OnlineAuction.Engine
             var claims = context.Subject.Claims
                 .Where(claim => claim.Type == JwtClaimTypes.Email || claim.Type == JwtClaimTypes.Role).ToList();
 
-            //foreach (var claim in claims)
-            //{
-            //	if (claim.Type == "role")
-            //		context.IssuedClaims.Add(new Claim(ClaimTypes.Role, claim.Value));
-            //}
-
             context.IssuedClaims.AddRange(claims);
         }
 

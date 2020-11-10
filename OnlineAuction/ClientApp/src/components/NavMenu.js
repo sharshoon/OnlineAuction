@@ -27,6 +27,7 @@ export class NavMenu extends Component {
     }
 
     componentDidMount() {
+        authService.subscribe(() => this.isAdmin());
         this.isAdmin();
     }
 
@@ -35,14 +36,6 @@ export class NavMenu extends Component {
         this.setState({
             isAdmin
         })
-    }
-
-    async getRole(){
-        let role = await authService.getRole();
-        if(!role){
-            role = "pusto";
-        }
-        this.setState({role});
     }
 
     render () {

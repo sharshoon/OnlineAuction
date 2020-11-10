@@ -12,11 +12,11 @@ namespace OnlineAuction.Engine
 {
 	public class UserManagementService : IUserManagementService
 	{
-		private readonly ApplicationDbContext _context;
+		private readonly UsersDbContext _context;
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly RoleManager<IdentityRole> _roleManager;
 
-		public UserManagementService(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
+		public UserManagementService(UsersDbContext context, UserManager<ApplicationUser> userManager,
 			RoleManager<IdentityRole> roleManager)
 		{
 			_context = context;

@@ -29,9 +29,9 @@ namespace OnlineAuction
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<UsersDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("UsersDbConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options =>
                 {
@@ -43,10 +43,10 @@ namespace OnlineAuction
                     options.Password.RequireDigit = false;
                 })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<UsersDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>()
+                .AddApiAuthorization<ApplicationUser, UsersDbContext>()
                 .AddProfileService<ProfileService>();
 
             services.AddAuthentication()
