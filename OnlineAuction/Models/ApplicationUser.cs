@@ -14,11 +14,6 @@ namespace OnlineAuction.Models
         public string FirstName { get; set; }
         [MaxLength(100)]
         public string LastName { get; set; }
-        public bool ApplicationEditingAllowed { get; set; } = true;
-        public bool Approved { get; set; } = false;
-
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
 
         [NotMapped]
         public string FullName => FirstName + " " + LastName;
