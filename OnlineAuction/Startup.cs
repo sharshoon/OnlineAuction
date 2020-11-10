@@ -1,10 +1,11 @@
 using System;
+using System.Security.Claims;
+using IdentityServer4.AspNetIdentity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using OnlineAuction.Data;
@@ -28,9 +29,9 @@ namespace OnlineAuction
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<UsersDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("UsersDbConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options =>
                 {
@@ -42,20 +43,23 @@ namespace OnlineAuction
                     options.Password.RequireDigit = false;
                 })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<UsersDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                .AddApiAuthorization<ApplicationUser, UsersDbContext>()
+                .AddProfileService<ProfileService>();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.Cookie.IsEssential = true;
-                    options.SlidingExpiration = true; 
-                    options.ExpireTimeSpan = TimeSpan.FromSeconds(10);
-                })
+            services.AddAuthentication()
                 .AddIdentityServerJwt();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsAdmin", policy =>
+                {
+                    policy.RequireClaim(ClaimTypes.Role, "admin");
+                });
+            });
 
+            services.AddScoped<IUserManagementService, UserManagementService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSpaStaticFiles(configuration =>

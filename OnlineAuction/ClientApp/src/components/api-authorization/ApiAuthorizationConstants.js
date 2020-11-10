@@ -36,3 +36,8 @@ export const ApplicationPaths = {
   IdentityRegisterPath: '/Identity/Account/Register',
   IdentityManagePath: '/Identity/Account/Manage'
 };
+
+export const UserRoles = {
+  Administrator: 'admin',
+  User: 'user'
+};

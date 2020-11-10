@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import {Beforeunload} from "react-beforeunload";
 import App from './App';
-import {Logout} from "./components/api-authorization/Logout";
-import {LogoutActions} from "./components/api-authorization/ApiAuthorizationConstants";
 //import registerServiceWorker from './registerServiceWorker';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');

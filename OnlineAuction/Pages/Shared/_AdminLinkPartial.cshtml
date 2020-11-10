@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.CodeAnalysis.CSharp.Syntax
+@using OnlineAuction.Controllers
+@using OnlineAuction.Models;
+@using IdentityServer4.Extensions
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    string returnUrl = null;
+    var query = ViewContext.HttpContext.Request.Query;
+    if (query.ContainsKey("returnUrl"))
+    {
+        returnUrl = query["returnUrl"];
+    }
+
+}
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User) && this.User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Admin panel", "Get", "Admin")
+    }
+</ul>
