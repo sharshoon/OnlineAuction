@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace OnlineAuction.Data
@@ -20,5 +21,6 @@ namespace OnlineAuction.Data
         }
 
         private DbSet<Lot> Lots { get; set; }
+        private DbSet<Winner> Winners { get; set; }
     }
 }
