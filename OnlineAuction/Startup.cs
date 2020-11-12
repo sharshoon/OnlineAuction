@@ -60,6 +60,7 @@ namespace OnlineAuction
             });
 
             services.AddScoped<IUserManagementService, UserManagementService>();
+            services.AddScoped<IAuctionRepository, AuctionRepository>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSpaStaticFiles(configuration =>

@@ -16,7 +16,7 @@ namespace OnlineAuction.Engine
 
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-            foreach (RoleHelpers.RolePair role in RoleHelpers.Roles)
+            foreach (var role in RoleHelpers.Roles)
             {
                 if (!roleManager.RoleExistsAsync(role.Name).Result)
                 {
@@ -39,13 +39,15 @@ namespace OnlineAuction.Engine
             var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
             userManager.AddToRoleAsync(adminUser, "user").Wait();
 
-            var user = new ApplicationUser();
+            var user = new ApplicationUser
+            {
+                UserName = "user@domain.com",
+                Email = "user@domain.com",
+                FirstName = "FIRST",
+                LastName = "LAST",
+                EmailConfirmed = true
+            };
 
-            user.UserName = "user@domain.com";
-            user.Email = "user@domain.com";
-            user.FirstName = "FIRST";
-            user.LastName = "LAST";
-            user.EmailConfirmed = true;
             umService.AddUserAsync(user, "user", "user").Wait();
         }
     }

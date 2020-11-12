@@ -28,7 +28,8 @@ namespace OnlineAuction
         {
             using var serviceScope = host.Services.CreateScope();
             var services = serviceScope.ServiceProvider;
-            RolesInitializer.InitializeRoles(services);
+            LotsInitializer.InitializeLotsAsync(services).Wait();
+            RolesInitializer.InitializeRolesAsync(services).Wait();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
