@@ -10,7 +10,7 @@ namespace OnlineAuction.Engine
 {
     public class RolesInitializer
     {
-        public static void InitializeRolesAsync(IServiceProvider services)
+        public static async Task InitializeRolesAsync(IServiceProvider services)
         {
             var umService = services.GetRequiredService<IUserManagementService>();
 
@@ -21,7 +21,7 @@ namespace OnlineAuction.Engine
                 if (!roleManager.RoleExistsAsync(role.Name).Result)
                 {
                     var idRole = new IdentityRole(role.Name);
-                    roleManager.CreateAsync(idRole).Wait();
+                    await roleManager.CreateAsync(idRole);
                 }
             }
 
@@ -34,10 +34,10 @@ namespace OnlineAuction.Engine
                 EmailConfirmed = true,
             };
 
-            umService.AddUserAsync(adminUser, "admin", "admin").Wait();
+            await umService.AddUserAsync(adminUser, "admin", "admin");
 
             var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-            userManager.AddToRoleAsync(adminUser, "user").Wait();
+            await userManager.AddToRoleAsync(adminUser, "user");
 
             var user = new ApplicationUser
             {
@@ -48,7 +48,7 @@ namespace OnlineAuction.Engine
                 EmailConfirmed = true
             };
 
-            umService.AddUserAsync(user, "user", "user").Wait();
+            await umService.AddUserAsync(user, "user", "user");
         }
     }
 }
