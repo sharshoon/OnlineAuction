@@ -6,8 +6,10 @@ namespace OnlineAuction.Models
     public class Lot
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        [Required]
+        public string Name { get; set; }
         public string NextLotId { get; set; }
         public string ImagePath { get; set; }
         public string Description { get; set; }

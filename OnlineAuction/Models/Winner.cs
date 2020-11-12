@@ -12,6 +12,6 @@ namespace OnlineAuction.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Id { get; set; }
-        public string LotId { get; set; }
+        public int LotId { get; set; }
     }
 }

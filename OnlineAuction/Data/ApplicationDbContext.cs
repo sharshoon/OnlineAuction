@@ -20,7 +20,7 @@ namespace OnlineAuction.Data
             Database.EnsureCreated();
         }
 
-        private DbSet<Lot> Lots { get; set; }
-        private DbSet<Winner> Winners { get; set; }
+        public DbSet<Lot> Lots { get; set; }
+        public DbSet<Winner> Winners { get; set; }
     }
 }
