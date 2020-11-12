@@ -10,7 +10,7 @@ namespace OnlineAuction.Engine
 {
     public class RolesInitializer
     {
-        public static void InitializeRoles(IServiceProvider services)
+        public static void InitializeRolesAsync(IServiceProvider services)
         {
             var umService = services.GetRequiredService<IUserManagementService>();
 
