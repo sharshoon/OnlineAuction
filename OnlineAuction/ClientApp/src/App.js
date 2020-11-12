@@ -7,6 +7,7 @@ import { ApplicationPaths } from './components/api-authorization/ApiAuthorizatio
 import './custom.css'
 import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
 import AdminPanel from "./components/AdminPanel";
+import Lots from "./components/Lots";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -15,6 +16,7 @@ export default class App extends Component {
     return (
       <Layout>
         <Route exact path='/' component={Home} />
+        <Route path='/lots' component={Lots}/>
         <AuthorizeRoute path='/admin-panel' component={AdminPanel}/>
         <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
       </Layout>
