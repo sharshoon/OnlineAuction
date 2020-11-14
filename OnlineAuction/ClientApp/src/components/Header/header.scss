@@ -1,0 +1,10 @@
+.header {
+    height: 7rem;
+    border: .0625rem solid #ccc;
+    background-color: #f0f0f0;
+
+    &__title{
+        font-weight: bold;
+        margin-left: 1rem;
+    }
+}

@@ -1,0 +1,48 @@
+a {
+  text-decoration: none;
+}
+
+header {
+  width: 100%;
+}
+
+#root {
+  background-color: #e5e5e5;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  color: #444;
+  text-transform: uppercase;
+}
+
+.logo {
+  font-size: 1.87rem;
+  padding: 0;
+}
+
+.casing__body {
+  margin: auto;
+  max-width: 73rem;
+}
+.casing__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.header {
+  height: 7rem;
+  border: 0.0625rem solid #ccc;
+  background-color: #f0f0f0;
+}
+.header__title {
+  font-weight: bold;
+  margin-left: 1rem;
+}

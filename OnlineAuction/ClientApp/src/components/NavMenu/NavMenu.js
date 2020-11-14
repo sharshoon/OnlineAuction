@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import classNames from "classnames"
+
 import { Link } from 'react-router-dom';
-import { LoginMenu } from './api-authorization/LoginMenu';
+import { LoginMenu } from '../api-authorization/LoginMenu';
 import './NavMenu.css';
-import authService from "./api-authorization/AuthorizeService";
-import {UserRoles} from "./api-authorization/ApiAuthorizationConstants";
+import '../../styles.css';
+import authService from "../api-authorization/AuthorizeService";
+import {UserRoles} from "../api-authorization/ApiAuthorizationConstants";
+import '../../styles.css';
 
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
+
 
     constructor (props) {
         super(props);
@@ -39,15 +44,19 @@ export class NavMenu extends Component {
     }
 
     render () {
+        const titleClasses = classNames("header__title", "title", "logo");
+        const headerClasses = classNames('casing__header', 'header');
         return (
             <header>
                 <Navbar>
-                    <Container>
-                        <NavbarBrand tag={Link} to="/">OnlineAuction</NavbarBrand>
+                    <Container className={headerClasses}>
+                        <div className='header__logo'>
+                            <NavbarBrand className={titleClasses} tag={Link} to="/">Online Auction</NavbarBrand>
+                        </div>
                         <Collapse isOpen={!this.state.collapsed} navbar>
-                            <ul className="navbar-nav flex-grow">
+                            <ul>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                                    <NavLink tag={Link} to="/">Home</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink tag={Link} to='/lots'>Lots</NavLink>
@@ -55,7 +64,7 @@ export class NavMenu extends Component {
                                 {
                                     this.state.isAdmin &&
                                         <NavItem>
-                                            <NavLink tag={Link} classsName="text-dark" to="/admin-panel">Admin Panel</NavLink>
+                                            <NavLink tag={Link} to="/admin-panel">Admin Panel</NavLink>
                                         </NavItem>
                                 }
                                 <LoginMenu>

@@ -20,7 +20,7 @@ const store = createStore(rootReducer, compose(
 ReactDOM.render(
     <Provider store={store }>
         <BrowserRouter basename={baseUrl}>
-            <App />
+            <App/>
         </BrowserRouter>
     </Provider>,
   rootElement);
