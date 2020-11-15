@@ -15,14 +15,35 @@ body {
   padding: 0;
 }
 
+ul {
+  list-style-type: none;
+}
+
+button,
+button:active,
+button:focus {
+  border: 0;
+  outline: none;
+}
+
+.container__border {
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.2rem;
+}
+
 .title {
   color: #444;
   text-transform: uppercase;
+  font-weight: bold;
 }
 
 .logo {
   font-size: 1.87rem;
   padding: 0;
+}
+
+.description {
+  color: #a5a5a5;
 }
 
 .casing__body {
@@ -39,10 +60,124 @@ body {
 
 .header {
   height: 7rem;
-  border: 0.0625rem solid #ccc;
-  background-color: #f0f0f0;
+  background-color: #f8f8f8;
+}
+.header__logo {
+  margin-left: 1rem;
+}
+.header__logo-description {
+  font-size: 0.8rem;
+  text-transform: uppercase;
 }
 .header__title {
+  margin: 0;
+  padding: 0;
+}
+.header__buttons-wrapper {
+  display: flex;
+  margin-right: 2.3rem;
+}
+.header__button {
+  color: #444;
+  border-radius: 0.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.5rem;
+  padding: 0 1.37rem 0 1.1rem;
+  margin: 0 0 0 0.25rem;
+  text-transform: uppercase;
+}
+.header__button:focus {
+  background-color: #c4c421;
+}
+
+.main {
+  background-color: #f8f8f8;
+  display: flex;
+  padding: 2rem 1rem;
+}
+.main__body {
+  margin-top: 1.5rem;
+}
+.main__title {
+  font-size: 1.8rem;
+  text-align: center;
+}
+.main__title::after {
+  content: "";
+  display: block;
+  margin: 1rem 0;
+  height: 0.1rem;
+  background-color: #dfdfdf;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+.main__image {
+  max-width: 40%;
+}
+.main__lot-info-wrapper {
+  width: 60%;
+  margin-left: 3rem;
+}
+.main__timer {
+  display: flex;
+  justify-content: center;
+}
+.main__timer-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lot-info {
+  font-size: 1.2rem;
+  font-family: "Times", "Times New Roman", serif;
+}
+.lot-info__item {
+  padding: 0.5rem 0;
+  border-bottom: 0.05rem dashed #dfdfdf;
+}
+.lot-info__name {
   font-weight: bold;
-  margin-left: 1rem;
+}
+.lot-info__time {
+  font-size: 2rem;
+}
+.lot-info__buttons {
+  display: flex;
+  justify-content: space-around;
+}
+.lot-info__button {
+  width: 30%;
+  padding: 1rem 0;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: #c4c421;
+}
+
+.timer {
+  text-align: center;
+}
+.timer__time {
+  font-size: 2rem;
+}
+.timer__item {
+  background-color: #444;
+  border-radius: 0.3rem;
+  padding: 0.5rem 0;
+  width: 5rem;
+  margin: 1rem 0.5rem;
+  color: white;
+}
+.timer__item--translucent {
+  background-color: rgba(68, 68, 68, 0.1);
+}
+.timer__not-started {
+  position: absolute;
+  background-color: #c4c421;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
 }

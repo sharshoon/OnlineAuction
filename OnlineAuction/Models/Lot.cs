@@ -11,10 +11,15 @@ namespace OnlineAuction.Models
         [Required]
         public string Name { get; set; }
         public string NextLotId { get; set; }
+        [Required]
         public string ImagePath { get; set; }
         public string Description { get; set; }
         public string MinPriceUsd { get; set; }
         [Required]
         public int ActionTimeSec { get; set; }
+        [NotMapped]
+        public string PriceUsd { get; set; }
+        [NotMapped]
+        public bool IsActive { get; set; } = false;
     }
 }

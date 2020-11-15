@@ -1,0 +1,31 @@
+.lot-info{
+    font-size: 1.2rem;
+    font-family: "Times", "Times New Roman", serif;
+
+    &__item{
+        padding: .5rem 0;
+        border-bottom: 0.05rem dashed $outline-color;
+    }
+
+    &__name{
+        font-weight: bold;
+    }
+
+    &__time{
+        font-size: 2rem;
+    }
+
+    &__buttons{
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &__button{
+        width: 30%;
+        padding: 1rem 0;
+        border-radius: .3rem;
+        font-weight: bold;
+        font-size: 1rem;
+        background-color: $yellow-background-color;
+    }
+}

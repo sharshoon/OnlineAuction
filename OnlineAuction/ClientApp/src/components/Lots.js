@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import Lot from "./Lot";
+import LotPreview from "./LotPreview";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchLots} from "../redux/actions";
 
@@ -11,8 +11,8 @@ export default function Lots(){
         dispatch(fetchLots());
     },[])
 
-    if(!lots){
+    if(!lots.length){
         return "Загрузка постов!"
     }
-    return lots.map(lot => <Lot lot={lot} key={lot.id}/>)
+    return lots.map(lot => <LotPreview lot={lot} key={lot.id}/>)
 }

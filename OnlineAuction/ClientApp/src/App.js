@@ -10,6 +10,8 @@ import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
 import AdminPanel from "./components/AdminPanel";
 import Lots from "./components/Lots";
 import classNames from 'classnames'
+import Lot from "./components/Lot/Lot";
+import Timer from "./components/Timer/Timer";
 
 export default class App extends Component {
     static displayName = App.name;
@@ -20,7 +22,8 @@ export default class App extends Component {
             <div className={containerClasses}>
                     <Layout className='container'>
                         <Route exact path='/' component={Home} />
-                        <Route path='/lots' component={Lots}/>
+                        <Route exact path='/timer' component={Timer} />
+                        <Route path='/lots/:id' component={Lot}/>
                         <AuthorizeRoute path='/admin-panel' component={AdminPanel}/>
                         <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
                     </Layout>
@@ -28,3 +31,5 @@ export default class App extends Component {
         );
     }
 }
+
+// <Route path='/lots' component={Lots}/>

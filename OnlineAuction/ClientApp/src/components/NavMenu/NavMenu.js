@@ -17,6 +17,8 @@ export class NavMenu extends Component {
     constructor (props) {
         super(props);
 
+        this.titleClasses = classNames("title", "logo");
+        this.headerClasses = classNames('casing__header', 'header', "container__border");
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,
@@ -44,27 +46,30 @@ export class NavMenu extends Component {
     }
 
     render () {
-        const titleClasses = classNames("header__title", "title", "logo");
-        const headerClasses = classNames('casing__header', 'header');
         return (
             <header>
                 <Navbar>
-                    <Container className={headerClasses}>
+                    <Container className={this.headerClasses}>
                         <div className='header__logo'>
-                            <NavbarBrand className={titleClasses} tag={Link} to="/">Online Auction</NavbarBrand>
+                            <h1 className='header__title'>
+                                <NavbarBrand className={this.titleClasses} tag={Link} to="/">Online Auction</NavbarBrand>
+                            </h1>
+                            <div className="header__logo-description description">
+                                The biggest online auction platform in solar system!
+                            </div>
                         </div>
                         <Collapse isOpen={!this.state.collapsed} navbar>
-                            <ul>
+                            <ul className='header__buttons-wrapper'>
                                 <NavItem>
-                                    <NavLink tag={Link} to="/">Home</NavLink>
+                                    <NavLink className='header__button' tag={Link} to="/">Home</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} to='/lots'>Lots</NavLink>
+                                    <NavLink className='header__button' tag={Link} to='/lots'>Lots</NavLink>
                                 </NavItem>
                                 {
                                     this.state.isAdmin &&
                                         <NavItem>
-                                            <NavLink tag={Link} to="/admin-panel">Admin Panel</NavLink>
+                                            <NavLink className='header__button' tag={Link} to="/admin-panel">Admin Panel</NavLink>
                                         </NavItem>
                                 }
                                 <LoginMenu>

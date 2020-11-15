@@ -7,10 +7,21 @@ header{
 }
 
 #root{
-    background-color: #e5e5e5;
+    background-color: $background-side-color;
 }
 
 body{
     margin: 0;
     padding: 0;
+}
+
+ul{
+    list-style-type: none;
+}
+
+button, 
+button:active, 
+button:focus {
+    border: 0;
+    outline: none;
 }

@@ -1,5 +1,5 @@
 import React from 'react'
 
-export default function Lot({lot}){
+export default function LotPreview({lot}){
     return lot.name;
 }
