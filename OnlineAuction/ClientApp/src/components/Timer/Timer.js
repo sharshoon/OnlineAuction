@@ -14,22 +14,16 @@ const renderTime = (dimension, time, timerItemClasses) => {
     );
 };
 
-const getTimeSeconds = time => (minuteSeconds - time) | 0;
-const getTimeMinutes = time => ((time*1000 % hourSeconds) / minuteSeconds) | 0;
+const getTimeMinutes = time => ((time - time % minuteSeconds) / minuteSeconds) | 0;
 const getTimeHours = time => (time / hourSeconds) | 0;
 const timerClasses = classNames("main__timer","timer");
 
-export default function Timer({lot}) {
-    const startTime = Date.now() / 1000;
-    const endTime = startTime + 243248;
-
-    const remainingTime = endTime - startTime;
+export default function Timer({lot, seconds}) {
+    const remainingTime = seconds;
     const days = Math.ceil(remainingTime / daySeconds);
 
+    const timerItemClasses = classNames("timer__item", {"timer__item--translucent" : !lot.isActive});
     let lotMessage;
-    let timerItemClasses;
-
-    timerItemClasses = classNames("timer__item", {"timer__item--translucent" : !lot.isActive});
     if(!lot.isActive){
         lotMessage = <div className='timer__not-started'>Auction has not started yet!</div>
     }
@@ -37,9 +31,9 @@ export default function Timer({lot}) {
         <div className='main__timer-wrapper'>
             {lotMessage}
             <div className={timerClasses}>
-                {renderTime("hours", getTimeHours(daySeconds*days / 1000), timerItemClasses)}
-                {renderTime("minutes", getTimeMinutes(hourSeconds / 1000), timerItemClasses)}
-                {renderTime("seconds", getTimeSeconds(remainingTime % minuteSeconds), timerItemClasses)}
+                {renderTime("hours", getTimeHours(remainingTime), timerItemClasses)}
+                {renderTime("minutes", getTimeMinutes(remainingTime), timerItemClasses)}
+                {renderTime("seconds", remainingTime % minuteSeconds | 0, timerItemClasses)}
             </div>
         </div>
     );

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineAuction.Engine;
+using OnlineAuction.Hubs;
 
 namespace OnlineAuction
 {
@@ -48,6 +49,8 @@ namespace OnlineAuction
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>()
                 .AddProfileService<ProfileService>();
+
+            services.AddSignalR();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
@@ -98,6 +101,7 @@ namespace OnlineAuction
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHub<LotHub>("/lot-hub");
                 endpoints.MapRazorPages();
             });
 
