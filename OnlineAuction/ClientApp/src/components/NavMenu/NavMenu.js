@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import classNames from "classnames"
+
 import { Link } from 'react-router-dom';
-import { LoginMenu } from './api-authorization/LoginMenu';
+import { LoginMenu } from '../api-authorization/LoginMenu';
 import './NavMenu.css';
-import authService from "./api-authorization/AuthorizeService";
-import {UserRoles} from "./api-authorization/ApiAuthorizationConstants";
+import '../../styles.css';
+import authService from "../api-authorization/AuthorizeService";
+import {UserRoles} from "../api-authorization/ApiAuthorizationConstants";
+import '../../styles.css';
 
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
 
+
     constructor (props) {
         super(props);
 
+        this.titleClasses = classNames("title", "logo");
+        this.headerClasses = classNames('casing__header', 'header', "container__border");
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,
@@ -42,17 +49,27 @@ export class NavMenu extends Component {
         return (
             <header>
                 <Navbar>
-                    <Container>
-                        <NavbarBrand tag={Link} to="/">OnlineAuction</NavbarBrand>
+                    <Container className={this.headerClasses}>
+                        <div className='header__logo'>
+                            <h1 className='header__title'>
+                                <NavbarBrand className={this.titleClasses} tag={Link} to="/">Online Auction</NavbarBrand>
+                            </h1>
+                            <div className="header__logo-description description">
+                                The biggest online auction platform in solar system!
+                            </div>
+                        </div>
                         <Collapse isOpen={!this.state.collapsed} navbar>
-                            <ul className="navbar-nav flex-grow">
+                            <ul className='header__buttons-wrapper'>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                                    <NavLink className='header__button' tag={Link} to="/">Home</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className='header__button' tag={Link} to='/lots'>Lots</NavLink>
                                 </NavItem>
                                 {
                                     this.state.isAdmin &&
                                         <NavItem>
-                                            <NavLink tag={Link} classsName="text-dark" to="/admin-panel">Admin Panel</NavLink>
+                                            <NavLink className='header__button' tag={Link} to="/admin-panel">Admin Panel</NavLink>
                                         </NavItem>
                                 }
                                 <LoginMenu>

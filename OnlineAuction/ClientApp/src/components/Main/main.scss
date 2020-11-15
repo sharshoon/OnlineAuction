@@ -1,0 +1,45 @@
+.main{
+    background-color: $background-color;
+    display: flex;
+    padding: 2rem 1rem;
+
+    &__body{
+        margin-top: 1.5rem;
+    }
+
+    &__title{
+        font-size: 1.8rem;
+        text-align: center;
+
+        &::after{
+            content: "";
+            display: block;
+            margin: 1rem 0;
+            height: .1rem;
+            background-color: $outline-color;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+    }
+
+    &__image{
+        max-width: 40%;
+    }
+
+    &__lot-info-wrapper{
+        width: 60%;
+        margin-left: 3rem;
+    }
+
+    &__timer{
+        display: flex;
+        justify-content: center;
+    }
+
+    &__timer-wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
