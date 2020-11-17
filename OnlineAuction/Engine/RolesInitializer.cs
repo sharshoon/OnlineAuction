@@ -33,9 +33,6 @@ namespace OnlineAuction.Engine
 
             await umService.AddUserAsync(adminUser, "admin", "admin");
 
-            var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-            await userManager.AddToRoleAsync(adminUser, "user");
-
             var user = new ApplicationUser
             {
                 UserName = "user@domain.com",
@@ -45,7 +42,7 @@ namespace OnlineAuction.Engine
                 EmailConfirmed = true
             };
 
-            await umService.AddUserAsync(user, "user", "user");
+            await umService.AddUserAsync(user, "user1", "user");
         }
     }
 }

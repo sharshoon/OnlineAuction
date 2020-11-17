@@ -4,24 +4,26 @@ import {fetchLot, updateLot} from "../../redux/actions";
 import classNames from 'classnames'
 import Timer from "../Timer/Timer";
 import * as signalR from '@microsoft/signalr';
+import IncreaseRateButtons from "../IncreaseRateButtons/IncreaseRateButtons";
+import {activateLotCommand, activateLotMessage, decreaseTimeCommand, lotHubPath, startLotMethod} from "./LotConstants";
 
 const titleClasses = classNames("main__title","title");
 const lotInfoClasses = classNames("main__lot-info", "lot-info");
 
 const openHubConnection = function(dispatch, lot){
     const hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl("/lot-hub")
+        .withUrl(lotHubPath)
         .build();
 
     hubConnection.start().then(() => {
-        hubConnection.invoke('StartLot', "active", 1);
+        hubConnection.invoke(startLotMethod, "active", 1);
     }).catch(function (e) {
         alert(e.message);
     })
 
-    hubConnection.on('ActivateLot', function (message, id) {
+    hubConnection.on(activateLotCommand, function (message, id) {
         if(lot.id === parseInt(id)){
-            dispatch(updateLot({...lot, isActive: message === "active"}));
+            dispatch(updateLot({...lot, isActive: message === activateLotMessage}));
         }
     });
 
@@ -46,7 +48,10 @@ export default function Lot(props){
         if(lot) {
             hubConnection = openHubConnection(dispatch, lot);
 
-            hubConnection.on("DecreaseTime", function (seconds) {
+            hubConnection.on(decreaseTimeCommand, function (seconds) {
+                if(!lot.isActive){
+                    dispatch(updateLot({...lot, isActive: true}));
+                }
                 setSeconds(seconds);
             });
         }
@@ -55,6 +60,8 @@ export default function Lot(props){
     if(!lot){
         return "Post loading";
     }
+
+    console.log("lot", hubConnection);
     return (
         <div className='main container__border'>
             <img className='main__image' src={lot.imagePath}/>
@@ -64,13 +71,9 @@ export default function Lot(props){
                     <div className='lot-info__item'><span className="lot-info__name">Description: </span><span>{lot.description}</span></div>
                     <div className='lot-info__item'><span className="lot-info__name">Price: </span><span>{lot.priceUsd || lot.minPriceUsd} USD</span></div>
                     <Timer lot={lot} seconds={remainSeconds}/>
-                    <div className='lot-info__buttons'>
-                        <button className='lot-info__button'>+5%</button>
-                        <button className='lot-info__button'>+10%</button>
-                        <button className='lot-info__button'>+20%</button>
-                    </div>
+                    <IncreaseRateButtons id={id} hubConnection={hubConnection} />
                 </div>
             </div>
         </div>
-        )
+    )
 }
