@@ -1,4 +1,4 @@
-import {UPDATE_LOT, FETCH_LOT, FETCH_LOTS} from "./types";
+import {UPDATE_LOT, FETCH_LOT, FETCH_LOTS, UPDATE_LOT_PRICE} from "./types";
 
 const initialState = {
     lots : []
@@ -17,6 +17,13 @@ export const lotsReducer = (state = initialState, action) => {
                 }
                 return lot;
             })};
+        case UPDATE_LOT_PRICE:
+            return {...state, lots: state.lots.map(lot => {
+                if(lot.id === action.payload.id){
+                    return {...lot, priceUsd: action.payload.price}
+                }
+                return lot;
+                })}
         default:
             return state;
     }

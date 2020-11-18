@@ -1,35 +1,50 @@
-import React, {useCallback, useEffect} from "react";
-import {increasePriceMethod, priceUpdateCommand} from "../Lot/LotConstants";
+import React, {useCallback, useEffect, useRef} from "react";
+import {
+    increasePriceHubPath,
+    increasePriceMethod,
+    lotHubPath,
+    priceUpdateCommand,
+    startLotMethod
+} from "../Lot/LotConstants";
 import {useDispatch, useSelector} from "react-redux";
-import {updateLot} from "../../redux/actions";
+import {updateLot, updateLotPrice} from "../../redux/actions";
+import * as signalR from "@microsoft/signalr";
 
-export default function IncreaseRateButtons({id, hubConnection}){
+export default function IncreaseRateButtons({id}){
     const dispatch = useDispatch();
     const lot = useSelector(state => state.lotsInfo.lots.find(lot => lot.id === parseInt(id)));
+    const hubConnection = useRef(null);
 
     useEffect(() => {
-        if(hubConnection){
-            hubConnection.on(priceUpdateCommand, function(info){
-                if(info.successed){
-                    dispatch(updateLot({...lot, priceUsd: info.priceUsd}));
+        hubConnection.current = new signalR.HubConnectionBuilder()
+            .withUrl(increasePriceHubPath)
+            .build();
+
+        hubConnection.current.start().then(() => {
+            hubConnection.current.on(priceUpdateCommand, function(info){
+                const json = JSON.parse(info);
+                if(json.lotId === lot.id && json.successed) {
+                    dispatch(updateLotPrice(json.lotId,json.priceUsd));
                 }
-            })
-        }
-    }, hubConnection)
+            });
+        })
+        .catch(function (e) {
+            alert(e.message);
+        });
+    }, [])
 
     const updatePrice = useCallback((percentage) => {
-        console.log(percentage, hubConnection);
         if(hubConnection){
-            hubConnection.invoke(increasePriceMethod, lot.priceUsd, percentage);
+            const price = parseInt(lot.priceUsd) || parseInt(lot.minPriceUsd);
+            hubConnection.current.invoke(increasePriceMethod, lot.id, parseInt(lot.priceUsd) || parseInt(lot.minPriceUsd), percentage);
         }
     }, [hubConnection])
 
-    console.log(hubConnection);
     return (
         <div className='lot-info__buttons'>
-            <button className='lot-info__button' disabled={hubConnection} onClick={() => updatePrice(5)}>+5%</button>
-            <button className='lot-info__button' disabled={hubConnection} onClick={() => updatePrice(10)}>+10%</button>
-            <button className='lot-info__button' disabled={hubConnection} onClick={() => updatePrice(20)}>+20%</button>
+            <button className='lot-info__button' disabled={!hubConnection} onClick={() => updatePrice(5)}>+5%</button>
+            <button className='lot-info__button' disabled={!hubConnection} onClick={() => updatePrice(10)}>+10%</button>
+            <button className='lot-info__button' disabled={!hubConnection} onClick={() => updatePrice(20)}>+20%</button>
         </div>
     )
 }

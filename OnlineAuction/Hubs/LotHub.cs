@@ -18,65 +18,36 @@ namespace OnlineAuction.Hubs
     {
         private readonly IAuctionRepository _repository;
         private int _duration;
-        private static readonly ConcurrentDictionary<int, Lot> RunningLots;
-        public LotHub(IAuctionRepository repository)
+        private readonly RunningLots _runningLots;
+        public LotHub(IAuctionRepository repository, RunningLots lots)
         {
             this._repository = repository;
-        }
-
-        static LotHub()
-        {
-            RunningLots = new ConcurrentDictionary<int, Lot>();
+            _runningLots = lots;
         }
         public async Task StartLot(string message, int lotId)
         {
             var lot = await this._repository.GetLotAsync(lotId);
-            if (lot != null && !RunningLots.ContainsKey(lot.Id))
+            if (lot != null && !_runningLots.Lots.ContainsKey(lot.Id))
             {
-                if (RunningLots.TryAdd(lot.Id, lot))
+                if (_runningLots.Lots.TryAdd(lot.Id, lot))
                 {
                     await this.Clients.All.SendAsync("ActivateLot", message, lotId);
 
                     var startTime = DateTime.Now;
                     var endTime = startTime.AddSeconds(lot.ActionTimeSec);
 
-                    _duration = (int)Math.Round((endTime - startTime).TotalSeconds);
-                    while (_duration >= 0)
+                    await Task.Factory.StartNew(() =>
                     {
-                        this.Clients.All.SendAsync("DecreaseTime", _duration);
-                        _duration--;
-                        Thread.Sleep(1000);
-                    }
+                        _duration = (int)Math.Round((endTime - startTime).TotalSeconds);
+                        while (_duration >= 0)
+                        {
+                            this.Clients.All.SendAsync("DecreaseTime", _duration);
+                            _duration--;
+                            Thread.Sleep(1000);
+                        }
+                    });
                 }
             }
         }
-
-        public async Task IncreasePrice(int lotId, int price, int percentage)
-        {
-            var message = new IncreasePriceMessage();
-            if (RunningLots.TryGetValue(lotId, out var lot))
-            {
-                if (lot.PriceUsd == price)
-                {
-                    lot.PriceUsd += price * percentage / 100;
-                    message.Successed = true;
-                    message.Message = "Price has been successfully updated";
-                }
-                else
-                {
-                    message.Successed = false;
-                    message.Message = "Lot price is out of date, please try again";
-                }
-            }
-            else
-            {
-                message.Successed = false;
-                message.Message = "Lot not found on server";
-            }
-            
-            var response = JsonConvert.SerializeObject(message);
-            await this.Clients.All.SendAsync("PriceUpdate", response);
-        }
-
     }
 }

@@ -64,6 +64,7 @@ namespace OnlineAuction
 
             services.AddScoped<IUserManagementService, UserManagementService>();
             services.AddScoped<IAuctionRepository, AuctionRepository>();
+            services.AddSingleton<RunningLots>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSpaStaticFiles(configuration =>
@@ -102,6 +103,7 @@ namespace OnlineAuction
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapHub<LotHub>("/lot-hub");
+                endpoints.MapHub<IncreasePriceHub>("/increase-price");
                 endpoints.MapRazorPages();
             });
 

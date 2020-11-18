@@ -1,4 +1,4 @@
-import {FETCH_LOT, FETCH_LOTS, UPDATE_LOT} from "./types";
+import {FETCH_LOT, FETCH_LOTS, UPDATE_LOT, UPDATE_LOT_PRICE} from "./types";
 
 export function fetchLots(){
     return async dispatch => {
@@ -19,5 +19,12 @@ export function fetchLot(id){
 export function updateLot(lot){
     return dispatch => {
         dispatch({type : UPDATE_LOT, payload: lot})
+    }
+}
+
+
+export function updateLotPrice(id, price){
+    return dispatch => {
+        dispatch({type : UPDATE_LOT_PRICE, payload: {id, price}})
     }
 }
