@@ -44,7 +44,7 @@ namespace OnlineAuction.Controllers
             using var reader = new StreamReader(Request.Body);
             var body = await reader.ReadToEndAsync();
 
-            var lot = JsonConvert.DeserializeObject<Lot>(body, ConverterSettings);
+            var lot = JsonConvert.DeserializeObject<Lot>(body, JsonConverterSettings.ConverterSettings);
 
             var result = await this._repository.AddNewLotAsync(lot);
             if (result != null)
@@ -63,7 +63,7 @@ namespace OnlineAuction.Controllers
             using var reader = new StreamReader(Request.Body);
             var body = await reader.ReadToEndAsync();
 
-            var lot = JsonConvert.DeserializeObject<Lot>(body, ConverterSettings);
+            var lot = JsonConvert.DeserializeObject<Lot>(body, JsonConverterSettings.ConverterSettings);
 
             var result = lot != null && await this._repository.TryDeleteLotAsync(lot.Id);
             if (result)
@@ -73,14 +73,5 @@ namespace OnlineAuction.Controllers
 
             return BadRequest(lot);
         }
-
-        private static readonly JsonSerializerSettings ConverterSettings = new JsonSerializerSettings
-        {
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new SnakeCaseNamingStrategy()
-            },
-            NullValueHandling = NullValueHandling.Ignore
-        };
     }
 }

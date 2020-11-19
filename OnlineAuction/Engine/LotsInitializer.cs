@@ -23,7 +23,7 @@ namespace OnlineAuction.Engine
                     Name = "Default",
                     ImagePath = $"{webPath}/api/images/{imageName}",
                     Description = "This is test default lot!",
-                    MinPriceUsd = "50",
+                    MinPriceUsd = 50,
                     ActionTimeSec = 100
                 };
 
