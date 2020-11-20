@@ -1,0 +1,32 @@
+.lot-preview {
+  width: 40%;
+  padding: 1.5rem;
+  display: flex;
+}
+.lot-preview__image {
+  width: 100%;
+}
+.lot-preview__image-wrapper {
+  max-width: 50%;
+}
+.lot-preview__info {
+  width: 50%;
+  margin-left: 1rem;
+}
+.lot-preview__name {
+  text-align: center;
+  font-size: 1.5rem;
+}
+.lot-preview__description {
+  margin-top: 0.5rem;
+}
+.lot-preview__button {
+  display: block;
+  font-size: 1.2rem;
+  padding: 1rem;
+  margin-top: 3rem;
+  text-align: center;
+}
+.lot-preview__button-wrapper {
+  width: 100%;
+}

@@ -29,7 +29,6 @@ const getTimeHours = time => (time / hourSeconds) | 0;
 const timerClasses = classNames("main__timer","timer");
 
 const openHubConnection = function(dispatch, lot){
-    console.log("active lot");
     const hubConnection = new signalR.HubConnectionBuilder()
         .withUrl(lotHubPath)
         .build();
@@ -42,7 +41,6 @@ const openHubConnection = function(dispatch, lot){
 
     hubConnection.on(activateLotCommand, function (message, id) {
         if(lot.id === parseInt(id)){
-            console.log(message, activateLotMessage, message === activateLotMessage);
             dispatch(updateLot({...lot, isActive: message === activateLotMessage}));
         }
     });
@@ -53,18 +51,24 @@ const openHubConnection = function(dispatch, lot){
 export default function Timer({id, lot}) {
     const [remainSeconds, setSeconds] = useState(0);
     const hubConnection = useRef(null);
+    const isMountedRef = useRef(null);
     const dispatch = useDispatch();
     const timerItemClasses = classNames("timer__item", {"timer__item--translucent" : !lot.isActive});
     let lotMessage;
 
     useEffect(() => {
+        isMountedRef.current = true;
         if(lot && !hubConnection.current) {
             hubConnection.current = openHubConnection(dispatch, lot);
 
             hubConnection.current.on(decreaseTimeCommand, function (seconds) {
-                setSeconds(seconds);
+                if(isMountedRef.current){
+                    setSeconds(seconds);
+                }
             });
         }
+
+        return () => isMountedRef.current = false;
     }, [lot, hubConnection]);
 
 

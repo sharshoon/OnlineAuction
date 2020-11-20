@@ -1,7 +1,7 @@
 .main{
     background-color: $background-color;
-    display: flex;
     padding: 2rem 1rem;
+    display: flex;
 
     &__body{
         margin-top: 1.5rem;
@@ -41,5 +41,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    &__lot-previw{
+        margin: 1rem;
+    }
+
+    &__lot-preview-wrapper{
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
     }
 }

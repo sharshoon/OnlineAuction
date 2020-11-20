@@ -1,11 +1,13 @@
 @import 'variables.scss';
 @import 'tag-styling.scss';
+@import 'components/Info/info.scss';
 @import 'components/Container/container.scss';
 @import 'components/Title/title.scss';
 @import 'components/Logo/logo.scss';
-@import 'description.scss';
 @import 'components/Casing/casing.scss';
+@import 'components/Button/button.scss';
 @import 'components/Header/header.scss';
 @import 'components/Main/main.scss';
 @import 'components/Lot/lot-info.scss';
 @import 'components/Timer/timer.scss';
+@import 'components/LotPreview/lot-preview.scss';

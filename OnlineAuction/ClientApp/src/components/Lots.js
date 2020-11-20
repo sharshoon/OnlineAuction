@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react'
-import LotPreview from "./LotPreview";
+import LotPreview from "./LotPreview/LotPreview";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchLots} from "../redux/actions";
+import classNames from "classnames"
 
 export default function Lots(){
     const dispatch = useDispatch();
     const lots = useSelector(state => state.lotsInfo.lots);
-
+    const lotsWrapperClasses = classNames("main", "main__lot-preview-wrapper", "container__border");
     useEffect(() => {
         dispatch(fetchLots());
     },[])
@@ -14,5 +15,9 @@ export default function Lots(){
     if(!lots.length){
         return "Загрузка постов!"
     }
-    return lots.map(lot => <LotPreview lot={lot} key={lot.id}/>)
+    return (
+        <div className={lotsWrapperClasses}>
+            {lots.map(lot => <LotPreview lot={lot} key={lot.id}/>)}
+        </div>
+    )
 }

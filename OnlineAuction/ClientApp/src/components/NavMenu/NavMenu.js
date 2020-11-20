@@ -54,7 +54,7 @@ export class NavMenu extends Component {
                             <h1 className='header__title'>
                                 <NavbarBrand className={this.titleClasses} tag={Link} to="/">Online Auction</NavbarBrand>
                             </h1>
-                            <div className="header__logo-description description">
+                            <div className="header__logo-description">
                                 The biggest online auction platform in solar system!
                             </div>
                         </div>

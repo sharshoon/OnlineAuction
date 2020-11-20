@@ -6,10 +6,9 @@ import Timer from "../Timer/Timer";
 import IncreaseRateButtons from "../IncreaseRateButtons/IncreaseRateButtons";
 
 const titleClasses = classNames("main__title","title");
-const lotInfoClasses = classNames("main__lot-info", "lot-info");
+const lotInfoClasses = classNames("main__lot-info", "lot-info", "info");
 
-export default function Lot(props){
-    const id = props.match.params.id;
+export default function Lot({id}){
     const dispatch = useDispatch();
     const lot = useSelector(state => state.lotsInfo.lots.find(lot => lot.id === parseInt(id)));
 
