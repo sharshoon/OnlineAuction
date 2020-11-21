@@ -18,7 +18,7 @@ export class NavMenu extends Component {
         super(props);
 
         this.titleClasses = classNames("title", "logo");
-        this.headerClasses = classNames('casing__header', 'header', "container__border");
+        this.headerClasses = classNames('casing__header', 'header', "container-border");
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,

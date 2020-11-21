@@ -8,9 +8,7 @@ import { Home } from './components/Home/Home';
 import './styles.css'
 import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
 import AdminPanel from "./components/AdminPanel";
-import Lots from "./components/Lots";
 import classNames from 'classnames'
-import Lot from "./components/Lot/Lot";
 import Timer from "./components/Timer/Timer";
 import LotsPlug from "./components/LotsPlug/LotsPlug";
 

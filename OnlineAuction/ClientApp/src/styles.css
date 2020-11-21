@@ -22,9 +22,14 @@ ul {
 
 button,
 button:active,
-button:focus {
+button:focus,
+input {
   border: 0;
   outline: none;
+}
+
+label {
+  font-size: 1rem;
 }
 
 .info {
@@ -32,7 +37,7 @@ button:focus {
   font-family: "Times", "Times New Roman", serif;
 }
 
-.container__border {
+.container-border {
   border: 0.0625rem solid #ccc;
   border-radius: 0.2rem;
 }
@@ -223,4 +228,48 @@ button:focus {
 }
 .lot-preview__button-wrapper {
   width: 100%;
+}
+
+.add-lot {
+  display: block;
+}
+.add-lot__title {
+  text-align: center;
+}
+.add-lot__form {
+  margin: 0 2rem;
+  width: 70%;
+  margin: auto;
+}
+.add-lot__item {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.form-item__label {
+  font-size: 1rem;
+  margin-right: 1rem;
+  color: #444;
+  display: block;
+}
+.form-item__input {
+  font-family: "Source Sans Pro", sans-serif;
+  width: 100%;
+  font-size: 0.9rem;
+  color: #8d8d8d;
+  padding: 0 0 0 0.65rem;
+  border-radius: 0.2rem;
+  height: 2rem;
+}
+.form-item__file-choose {
+  display: none;
+}
+.form-item__buttons-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.form-item__button {
+  width: 30%;
+  padding: 0.5rem 0;
+  text-align: center;
 }

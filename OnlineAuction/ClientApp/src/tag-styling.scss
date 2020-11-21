@@ -22,7 +22,12 @@ ul{
 
 button, 
 button:active, 
-button:focus {
+button:focus,
+input {
     border: 0;
     outline: none;
+}
+
+label{
+    font-size: 1rem;
 }

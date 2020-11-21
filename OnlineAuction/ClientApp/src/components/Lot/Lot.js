@@ -23,7 +23,7 @@ export default function Lot({id}){
     }
 
     return (
-        <div className='main container__border'>
+        <div className='main container-border'>
             <img className='main__image' src={lot.imagePath}/>
             <div className='main__lot-info-wrapper'>
                 <div className={titleClasses}>{lot.name}</div>

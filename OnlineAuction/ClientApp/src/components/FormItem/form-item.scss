@@ -1,0 +1,33 @@
+.form-item{
+    &__label{
+        font-size: 1rem;
+        margin-right: 1rem;
+        color: $title-color;
+        display: block;
+    }
+
+    &__input{
+        font-family: "Source Sans Pro", sans-serif;
+        width: 100%;
+        font-size: 0.9rem;
+        color: $text-input-color;
+        padding: 0 0 0 0.65rem;
+        border-radius: 0.2rem;
+        height: 2rem;
+    }
+
+    &__file-choose{
+        display: none;
+    }
+
+    &__buttons-wrapper{
+        display: flex;
+        justify-content: center;
+    }
+
+    &__button{
+        width: 30%;
+        padding: .5rem 0;
+        text-align: center;
+    }
+}
