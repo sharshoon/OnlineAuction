@@ -2,21 +2,42 @@ import React, {useCallback, useMemo, useState} from "react";
 import {lotControllerPath} from "../LotConstants";
 import authService from "../api-authorization/AuthorizeService";
 import classNames from "classnames"
+import FormErrors from "../FormErrors/FormErrors";
+import AddLotTextInput from "../AddLotTextInput/AddLotTextInput";
 
 export default function AddLot(){
-    const [file, setFile] = useState(null);
-
+    const [file, setFile] = useState({
+        name: ""
+    });
+    const [lotName, setLotName] = useState({
+        value: "",
+        errors: []
+    });
+    const [lotDescription, setDescription] = useState({
+        value: "",
+        errors: []
+    });
+    const [lotMinPrice, setMinPrice] = useState({
+        value: 0,
+        errors: []
+    });
+    const [lotDuration, setDuration] = useState({
+        value: 0,
+        errors: []
+    });
     const fileSelectedHandler = event => {
-        console.log(event.target.files[0].name);
         setFile(event.target.files[0]);
     }
 
-    const uploadData = useCallback(async () => {
+    const uploadData = useCallback(async (lotName, lotDescription, lotMinPrice, lotDuration) => {
         const token = await authService.getAccessToken();
         const formData = new FormData();
 
-        console.log(file);
         formData.append('image', file, file.name);
+        formData.append('name', lotName);
+        formData.append('description', lotDescription);
+        formData.append('minPrice', lotMinPrice);
+        formData.append('duration', lotDuration);
 
         await fetch(lotControllerPath,{
             method: 'POST',
@@ -28,46 +49,90 @@ export default function AddLot(){
     }, [file])
 
     const fileUploadHandler = () => {
-        uploadData();
+        uploadData(lotName, lotDescription, lotMinPrice, lotDuration);
     }
 
     const classes = useMemo(() => {
         return {
             mainClasses : classNames("main", "container", "container-border", "add-lot"),
             titleClasses : classNames("title", "add-lot__title"),
-            formClasses : classNames("add-lot__item", "form-item"),
-            inputClasses : classNames("form-item__input", "container-border"),
             buttonClasses : classNames("button", "form-item__button"),
             buttonWrapperClasses : classNames("add-lot__item", "form-item", "form-item__buttons-wrapper")
         }
-    }, [])
+    }, []);
+
+    const descriptionCheckingFunctions = useMemo(() => {
+        const descriptionMinLength = 20;
+        const functions = [];
+        functions.push((value) => {
+            if(value.length <= descriptionMinLength){
+                return `Description length can't be shorter then ${descriptionMinLength}`;
+            }
+        });
+
+        return functions;
+    }, []);
+
+    const nameCheckingFunctions = useMemo(() => {
+        const functions = [];
+
+        functions.push((value) => {
+            if(!value){
+                return "Name can't be empty!";
+            }
+        });
+
+        return functions;
+    }, []);
+
+    const minPriceCheckingFunctions = useMemo(() => {
+        const functions = [];
+        functions.push((value) => {
+            if(isNaN(+value) || value < 0){
+                return "Invalid price!";
+            }
+        });
+
+        return functions;
+    }, []);
+
+    const durationCheckingFunctions = useMemo(() => {
+        const maxDuration = 86400;
+        const functions = [];
+        functions.push((value) => {
+            if(isNaN(+value)){
+                return "Invalid duration!";
+            }
+        });
+        functions.push((value) => {
+            if(+value < 0){
+                return "Duration is too small"
+            }
+        });
+        functions.push((value) => {
+            if(+value > maxDuration){
+                return "Duration is too big!";
+            }
+        });
+
+        return functions;
+    }, []);
 
     return (
         <div className={classes.mainClasses}>
             <h2 className={classes.titleClasses}>Adding a new lot</h2>
-            <form className="add-lot__form">
-                <div className={classes.formClasses}>
-                    <label className="form-item__label">Name:</label>
-                    <input className={classes.inputClasses} type="text"/>
-                </div>
-                <div className={classes.formClasses}>
-                    <label className="form-item__label">Description:</label>
-                    <input className={classes.inputClasses} type="text"/>
-                </div>
-                <div className={classes.formClasses}>
-                    <label className="form-item__label">Minimum price USD:</label>
-                    <input className={classes.inputClasses} type="number"/>
-                </div>
-                <div className={classes.formClasses}>
-                    <label className="form-item__label">Duration, sec:</label>
-                    <input className={classes.inputClasses} type="number"/>
-                </div>
+            <form className="add-lot__form" onSubmit={fileUploadHandler}>
+                <AddLotTextInput labelText={"Name:"} type={"text"} checkingFunctions={nameCheckingFunctions} state={lotName} setState={setLotName}/>
+                <AddLotTextInput labelText={"Description:"} type={"text"} checkingFunctions={descriptionCheckingFunctions} state={lotDescription} setState={setDescription}/>
+                <AddLotTextInput labelText={"Minimum price USD:"} type={"number"} checkingFunctions={minPriceCheckingFunctions} state={lotMinPrice} setState={setMinPrice}/>
+                <AddLotTextInput labelText={"Duration, sec:"} type={"number"} checkingFunctions={durationCheckingFunctions} state={lotDuration} setState={setDuration}/>
                 <div className={classes.buttonWrapperClasses}>
-                    <label className={classes.buttonClasses} for="choose-file-input">Choose File...</label>
+                    <label className={classes.buttonClasses} for="choose-file-input">{file.name || "Choose File..."}</label>
+                    <FormErrors/>
                     <input className="form-item__file-choose" type="file" onChange={fileSelectedHandler} id="choose-file-input"/>
                 </div>
                 <div className={classes.buttonWrapperClasses}>
-                    <button className={classes.buttonClasses} onClick={fileUploadHandler}>Upload</button>
+                    <button type="submit" className={classes.buttonClasses}>Upload</button>
                 </div>
             </form>
         </div>

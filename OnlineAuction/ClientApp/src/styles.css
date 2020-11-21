@@ -69,7 +69,7 @@ label {
   border-radius: 0.3rem;
   font-weight: bold;
   font-size: 1rem;
-  background-color: #c4c421;
+  background-color: #f2d400;
 }
 
 .header {
@@ -104,7 +104,7 @@ label {
   text-transform: uppercase;
 }
 .header__button:focus {
-  background-color: #c4c421;
+  background-color: #f2d400;
 }
 
 .main {
@@ -192,7 +192,7 @@ label {
 }
 .timer__not-started {
   position: absolute;
-  background-color: #c4c421;
+  background-color: #f2d400;
   padding: 0.5rem;
   border-radius: 0.3rem;
 }
@@ -261,6 +261,9 @@ label {
   border-radius: 0.2rem;
   height: 2rem;
 }
+.form-item__input--error {
+  border-color: red;
+}
 .form-item__file-choose {
   display: none;
 }
@@ -272,4 +275,8 @@ label {
   width: 30%;
   padding: 0.5rem 0;
   text-align: center;
+}
+.form-item__error {
+  margin: 0;
+  color: red;
 }
