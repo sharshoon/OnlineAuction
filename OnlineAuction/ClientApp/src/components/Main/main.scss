@@ -53,4 +53,9 @@
         justify-content: space-around;
         flex-wrap: wrap;
     }
+
+    &__loading-page{
+        justify-content: center;
+        align-items: center;
+    }
 }
