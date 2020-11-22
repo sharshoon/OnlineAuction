@@ -7,13 +7,10 @@ header{
     width: 100%;
 }
 
-#root{
-    background-color: $background-side-color;
-}
-
 body{
     margin: 0;
     padding: 0;
+    background-color: $background-side-color;
 }
 
 ul{

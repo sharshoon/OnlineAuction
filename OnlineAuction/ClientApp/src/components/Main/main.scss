@@ -43,8 +43,9 @@
         align-items: center;
     }
 
-    &__lot-previw{
-        margin: 1rem;
+    &__lot-preview{
+        margin-bottom: 1rem;
+        display: flex;
     }
 
     &__lot-preview-wrapper{
