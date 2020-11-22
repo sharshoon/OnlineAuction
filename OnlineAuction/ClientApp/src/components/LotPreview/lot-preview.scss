@@ -1,7 +1,6 @@
 .lot-preview{
-    width: 40%;
+    width: 43%;
     padding: 1.5rem;
-    display: flex;
 
     &__image{
         width: 100%;
@@ -23,6 +22,7 @@
 
     &__description{
         margin-top: .5rem;
+        overflow-wrap: break-word;
     }
 
     &__button{

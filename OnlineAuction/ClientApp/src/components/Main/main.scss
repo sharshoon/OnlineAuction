@@ -43,13 +43,19 @@
         align-items: center;
     }
 
-    &__lot-previw{
-        margin: 1rem;
+    &__lot-preview{
+        margin-bottom: 1rem;
+        display: flex;
     }
 
     &__lot-preview-wrapper{
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
+    }
+
+    &__loading-page{
+        justify-content: center;
+        align-items: center;
     }
 }

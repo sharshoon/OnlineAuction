@@ -7,13 +7,10 @@ header {
   width: 100%;
 }
 
-#root {
-  background-color: #e5e5e5;
-}
-
 body {
   margin: 0;
   padding: 0;
+  background-color: #e5e5e5;
 }
 
 ul {
@@ -70,6 +67,34 @@ label {
   font-weight: bold;
   font-size: 1rem;
   background-color: #f2d400;
+}
+
+.loader {
+  width: 5rem;
+  height: 5rem;
+}
+.loader:after {
+  content: " ";
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  margin: 0.5rem;
+  border-radius: 50%;
+  border: 0.4rem solid #fed;
+  border-color: #a1a1a1 transparent #a1a1a1 transparent;
+  animation: loader 1.2s linear infinite;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-page {
+  height: 10rem;
 }
 
 .header {
@@ -145,13 +170,18 @@ label {
   justify-content: center;
   align-items: center;
 }
-.main__lot-previw {
-  margin: 1rem;
+.main__lot-preview {
+  margin-bottom: 1rem;
+  display: flex;
 }
 .main__lot-preview-wrapper {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+.main__loading-page {
+  justify-content: center;
+  align-items: center;
 }
 
 .lot-info__item {
@@ -198,9 +228,8 @@ label {
 }
 
 .lot-preview {
-  width: 40%;
+  width: 43%;
   padding: 1.5rem;
-  display: flex;
 }
 .lot-preview__image {
   width: 100%;
@@ -218,6 +247,7 @@ label {
 }
 .lot-preview__description {
   margin-top: 0.5rem;
+  overflow-wrap: break-word;
 }
 .lot-preview__button {
   display: block;
