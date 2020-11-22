@@ -5,7 +5,7 @@ import {
     lotHubPath,
     priceUpdateCommand,
     startLotMethod
-} from "../Lot/LotConstants";
+} from "../LotConstants";
 import {useDispatch, useSelector} from "react-redux";
 import {updateLot, updateLotPrice} from "../../redux/actions";
 import * as signalR from "@microsoft/signalr";

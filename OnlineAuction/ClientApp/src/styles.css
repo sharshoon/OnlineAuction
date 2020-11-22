@@ -22,9 +22,14 @@ ul {
 
 button,
 button:active,
-button:focus {
+button:focus,
+input {
   border: 0;
   outline: none;
+}
+
+label {
+  font-size: 1rem;
 }
 
 .info {
@@ -32,7 +37,7 @@ button:focus {
   font-family: "Times", "Times New Roman", serif;
 }
 
-.container__border {
+.container-border {
   border: 0.0625rem solid #ccc;
   border-radius: 0.2rem;
 }
@@ -64,7 +69,7 @@ button:focus {
   border-radius: 0.3rem;
   font-weight: bold;
   font-size: 1rem;
-  background-color: #c4c421;
+  background-color: #f2d400;
 }
 
 .header {
@@ -99,7 +104,7 @@ button:focus {
   text-transform: uppercase;
 }
 .header__button:focus {
-  background-color: #c4c421;
+  background-color: #f2d400;
 }
 
 .main {
@@ -187,7 +192,7 @@ button:focus {
 }
 .timer__not-started {
   position: absolute;
-  background-color: #c4c421;
+  background-color: #f2d400;
   padding: 0.5rem;
   border-radius: 0.3rem;
 }
@@ -223,4 +228,68 @@ button:focus {
 }
 .lot-preview__button-wrapper {
   width: 100%;
+}
+
+.add-lot {
+  display: block;
+}
+.add-lot__title {
+  text-align: center;
+}
+.add-lot__form {
+  margin: 0 2rem;
+  width: 70%;
+  margin: auto;
+}
+.add-lot__item {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.add-lot__final-result {
+  width: 100%;
+  background-color: #54eb4c;
+  padding: 0.5rem 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #444;
+  border-radius: 0.3rem;
+}
+.add-lot__final-result--error {
+  background-color: #f54040;
+}
+
+.form-item__label {
+  font-size: 1rem;
+  margin-right: 1rem;
+  color: #444;
+  display: block;
+}
+.form-item__input {
+  font-family: "Source Sans Pro", sans-serif;
+  width: 100%;
+  font-size: 0.9rem;
+  color: #8d8d8d;
+  padding: 0 0 0 0.65rem;
+  border-radius: 0.2rem;
+  height: 2rem;
+}
+.form-item__input--error {
+  border-color: red;
+}
+.form-item__file-choose {
+  display: none;
+}
+.form-item__buttons-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.form-item__button {
+  width: 30%;
+  padding: 0.5rem 0;
+  text-align: center;
+}
+.form-item__error {
+  margin: 0;
+  color: red;
 }

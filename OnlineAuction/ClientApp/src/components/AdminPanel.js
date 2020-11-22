@@ -1,7 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import authService from "./api-authorization/AuthorizeService";
+import AddLot from "./AddLot/AddLot";
 
-function AdminPanel(){
+export default function AdminPanel(){
     let [data, setData] = useState(""),
         subscription;
 
@@ -16,14 +17,16 @@ function AdminPanel(){
 
     useEffect( () => {
         fetchData();
-    }, [data]);
+    }, []);
 
     if(data){
-        return data;
+        return (
+            <div>
+                <AddLot/>
+            </div>
+        )
     }
     else{
         return "loading";
     }
 }
-
-export default AdminPanel;

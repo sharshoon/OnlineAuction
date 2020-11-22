@@ -7,7 +7,7 @@ import classNames from "classnames"
 export default function Lots(){
     const dispatch = useDispatch();
     const lots = useSelector(state => state.lotsInfo.lots);
-    const lotsWrapperClasses = classNames("main", "main__lot-preview-wrapper", "container__border");
+    const lotsWrapperClasses = classNames("main", "main__lot-preview-wrapper", "container-border");
     useEffect(() => {
         dispatch(fetchLots());
     },[])

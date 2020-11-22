@@ -1,3 +1,5 @@
+export const lotControllerPath = "api/lots";
+
 export const lotHubPath = "/lot-hub"
 export const startLotMethod = "StartLot";
 export const activateLotCommand = "ActivateLot";

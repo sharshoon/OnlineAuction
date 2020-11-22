@@ -1,0 +1,18 @@
+.add-lot {
+  display: block;
+}
+.add-lot__title {
+  text-align: center;
+}
+.add-lot__form {
+  margin: 0 2rem;
+  width: 70%;
+  margin: auto;
+}
+.add-lot__item {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.add-lot__final-result {
+  background-color: gr;
+}

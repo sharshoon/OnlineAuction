@@ -5,7 +5,7 @@ import {Link, NavLink} from "react-router-dom";
 export default function LotPreview({lot}){
     const classes = useMemo(() => {
         return {
-            lotPreviewClasses: classNames("main__lot-preview, lot-preview", "container__border"),
+            lotPreviewClasses: classNames("main__lot-preview, lot-preview", "container-border"),
             lotPreviewInfo : classNames("lot-preview__info", "info"),
             lotNameClasses: classNames("lot-preview__name title")
         }

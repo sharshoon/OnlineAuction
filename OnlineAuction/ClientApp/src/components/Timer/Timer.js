@@ -6,7 +6,7 @@ import {
     decreaseTimeCommand,
     lotHubPath,
     startLotMethod
-} from "../Lot/LotConstants";
+} from "../LotConstants";
 import {updateLot} from "../../redux/actions";
 import {useDispatch, useSelector} from "react-redux";
 import * as signalR from "@microsoft/signalr";
