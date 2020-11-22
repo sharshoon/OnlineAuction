@@ -30,7 +30,7 @@ export default function AddLotTextInput({labelText, type, checkingFunctions, sta
         <div className={classes.formClasses}>
             <label className="form-item__label">{labelText}</label>
             <FormErrors errors={state.errors}/>
-            <input className={classes.inputClasses} onBlur={handleChangeText} type={type} required={true}/>
+            <input className={classes.inputClasses} value={state.value} onChange={(event) => setState({value: event.target.value, errors: []})} onBlur={handleChangeText} type={type} required={true}/>
         </div>
     )
 }

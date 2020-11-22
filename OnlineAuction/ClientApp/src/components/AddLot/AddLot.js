@@ -4,10 +4,15 @@ import authService from "../api-authorization/AuthorizeService";
 import classNames from "classnames"
 import FormErrors from "../FormErrors/FormErrors";
 import AddLotTextInput from "../AddLotTextInput/AddLotTextInput";
+import AddLotFinalResult from "../AddLotFinalResult/AddLotFinalResult";
 
 export default function AddLot(){
     const [file, setFile] = useState({
         name: ""
+    });
+    const [addingResult, setAddingResult] = useState({
+        message: "",
+        successed: true
     });
     const [lotName, setLotName] = useState({
         value: "",
@@ -39,17 +44,45 @@ export default function AddLot(){
         formData.append('minPrice', lotMinPrice);
         formData.append('duration', lotDuration);
 
-        await fetch(lotControllerPath,{
-            method: 'POST',
-            headers: !token ? {} : { 'Authorization': `Bearer ${token}` },
-            body: formData
-        });
-
-        console.log("Загрузка выполнена");
+        try{
+            const response = await fetch(lotControllerPath,{
+                method: 'POST',
+                headers: !token ? {} : {
+                    'Accept': '*/*',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: formData
+            });
+            console.log(response);
+            if(response.ok){
+                setAddingResult({
+                    successed: true,
+                    message: "Lot was successfully added!",
+                });
+            }else{
+                setAddingResult({
+                    successed: false,
+                    message: "Lot wasn't added",
+                });
+            }
+        }
+        catch (error){
+            setAddingResult({
+                successed: false,
+                message: "An error occurred while adding a new lot!",
+            })
+        }
+        finally {
+            setLotName({value : "", errors: []});
+            setDescription({value : "", errors: []});
+            setMinPrice({value : 0, errors: []});
+            setDuration({value : 0, errors: []});
+        }
     }, [file])
 
-    const fileUploadHandler = () => {
-        uploadData(lotName, lotDescription, lotMinPrice, lotDuration);
+    const fileUploadHandler = (event) => {
+        event.preventDefault();
+        uploadData(lotName.value, lotDescription.value, lotMinPrice.value, lotDuration.value);
     }
 
     const classes = useMemo(() => {
@@ -121,6 +154,7 @@ export default function AddLot(){
     return (
         <div className={classes.mainClasses}>
             <h2 className={classes.titleClasses}>Adding a new lot</h2>
+            <AddLotFinalResult successed={addingResult.successed} message={addingResult.message}/>
             <form className="add-lot__form" onSubmit={fileUploadHandler}>
                 <AddLotTextInput labelText={"Name:"} type={"text"} checkingFunctions={nameCheckingFunctions} state={lotName} setState={setLotName}/>
                 <AddLotTextInput labelText={"Description:"} type={"text"} checkingFunctions={descriptionCheckingFunctions} state={lotDescription} setState={setDescription}/>
