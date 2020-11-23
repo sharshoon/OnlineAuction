@@ -1,4 +1,4 @@
-import {UPDATE_LOT, FETCH_LOT, FETCH_LOTS, UPDATE_LOT_PRICE} from "./types";
+import {UPDATE_LOT, FETCH_LOT, FETCH_LOTS, UPDATE_LOT_PRICE, DELETE_LOT} from "./types";
 
 const initialState = {
     lots : []
@@ -24,6 +24,8 @@ export const lotsReducer = (state = initialState, action) => {
                 }
                 return lot;
                 })}
+        case DELETE_LOT:
+            return {...state, lots: state.lots.filter(lot => lot.id !== action.payload.id)}
         default:
             return state;
     }

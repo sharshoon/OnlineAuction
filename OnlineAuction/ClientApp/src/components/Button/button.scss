@@ -3,4 +3,12 @@
     font-weight: bold;
     font-size: 1rem;
     background-color: $yellow-background-color;
+    
+    &--success{
+        background-color: $success-color;
+    }
+
+    &--warning{
+        background-color: $error-color;
+    }
 }

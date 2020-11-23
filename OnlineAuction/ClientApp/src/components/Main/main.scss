@@ -54,6 +54,15 @@
         flex-wrap: wrap;
     }
 
+    &__admin-lot-preview-wrapper{
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    &__admin-lot-preview{
+        justify-content: space-between;
+    }
+
     &__loading-page{
         justify-content: center;
         align-items: center;

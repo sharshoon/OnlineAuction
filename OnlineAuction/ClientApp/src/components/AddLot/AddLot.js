@@ -4,7 +4,7 @@ import authService from "../api-authorization/AuthorizeService";
 import classNames from "classnames"
 import FormErrors from "../FormErrors/FormErrors";
 import AddLotTextInput from "../AddLotTextInput/AddLotTextInput";
-import AddLotFinalResult from "../AddLotFinalResult/AddLotFinalResult";
+import ResultTextBlock from "../ResultTextBlock/ResultTextBlock";
 
 export default function AddLot(){
     const [file, setFile] = useState({
@@ -154,7 +154,7 @@ export default function AddLot(){
     return (
         <div className={classes.mainClasses}>
             <h2 className={classes.titleClasses}>Adding a new lot</h2>
-            <AddLotFinalResult successed={addingResult.successed} message={addingResult.message}/>
+            <ResultTextBlock successed={addingResult.successed} message={addingResult.message}/>
             <form className="add-lot__form" onSubmit={fileUploadHandler}>
                 <AddLotTextInput labelText={"Name:"} type={"text"} checkingFunctions={nameCheckingFunctions} state={lotName} setState={setLotName}/>
                 <AddLotTextInput labelText={"Description:"} type={"text"} checkingFunctions={descriptionCheckingFunctions} state={lotDescription} setState={setDescription}/>

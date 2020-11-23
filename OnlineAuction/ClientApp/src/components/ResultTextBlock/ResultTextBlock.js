@@ -1,10 +1,10 @@
 import React, {useMemo} from "react";
 import classNames from "classnames";
 
-export default function AddLotFinalResult({successed, message}){
+export default function ResultTextBlock({successed, message}){
     const classes = useMemo(() => {
-        return classNames("add-lot__final-result", {"add-lot__final-result--error" : !successed})
-    });
+        return classNames("result-block", {"result-block--error" : !successed})
+    }, []);
 
     if(message) {
         return (

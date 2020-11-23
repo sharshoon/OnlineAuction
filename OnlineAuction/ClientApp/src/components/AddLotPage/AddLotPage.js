@@ -1,10 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import authService from "./api-authorization/AuthorizeService";
-import AddLot from "./AddLot/AddLot";
+import authService from "../api-authorization/AuthorizeService";
+import AddLot from "../AddLot/AddLot";
 
-export default function AdminPanel(){
-    let [data, setData] = useState(""),
-        subscription;
+export default function AddLotPage(){
+    let [data, setData] = useState("");
 
     let fetchData = useCallback(async () => {
         const token = await authService.getAccessToken();

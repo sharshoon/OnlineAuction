@@ -3,6 +3,7 @@ import LotPreview from "./LotPreview/LotPreview";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchLots} from "../redux/actions";
 import classNames from "classnames"
+import LoadingPage from "./LoadingPage/LoadingPage";
 
 export default function Lots(){
     const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export default function Lots(){
     },[])
 
     if(!lots.length){
-        return "Загрузка постов!"
+        return <LoadingPage/>
     }
     return (
         <div className={lotsWrapperClasses}>

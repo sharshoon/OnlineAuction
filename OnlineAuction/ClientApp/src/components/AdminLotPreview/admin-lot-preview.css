@@ -1,0 +1,14 @@
+.admin-lot-preview {
+  width: 90%;
+  padding: 1.5rem;
+}
+.admin-lot-preview__buttons-wrapper {
+  display: flex;
+}
+.admin-lot-preview__button {
+  display: block;
+  font-size: 1.1rem;
+  padding: 0.5rem;
+  text-align: center;
+  margin: 0 1rem;
+}
