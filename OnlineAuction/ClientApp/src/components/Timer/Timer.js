@@ -33,17 +33,12 @@ const openHubConnection = function(dispatch, lot){
         .withUrl(lotHubPath)
         .build();
 
-    hubConnection.start().then(() => {
-        hubConnection.invoke(startLotMethod, "active", 1);
-    }).catch(function (e) {
-        alert(e.message);
-    });
-
     hubConnection.on(activateLotCommand, function (message, id) {
         if(lot.id === parseInt(id)){
             dispatch(updateLot({...lot, isActive: message === activateLotMessage}));
         }
     });
+    hubConnection.start();
 
     return hubConnection;
 }

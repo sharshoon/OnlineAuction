@@ -7,10 +7,12 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home/Home';
 import './styles.css'
 import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
-import AdminPanel from "./components/AdminPanel";
 import classNames from 'classnames'
 import Timer from "./components/Timer/Timer";
 import LotsPlug from "./components/LotsPlug/LotsPlug";
+import AddLot from "./components/AddLot/AddLot";
+import AddLotPage from "./components/AddLotPage/AddLotPage";
+import AdminPanelPage from "./components/AdminPanelPage/AdminPanelPage";
 
 export default class App extends Component {
     static displayName = App.name;
@@ -23,7 +25,8 @@ export default class App extends Component {
                         <Route exact path='/' component={Home} />
                         <Route exact path='/timer' component={Timer} />
                         <Route path='/lots/:id?' component={LotsPlug}/>
-                        <AuthorizeRoute path='/admin-panel' component={AdminPanel}/>
+                        <AuthorizeRoute path='/new-lot' component={AddLotPage}/>
+                        <AuthorizeRoute path='/admin-panel' component={AdminPanelPage}/>
                         <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
                     </Layout>
             </div>

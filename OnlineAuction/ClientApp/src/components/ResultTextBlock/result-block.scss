@@ -1,0 +1,14 @@
+.result-block{
+    width: 100%;
+    background-color: $success-color;
+    padding: .5rem 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: $title-color;
+    border-radius: .3rem;
+
+    &--error{
+        background-color: $error-color;
+    }
+}

@@ -63,9 +63,12 @@ export class NavMenu extends Component {
                                 <NavItem>
                                     <NavLink className='header__button' tag={Link} to="/">Home</NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink className='header__button' tag={Link} to='/lots'>Lots</NavLink>
-                                </NavItem>
+                                {
+                                    this.state.isAdmin &&
+                                        <NavItem>
+                                            <NavLink className='header__button' tag={Link} to="/new-lot">New Lot</NavLink>
+                                        </NavItem>
+                                }
                                 {
                                     this.state.isAdmin &&
                                         <NavItem>

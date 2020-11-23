@@ -1,5 +1,6 @@
-import {FETCH_LOT, FETCH_LOTS, UPDATE_LOT, UPDATE_LOT_PRICE} from "./types";
+import {DELETE_LOT, FETCH_LOT, FETCH_LOTS, UPDATE_LOT, UPDATE_LOT_PRICE} from "./types";
 import {lotControllerPath} from "../components/LotConstants";
+import authService from "../components/api-authorization/AuthorizeService";
 
 export function fetchLots(){
     return async dispatch => {
@@ -27,5 +28,24 @@ export function updateLot(lot){
 export function updateLotPrice(id, price){
     return dispatch => {
         dispatch({type : UPDATE_LOT_PRICE, payload: {id, price}})
+    }
+}
+
+export function deleteLot(id){
+    return async dispatch => {
+        const token = await authService.getAccessToken();
+        const response = await fetch(`${lotControllerPath}/${id}`, {
+            method : "DELETE",
+            headers: !token ? {} : {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+
+        if(response.ok){
+            dispatch({type : DELETE_LOT, payload: {id}})
+        }
+        else{
+            throw new Error(await response.text());
+        }
     }
 }

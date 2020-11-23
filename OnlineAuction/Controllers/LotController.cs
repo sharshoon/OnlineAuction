@@ -129,21 +129,16 @@ namespace OnlineAuction.Controllers
         }
 
         [Authorize(Policy = "IsAdmin")]
-        [HttpDelete]
-        public async Task<ActionResult<Lot>> DeleteLotAsync()
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Lot>> DeleteLotAsync(int id)
         {
-            using var reader = new StreamReader(Request.Body);
-            var body = await reader.ReadToEndAsync();
-
-            var lot = JsonConvert.DeserializeObject<Lot>(body, JsonConverterSettings.ConverterSettings);
-
-            var result = lot != null && await this._repository.TryDeleteLotAsync(lot.Id);
+            var result = await this._repository.TryDeleteLotAsync(id);
             if (result)
             {
-                return Ok(lot);
+                return Ok("Lot was successfully deleted");
             }
 
-            return BadRequest(lot);
+            return BadRequest("This lot was not found on the server!");
         }
     }
 }
