@@ -5,13 +5,11 @@ import AdminPanel from "../AdminPanel/AdminPanel";
 import {UserRoles} from "../api-authorization/ApiAuthorizationConstants";
 
 export default function AdminPanelPage(){
-    let [admin, setAdmin] = useState(false);
+    let [admin, setAdmin] = useState(null);
 
     const CheckAdminRights = useCallback(async() => {
         const isAdmin = await authService.hasRole(UserRoles.Administrator);
-        setAdmin({
-            isAdmin
-        })
+        setAdmin(isAdmin)
     }, [])
 
     useEffect(() => {
@@ -26,6 +24,9 @@ export default function AdminPanelPage(){
                 <AdminPanel/>
             </div>
         )
+    }
+    if(admin === false){
+        return ("You dont have access to this component!")
     }
     else{
         return <LoadingPage/>;

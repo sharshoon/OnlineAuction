@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -24,6 +25,7 @@ namespace OnlineAuction.Hubs
             this._repository = repository;
             _runningLots = lots;
         }
+
         public async Task StartLot(string message, int lotId)
         {
             var lot = await this._repository.GetLotAsync(lotId);

@@ -47,9 +47,9 @@ export default function IncreaseRateButtons({id}){
 
     return (
         <div className='lot-info__buttons'>
-            <button className={buttonClasses} disabled={!hubConnection} onClick={() => updatePrice(5)}>+5%</button>
-            <button className={buttonClasses} disabled={!hubConnection} onClick={() => updatePrice(10)}>+10%</button>
-            <button className={buttonClasses} disabled={!hubConnection} onClick={() => updatePrice(20)}>+20%</button>
+            <button className={buttonClasses} disabled={!lot.isActive} onClick={() => updatePrice(5)}>+5%</button>
+            <button className={buttonClasses} disabled={!lot.isActive} onClick={() => updatePrice(10)}>+10%</button>
+            <button className={buttonClasses} disabled={!lot.isActive} onClick={() => updatePrice(20)}>+20%</button>
         </div>
     )
 }

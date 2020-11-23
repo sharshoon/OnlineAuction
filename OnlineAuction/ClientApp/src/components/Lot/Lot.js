@@ -4,6 +4,7 @@ import {fetchLot, updateLot} from "../../redux/actions";
 import classNames from 'classnames'
 import Timer from "../Timer/Timer";
 import IncreaseRateButtons from "../IncreaseRateButtons/IncreaseRateButtons";
+import LoadingPage from "../LoadingPage/LoadingPage";
 
 const titleClasses = classNames("main__title","title");
 const lotInfoClasses = classNames("main__lot-info", "lot-info", "info");
@@ -19,7 +20,7 @@ export default function Lot({id}){
     }, []);
 
     if(!lot){
-        return "Post loading";
+        return <LoadingPage/>
     }
 
     return (
