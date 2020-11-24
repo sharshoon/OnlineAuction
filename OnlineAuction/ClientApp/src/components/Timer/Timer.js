@@ -1,13 +1,13 @@
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import classNames from "classnames"
 import {
     activateLotCommand,
     activateLotMessage,
     decreaseTimeCommand,
     lotHubPath,
-    startLotMethod
+    startLotMethod, stopCommand
 } from "../LotConstants";
-import {updateLot} from "../../redux/actions";
+import {closeLot, updateLot, updateLotActivity} from "../../redux/actions";
 import {useDispatch, useSelector} from "react-redux";
 import * as signalR from "@microsoft/signalr";
 
@@ -47,6 +47,7 @@ export default function Timer({id, lot}) {
     const [remainSeconds, setSeconds] = useState(0);
     const hubConnection = useRef(null);
     const isMountedRef = useRef(null);
+    const isActive = useRef(false);
     const dispatch = useDispatch();
     const timerItemClasses = classNames("timer__item", {"timer__item--translucent" : !lot.isActive});
     let lotMessage;
@@ -58,17 +59,27 @@ export default function Timer({id, lot}) {
 
             hubConnection.current.on(decreaseTimeCommand, function (seconds) {
                 if(isMountedRef.current){
+                    if(!isActive.current){
+                        isActive.current = true;
+                        dispatch(updateLotActivity(lot.id, true));
+                    }
                     setSeconds(seconds);
                 }
+            });
+
+            hubConnection.current.on(stopCommand, function(){
+                dispatch(closeLot(lot.id));
             });
         }
 
         return () => isMountedRef.current = false;
     }, [lot, hubConnection]);
 
-
-    if(!lot.isActive){
-        lotMessage = <div className='timer__not-started'>Auction has not started yet!</div>
+    if(lot.isSold){
+        lotMessage = <div className='timer__not-active'>This lot is sold!</div>
+    }
+    else if(!lot.isActive){
+        lotMessage = <div className='timer__not-active'>This lot is not active!</div>
     }
     return (
         <div className='main__timer-wrapper'>

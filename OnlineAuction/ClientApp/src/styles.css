@@ -149,6 +149,10 @@ label {
 .main__title {
   font-size: 1.8rem;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .main__title::after {
   content: "";
@@ -196,6 +200,13 @@ label {
   justify-content: center;
   align-items: center;
 }
+.main__sold-lot-message {
+  background-color: #f54040;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+  margin-left: 1rem;
+}
 
 .lot-info__item {
   padding: 0.5rem 0;
@@ -233,7 +244,7 @@ label {
 .timer__item--translucent {
   background-color: rgba(68, 68, 68, 0.1);
 }
-.timer__not-started {
+.timer__not-active {
   position: absolute;
   background-color: #f2d400;
   padding: 0.5rem;

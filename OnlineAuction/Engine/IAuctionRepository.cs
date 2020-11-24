@@ -16,5 +16,6 @@ namespace OnlineAuction.Engine
         Task<string> GetWinnerNameAsync(int lotId);
         IQueryable<LotResponse> GetLotResponses();
         LotResponse GetLotResponse(int id);
+        Task<Winner> AddWinnerAsync(Winner winner);
     }
 }

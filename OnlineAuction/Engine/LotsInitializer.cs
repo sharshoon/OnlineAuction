@@ -24,7 +24,7 @@ namespace OnlineAuction.Engine
                     ImagePath = $"{webPath}/api/images/{imageName}",
                     Description = "This is test default lot!",
                     MinPriceUsd = 50,
-                    ActionTimeSec = 100
+                    ActionTimeSec = 10
                 };
 
                 await repository.AddNewLotAsync(defaultLot);

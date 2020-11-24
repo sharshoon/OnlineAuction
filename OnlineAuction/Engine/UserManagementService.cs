@@ -137,5 +137,10 @@ namespace OnlineAuction.Engine
         {
             return await _userManager.FindByIdAsync(userId);
         }
+
+        public async Task<ApplicationUser> GetUserByEmailAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
 	}
 }

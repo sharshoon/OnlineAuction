@@ -46,13 +46,7 @@ namespace OnlineAuction.Engine
 
         public async Task<Lot> UpdateLotAsync(Lot lot)
         {
-            var dbLot = await this._context.Lots.FirstOrDefaultAsync(l => l.Id == lot.Id);
-            if (dbLot == null)
-            {
-                return null;
-            }
-
-            var result = this._context.Update(lot).Entity;
+            var result = this._context.Lots.Update(lot).Entity;
             await this._context.SaveChangesAsync();
             return result;
         }
@@ -104,7 +98,8 @@ namespace OnlineAuction.Engine
                     MinPriceUsd = lot.MinPriceUsd,
                     ActionTimeSec = lot.ActionTimeSec,
                     ImagePath = lot.ImagePath,
-                    OwnerName = m.OwnerName
+                    OwnerName = m.OwnerName,
+                    IsSold = lot.IsSold
                 });
             return result;
         }
@@ -124,7 +119,8 @@ namespace OnlineAuction.Engine
                     MinPriceUsd = lot.MinPriceUsd,
                     ActionTimeSec = lot.ActionTimeSec,
                     ImagePath = lot.ImagePath,
-                    OwnerName = m.OwnerName
+                    OwnerName = m.OwnerName,
+                    IsSold = lot.IsSold
                 });
 
             return lotResponse.FirstOrDefault();
