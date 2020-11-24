@@ -22,5 +22,6 @@ namespace OnlineAuction.Engine
         Task<bool> IsEmailInUseAsync(string email, string excludeUserID);
         Task<bool> IsEmailInUseAsync(string email);
         Task<ApplicationUser> GetUserAsync(ClaimsPrincipal claimsPrincipal);
+        Task<ApplicationUser> GetUserAsync(string userId);
     }
 }

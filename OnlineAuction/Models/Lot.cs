@@ -17,9 +17,5 @@ namespace OnlineAuction.Models
         public int MinPriceUsd { get; set; }
         [Required]
         public int ActionTimeSec { get; set; }
-        [NotMapped]
-        public int PriceUsd { get; set; }
-        [NotMapped]
-        public bool IsActive { get; set; } = false;
     }
 }

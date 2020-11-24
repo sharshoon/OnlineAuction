@@ -13,5 +13,8 @@ namespace OnlineAuction.Engine
         Task<bool> TryDeleteLotAsync(int id);
         Task<Lot> UpdateLotAsync(Lot lot);
         Task<Lot> GetLotAsync(int id);
+        Task<string> GetWinnerNameAsync(int lotId);
+        IQueryable<LotResponse> GetLotResponses();
+        LotResponse GetLotResponse(int id);
     }
 }

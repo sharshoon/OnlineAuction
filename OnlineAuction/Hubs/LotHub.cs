@@ -29,14 +29,16 @@ namespace OnlineAuction.Hubs
         public async Task StartLot(string message, int lotId)
         {
             var lot = await this._repository.GetLotAsync(lotId);
-            if (lot != null && !_runningLots.Lots.ContainsKey(lot.Id))
+            var lotResponse = new LotResponse();
+            lotResponse = (LotResponse)lot;
+            if (lotResponse != null && !_runningLots.Lots.ContainsKey(lotResponse.Id))
             {
-                if (_runningLots.Lots.TryAdd(lot.Id, lot))
+                if (_runningLots.Lots.TryAdd(lotResponse.Id, lotResponse))
                 {
                     await this.Clients.All.SendAsync("ActivateLot", message, lotId);
 
                     var startTime = DateTime.Now;
-                    var endTime = startTime.AddSeconds(lot.ActionTimeSec);
+                    var endTime = startTime.AddSeconds(lotResponse.ActionTimeSec);
 
                     await Task.Factory.StartNew(() =>
                     {
