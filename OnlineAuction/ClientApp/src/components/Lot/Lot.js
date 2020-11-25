@@ -12,7 +12,7 @@ const lotInfoClasses = classNames("main__lot-info", "lot-info", "info");
 export default function Lot({id}){
     const dispatch = useDispatch();
     const lot = useSelector(state => state.lotsInfo.lots.find(lot => lot.id === parseInt(id)));
-    const loading = useSelector(state => state.app.loading);
+    const loading = useSelector(state => state.app.lotLoading);
 
     useEffect(() => {
         if(!lot){

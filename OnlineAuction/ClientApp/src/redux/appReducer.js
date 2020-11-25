@@ -1,15 +1,20 @@
-import {HIDE_LOADER, SHOW_LOADER} from "./types";
+import {HIDE_LOT_LOADER, HIDE_WINNERS_LOADER, SHOW_LOT_LOADER, SHOW_WINNERS_LOADER} from "./types";
 
 const initialState = {
-    loading: false,
+    lotLoading: false,
+    winnersLoading: false
 }
 
 export const appReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SHOW_LOADER:
-            return {...state, loading: true}
-        case HIDE_LOADER:
-            return {...state, loading: false}
+        case SHOW_LOT_LOADER:
+            return {...state, lotLoading: true}
+        case HIDE_LOT_LOADER:
+            return {...state, lotLoading: false}
+        case SHOW_WINNERS_LOADER:
+            return {...state, winnersLoading: true}
+        case HIDE_WINNERS_LOADER:
+            return {...state, winnersLoading: false}
         default:
             return state;
     }

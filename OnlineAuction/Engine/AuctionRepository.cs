@@ -23,6 +23,7 @@ namespace OnlineAuction.Engine
         private readonly ApplicationDbContext _context;
         private readonly IUserManagementService userManagementService;
         public IQueryable<Lot> Lots => this._context.Lots;
+        public IQueryable<Winner> Winners => this._context.Winners;
         public async Task<Lot> AddNewLotAsync(Lot lot)
         {
             var result = await this._context.Lots.AddAsync(lot);
@@ -41,9 +42,7 @@ namespace OnlineAuction.Engine
             this._context.Lots.Remove(lot);
             await this._context.SaveChangesAsync();
             return true;
-
         }
-
         public async Task<Lot> UpdateLotAsync(Lot lot)
         {
             var result = this._context.Lots.Update(lot).Entity;

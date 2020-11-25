@@ -79,4 +79,10 @@
         font-size: 1rem;
         margin-left: 1rem;
     }
+
+    &__winners{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
 }

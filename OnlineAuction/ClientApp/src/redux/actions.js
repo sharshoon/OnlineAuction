@@ -3,8 +3,8 @@ import {
     DELETE_LOT,
     FETCH_LOT,
     FETCH_LOTS,
-    HIDE_LOADER,
-    SHOW_LOADER,
+    HIDE_LOT_LOADER,
+    SHOW_LOT_LOADER,
     UPDATE_LOT,
     UPDATE_LOT_ACTIVITY,
     UPDATE_LOT_PRICE
@@ -78,12 +78,12 @@ export function deleteLot(id){
 
 export function showLoader() {
     return {
-        type: SHOW_LOADER
+        type: SHOW_LOT_LOADER
     }
 }
 
 export function hideLoader() {
     return {
-        type: HIDE_LOADER
+        type: HIDE_LOT_LOADER
     }
 }

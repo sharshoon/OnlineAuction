@@ -58,6 +58,7 @@ namespace OnlineAuction.Hubs
                         {
                             Id = removeResult.Id,
                             UserId = _runningLots.Leader?.Id ?? "-",
+                            LotName = removeResult.Name,
                             OwnerName = _runningLots.Leader?.FullName ?? "-",
                             PriceUsd = removeResult.PriceUsd
                         };
