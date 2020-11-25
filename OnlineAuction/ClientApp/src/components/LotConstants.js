@@ -9,3 +9,6 @@ export const decreaseTimeCommand = "DecreaseTime";
 export const increasePriceHubPath = "/increase-price";
 export const increasePriceMethod = "IncreasePrice";
 export const priceUpdateCommand = "PriceUpdate";
+export const stopCommand = "Stop";
+
+export const winnersControllerPath = "api/winners";

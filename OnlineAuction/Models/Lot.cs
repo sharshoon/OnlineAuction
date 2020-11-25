@@ -15,11 +15,7 @@ namespace OnlineAuction.Models
         public string ImagePath { get; set; }
         public string Description { get; set; }
         public int MinPriceUsd { get; set; }
-        [Required]
-        public int ActionTimeSec { get; set; }
-        [NotMapped]
-        public int PriceUsd { get; set; }
-        [NotMapped]
-        public bool IsActive { get; set; } = false;
+        [Required] public int ActionTimeSec { get; set; }
+        public bool IsSold { get; set; } = false;
     }
 }

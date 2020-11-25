@@ -1,4 +1,4 @@
-import {UPDATE_LOT, FETCH_LOT, FETCH_LOTS, UPDATE_LOT_PRICE, DELETE_LOT} from "./types";
+import {UPDATE_LOT, FETCH_LOT, FETCH_LOTS, UPDATE_LOT_PRICE, DELETE_LOT, UPDATE_LOT_ACTIVITY, CLOSE_LOT} from "./types";
 
 const initialState = {
     lots : []
@@ -23,6 +23,20 @@ export const lotsReducer = (state = initialState, action) => {
                     return {...lot, priceUsd: action.payload.price}
                 }
                 return lot;
+                })}
+        case UPDATE_LOT_ACTIVITY:
+            return {...state, lots: state.lots.map(lot => {
+                    if(lot.id === action.payload.id){
+                        return {...lot, isActive: action.payload.isActive}
+                    }
+                    return lot;
+                })}
+        case CLOSE_LOT:
+            return {...state, lots: state.lots.map(lot => {
+                    if(lot.id === action.payload.id){
+                        return {...lot, isActive: false, isSold: true}
+                    }
+                    return lot;
                 })}
         case DELETE_LOT:
             return {...state, lots: state.lots.filter(lot => lot.id !== action.payload.id)}

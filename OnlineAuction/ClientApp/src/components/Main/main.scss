@@ -10,6 +10,10 @@
     &__title{
         font-size: 1.8rem;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
 
         &::after{
             content: "";
@@ -66,5 +70,19 @@
     &__loading-page{
         justify-content: center;
         align-items: center;
+    }
+
+    &__sold-lot-message{
+        background-color: $error-color;
+        padding: .5rem;
+        border-radius: .3rem;
+        font-size: 1rem;
+        margin-left: 1rem;
+    }
+
+    &__winners{
+        display:flex;
+        justify-content:center;
+        align-items:center;
     }
 }

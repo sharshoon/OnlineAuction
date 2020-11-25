@@ -28,15 +28,15 @@ namespace OnlineAuction.Hubs
 
         public async Task StartLot(string message, int lotId)
         {
-            var lot = await this._repository.GetLotAsync(lotId);
-            if (lot != null && !_runningLots.Lots.ContainsKey(lot.Id))
+            var lotResponse = _repository.GetLotResponse(lotId);
+            if (lotResponse != null && !_runningLots.Lots.ContainsKey(lotResponse.Id))
             {
-                if (_runningLots.Lots.TryAdd(lot.Id, lot))
+                if (_runningLots.Lots.TryAdd(lotResponse.Id, lotResponse))
                 {
                     await this.Clients.All.SendAsync("ActivateLot", message, lotId);
 
                     var startTime = DateTime.Now;
-                    var endTime = startTime.AddSeconds(lot.ActionTimeSec);
+                    var endTime = startTime.AddSeconds(lotResponse.ActionTimeSec);
 
                     await Task.Factory.StartNew(() =>
                     {
@@ -48,6 +48,24 @@ namespace OnlineAuction.Hubs
                             Thread.Sleep(1000);
                         }
                     });
+
+                    await this.Clients.All.SendAsync("Stop");
+
+                    if (_runningLots.Lots.TryRemove(lotResponse.Id, out var removeResult))
+                    {
+                        var leader = _runningLots.Leader?.FullName ?? "-";
+                        var winner = new Winner
+                        {
+                            Id = removeResult.Id,
+                            UserId = _runningLots.Leader?.Id ?? "-",
+                            LotName = removeResult.Name,
+                            OwnerName = _runningLots.Leader?.FullName ?? "-",
+                            PriceUsd = removeResult.PriceUsd
+                        };
+                        await _repository.AddWinnerAsync(winner);
+                        removeResult.IsSold = true;
+                        await _repository.UpdateLotAsync(removeResult);
+                    }
                 }
             }
         }

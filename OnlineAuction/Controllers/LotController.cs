@@ -46,15 +46,16 @@ namespace OnlineAuction.Controllers
         private readonly IAuctionRepository _repository;
 
         [HttpGet]
-        public IEnumerable<Lot> GetLots()
+        public IEnumerable<LotResponse> GetLots()
         {
-            return _repository.Lots;
+            var result = this._repository.GetLotResponses();
+            return result;
         }
 
         [HttpGet("{id}")]
-        public async Task<Lot> GetLotAsync(int id)
+        public LotResponse GetLot(int id)
         {
-            return await this._repository.GetLotAsync(id);
+            return this._repository.GetLotResponse(id);
         }
 
         [Authorize(Policy = "IsAdmin")]

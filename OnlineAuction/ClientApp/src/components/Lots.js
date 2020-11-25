@@ -9,12 +9,16 @@ export default function Lots(){
     const dispatch = useDispatch();
     const lots = useSelector(state => state.lotsInfo.lots);
     const lotsWrapperClasses = classNames("main", "main__lot-preview-wrapper", "container-border");
+    const loading = useSelector(state => state.app.lotLoading);
     useEffect(() => {
         dispatch(fetchLots());
     },[])
 
-    if(!lots.length){
+    if(loading){
         return <LoadingPage/>
+    }
+    if(!lots.length){
+        return "There are no lots on the server"
     }
     return (
         <div className={lotsWrapperClasses}>

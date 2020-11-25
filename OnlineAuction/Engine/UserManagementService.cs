@@ -44,12 +44,12 @@ namespace OnlineAuction.Engine
 
 		public async Task<string> GetUserRoleAsync(string userId, bool returnName)
 		{
-			ApplicationUser user = await _context.Users.AsNoTracking().Where(u => u.Id == userId).FirstOrDefaultAsync();
+			var user = await _context.Users.AsNoTracking().Where(u => u.Id == userId).FirstOrDefaultAsync();
 			var roles = await _userManager.GetRolesAsync(user);
 
-			foreach (RoleHelpers.RolePair rolePair in RoleHelpers.Roles)
+			foreach (var rolePair in RoleHelpers.Roles)
 			{
-				IdentityRole identityRole = await _context.Roles.AsNoTracking().Where(role => role.Name == rolePair.Name)
+				var identityRole = await _context.Roles.AsNoTracking().Where(role => role.Name == rolePair.Name)
 					.FirstOrDefaultAsync();
 				if (identityRole != null && roles.Contains(identityRole.Name))
 					return returnName ? rolePair.Name : rolePair.Description;
@@ -58,12 +58,12 @@ namespace OnlineAuction.Engine
 		}
 		public async Task<string> GetUserRoleAsync(string email)
 		{
-			ApplicationUser user = await _context.Users.AsNoTracking().Where(u => u.Email == email).FirstOrDefaultAsync();
+			var user = await _context.Users.AsNoTracking().Where(u => u.Email == email).FirstOrDefaultAsync();
 			var roles = await _userManager.GetRolesAsync(user);
 
 			foreach (RoleHelpers.RolePair rolePair in RoleHelpers.Roles)
 			{
-				IdentityRole identityRole = await _context.Roles.AsNoTracking().Where(role => role.Name == rolePair.Name).FirstOrDefaultAsync();
+				var identityRole = await _context.Roles.AsNoTracking().Where(role => role.Name == rolePair.Name).FirstOrDefaultAsync();
 				if (roles.Contains(identityRole.Name))
 					return rolePair.Name;
 			}
@@ -98,7 +98,7 @@ namespace OnlineAuction.Engine
 
             await _context.SaveChangesAsync();
 
-			string[] existingRoles = (await _userManager.GetRolesAsync(user)).ToArray();
+			var existingRoles = (await _userManager.GetRolesAsync(user)).ToArray();
 			var result = await _userManager.RemoveFromRolesAsync(user, existingRoles);
 
 			if (result.Succeeded)
@@ -108,7 +108,7 @@ namespace OnlineAuction.Engine
 		}
 		public async Task<IdentityResult> DeleteUserAsync(string userId)
 		{
-			ApplicationUser user = await _userManager.FindByIdAsync(userId);
+			var user = await _userManager.FindByIdAsync(userId);
 			return await _userManager.DeleteAsync(user);
 		}
 		public async Task<IdentityResult> ChangePasswordAsync(ApplicationUser user, string password)
@@ -121,7 +121,7 @@ namespace OnlineAuction.Engine
 		}
 		public async Task<bool> IsEmailInUseAsync(string email, string excludeUserID)
 		{
-			ApplicationUser user = await _userManager.FindByEmailAsync(email);
+			var user = await _userManager.FindByEmailAsync(email);
 
 			return user != null && user.Id != excludeUserID;
 		}
@@ -131,7 +131,16 @@ namespace OnlineAuction.Engine
 		}
 		public async Task<ApplicationUser> GetUserAsync(ClaimsPrincipal claimsPrincipal)
 		{
-			return await _userManager.GetUserAsync(claimsPrincipal);
+            return await _userManager.GetUserAsync(claimsPrincipal);
 		}
+        public async Task<ApplicationUser> GetUserAsync(string userId)
+        {
+            return await _userManager.FindByIdAsync(userId);
+        }
+
+        public async Task<ApplicationUser> GetUserByEmailAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
 	}
 }
