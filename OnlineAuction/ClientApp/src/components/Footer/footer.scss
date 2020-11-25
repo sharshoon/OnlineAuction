@@ -1,0 +1,42 @@
+.footer{
+    background-color: $background-color;
+    border-radius: .3rem;
+
+    &__card{
+        width: 40%;
+        text-align: center;
+    }
+
+    &__card-name{
+        font-size: 1.25rem;
+        margin: .625rem;
+    }
+
+    &__card-info{
+        font-size: .875rem;
+        font-family: 'Source Sans Pro', sans-serif;
+        color: $description-color;
+    }
+
+    &__sn-wrapper{
+        display: flex;
+        justify-content: center;
+        margin: 0 0 1rem 0;
+    }
+
+    &__sn{
+        margin: 0 1rem;
+    }
+
+    &__sn-link{
+        display: flex;
+        align-items: center;
+    }
+
+    &__sn-icon{
+        width: 1.2rem;
+        background-color: $yellow-background-color;
+        border-radius: 1.5rem;
+        margin-right: .2rem;
+    }
+}

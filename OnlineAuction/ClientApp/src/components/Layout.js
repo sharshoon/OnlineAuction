@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'reactstrap';
 import { NavMenu } from './NavMenu/NavMenu';
+import Footer from "./Footer/Footer";
 
 export function Layout(props) {
     return (
@@ -9,6 +10,7 @@ export function Layout(props) {
             <Container>
               {props.children}
             </Container>
+            <Footer/>
         </div>
     );
 }

@@ -13,12 +13,10 @@ import '../../styles.css';
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
 
-
     constructor (props) {
         super(props);
-
         this.titleClasses = classNames("title", "logo");
-        this.headerClasses = classNames('casing__header', 'header', "container-border");
+        this.headerClasses = classNames("casing__header", "header", "container-border");
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,

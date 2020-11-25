@@ -11,4 +11,10 @@
         align-items: center;
         margin-bottom: 0.3rem;
     }
+    
+    &__footer{
+        display: flex;
+        justify-content: space-around;
+        margin: .3rem 0;
+    }
 }

@@ -18,7 +18,7 @@ export default class App extends Component {
     static displayName = App.name;
 
     render () {
-        const containerClasses = classNames('casing', 'casing__body');
+        const containerClasses = classNames("casing", "casing__body");
         return (
             <div className={containerClasses}>
                     <Layout className='container'>

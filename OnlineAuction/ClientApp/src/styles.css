@@ -61,6 +61,11 @@ label {
   align-items: center;
   margin-bottom: 0.3rem;
 }
+.casing__footer {
+  display: flex;
+  justify-content: space-around;
+  margin: 0.3rem 0;
+}
 
 .button {
   border-radius: 0.3rem;
@@ -376,7 +381,6 @@ label {
   font-family: "Source Sans Pro", sans-serif;
   margin: 0;
   width: 100%;
-  border-radius: 0.5rem;
 }
 .table__header {
   font-weight: bold;
@@ -394,4 +398,40 @@ label {
 .table__item {
   border: 0.063rem solid #ccc;
   padding: 0.5rem 0;
+}
+
+.footer {
+  background-color: #f8f8f8;
+  border-radius: 0.3rem;
+}
+.footer__card {
+  width: 40%;
+  text-align: center;
+}
+.footer__card-name {
+  font-size: 1.25rem;
+  margin: 0.625rem;
+}
+.footer__card-info {
+  font-size: 0.875rem;
+  font-family: "Source Sans Pro", sans-serif;
+  color: #a5a5a5;
+}
+.footer__sn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 1rem 0;
+}
+.footer__sn {
+  margin: 0 1rem;
+}
+.footer__sn-link {
+  display: flex;
+  align-items: center;
+}
+.footer__sn-icon {
+  width: 1.2rem;
+  background-color: #f2d400;
+  border-radius: 1.5rem;
+  margin-right: 0.2rem;
 }
