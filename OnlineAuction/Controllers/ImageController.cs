@@ -25,9 +25,6 @@ namespace OnlineAuction.Controllers
         public IActionResult Get(string imageName)
         {
             var imagePath = $"{ImageController._imageDir}\\{imageName}";
-            //var image = System.IO.File.OpenRead(imagePath);
-            //var format = imageName.Split(".")[1];
-            //return File(image, $"image/{format}");
             return GetFile(imagePath, imageName);
         }
 
@@ -35,9 +32,6 @@ namespace OnlineAuction.Controllers
         public IActionResult GetIcon(string imageName)
         {
             var imagePath = $"{ImageController._iconsDir}\\{imageName}";
-            //var image = System.IO.File.OpenRead(imagePath);
-            //var format = imageName.Split(".")[1];
-            //return File(image, $"image/{format}");
             return GetFile(imagePath, imageName);
         }
 

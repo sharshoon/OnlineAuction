@@ -120,7 +120,7 @@ namespace OnlineAuction.Controllers
                 section = await reader.ReadNextSectionAsync();
             }
 
-            if (string.IsNullOrEmpty(lot.ImagePath.Trim()))
+            if (string.IsNullOrEmpty(lot.ImagePath?.Trim()))
             {
                 lot.ImagePath = $"{_imagesPath}/{DefaultImage}";
             }

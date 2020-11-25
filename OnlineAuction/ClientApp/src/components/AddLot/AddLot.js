@@ -38,7 +38,9 @@ export default function AddLot(){
         const token = await authService.getAccessToken();
         const formData = new FormData();
 
-        formData.append('image', file, file.name);
+        if(file.name){
+            formData.append('image', file, file.name);
+        }
         formData.append('name', lotName);
         formData.append('description', lotDescription);
         formData.append('minPrice', lotMinPrice);

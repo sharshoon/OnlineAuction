@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -7,6 +8,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using OnlineAuction.Data;
 using OnlineAuction.Models;
 
@@ -14,8 +16,10 @@ namespace OnlineAuction.Engine
 {
     public class AuctionRepository : IAuctionRepository
     {
-        public AuctionRepository(ApplicationDbContext context, IUserManagementService userManagementService)
+        private static string _imageDir;
+        public AuctionRepository(ApplicationDbContext context, IUserManagementService userManagementService, IHostEnvironment env)
         {
+            AuctionRepository._imageDir = $"{env.ContentRootPath}\\images";
             this._context = context;
             this.userManagementService = userManagementService;
         }
@@ -38,8 +42,13 @@ namespace OnlineAuction.Engine
             {
                 return false;
             }
-            
+
+            var imagePath = $"{_imageDir}\\{lot.ImagePath.Split("/")[^1]}";
             this._context.Lots.Remove(lot);
+            if (File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+            }
             await this._context.SaveChangesAsync();
             return true;
         }
