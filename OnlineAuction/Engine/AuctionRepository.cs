@@ -35,7 +35,7 @@ namespace OnlineAuction.Engine
             return result.Entity;
         }
 
-        public async Task<bool> TryDeleteLotAsync(int id)
+        public async Task<bool> TryDeleteLotAsync(int id, string defaultImageName)
         {
             var lot = await this._context.Lots.FirstOrDefaultAsync(lot => lot.Id == id);
             if (lot == null)
@@ -45,7 +45,7 @@ namespace OnlineAuction.Engine
 
             var imagePath = $"{_imageDir}\\{lot.ImagePath.Split("/")[^1]}";
             this._context.Lots.Remove(lot);
-            if (File.Exists(imagePath))
+            if (File.Exists(imagePath) && imagePath != $"{_imageDir}\\{defaultImageName}")
             {
                 File.Delete(imagePath);
             }

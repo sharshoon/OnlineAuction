@@ -1,8 +1,10 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {lotControllerPath, winnersControllerPath} from "../LotConstants";
+import {winnersControllerPath} from "../LotConstants";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import classNames from "classnames";
+import {hideWinnersLoader, showWinnersLoader} from "../../redux/actions";
+import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 
 export default function Winners(){
     const [winners, setWinners] = useState([]);
@@ -10,10 +12,12 @@ export default function Winners(){
     const loading = useSelector(state => state.app.winnersLoading);
 
     const getWinners = useCallback(async () => {
+        dispatch(showWinnersLoader());
         const response = await fetch(winnersControllerPath);
         const json = await response.json();
+        dispatch(hideWinnersLoader());
         setWinners(json);
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         getWinners();
@@ -30,7 +34,7 @@ export default function Winners(){
         return <LoadingPage/>
     }
     if(!winners.length){
-        return "No information about the lot winners!"
+        return <CustomMessagePage message={"No information about the lot winners!"}/>
     }
 
     console.log(winners);

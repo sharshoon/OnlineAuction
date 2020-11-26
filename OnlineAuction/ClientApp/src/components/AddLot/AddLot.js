@@ -163,7 +163,7 @@ export default function AddLot(){
                 <AddLotTextInput labelText={"Minimum price USD:"} type={"number"} checkingFunctions={minPriceCheckingFunctions} state={lotMinPrice} setState={setMinPrice}/>
                 <AddLotTextInput labelText={"Duration, sec:"} type={"number"} checkingFunctions={durationCheckingFunctions} state={lotDuration} setState={setDuration}/>
                 <div className={classes.buttonWrapperClasses}>
-                    <label className={classes.buttonClasses} for="choose-file-input">{file.name || "Choose File..."}</label>
+                    <label className={classes.buttonClasses} htmlFor="choose-file-input">{file.name || "Choose File..."}</label>
                     <FormErrors/>
                     <input className="form-item__file-choose" type="file" onChange={fileSelectedHandler} id="choose-file-input"/>
                 </div>

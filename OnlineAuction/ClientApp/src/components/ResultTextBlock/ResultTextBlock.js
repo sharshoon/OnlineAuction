@@ -4,7 +4,7 @@ import classNames from "classnames";
 export default function ResultTextBlock({successed, message}){
     const classes = useMemo(() => {
         return classNames("result-block", {"result-block--error" : !successed})
-    }, []);
+    }, [successed]);
 
     if(message) {
         return (

@@ -22,19 +22,19 @@ export default function Footer(){
                 <ul className="footer__sn-wrapper">
                     <li className="footer__sn">
                         <a className="footer__sn-link" href="mailto:Mickita.Sharshun@itechart-group.com">
-                            <img className="footer__sn-icon" src={`${iconsPath}/outlook-icon.png`}/>
+                            <img className="footer__sn-icon" src={`${iconsPath}/outlook-icon.png`} alt="outlook"/>
                             <span className="footer__card-info">Outlook</span>
                         </a>
                     </li>
                     <li className="footer__sn">
                         <a className="footer__sn-link" href="https://github.com/sharshoon">
-                            <img className="footer__sn-icon" src={`${iconsPath}/github-icon.png`}/>
+                            <img className="footer__sn-icon" src={`${iconsPath}/github-icon.png`} alt="github"/>
                             <span className="footer__card-info">GitHub</span>
                         </a>
                     </li>
                     <li className="footer__sn">
                         <a className="footer__sn-link" href="https://join.skype.com/invite/b4dT1glZDPZ4">
-                            <img className="footer__sn-icon" src={`${iconsPath}/skype-icon.png`}/>
+                            <img className="footer__sn-icon" src={`${iconsPath}/skype-icon.png`} alt="skype"/>
                             <span className="footer__card-info">Skype</span>
                         </a>
                     </li>

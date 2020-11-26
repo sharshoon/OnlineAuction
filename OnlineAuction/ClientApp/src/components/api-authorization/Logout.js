@@ -4,6 +4,7 @@ import authService from './AuthorizeService';
 import { AuthenticationResultStatus } from './AuthorizeService';
 import { QueryParameterNames, LogoutActions, ApplicationPaths } from './ApiAuthorizationConstants';
 import LoadingPage from "../LoadingPage/LoadingPage";
+import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 
 // The main responsibility of this component is to handle the user's logout process.
 // This is the starting point for the logout process, which is usually initiated when a
@@ -49,7 +50,7 @@ export class Logout extends Component {
             return <div></div>
         }
         if (!!message) {
-            return (<div>{message}</div>);
+            return (<CustomMessagePage message={message}/>)
         } else {
             const action = this.props.action;
             switch (action) {

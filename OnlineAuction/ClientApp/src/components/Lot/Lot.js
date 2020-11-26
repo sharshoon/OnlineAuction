@@ -1,13 +1,11 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react'
+import React, {useEffect, useMemo} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {fetchLot, updateLot} from "../../redux/actions";
+import {fetchLot} from "../../redux/actions";
 import classNames from 'classnames'
 import Timer from "../Timer/Timer";
 import IncreaseRateButtons from "../IncreaseRateButtons/IncreaseRateButtons";
 import LoadingPage from "../LoadingPage/LoadingPage";
-
-const titleClasses = classNames("main__title","title");
-const lotInfoClasses = classNames("main__lot-info", "lot-info", "info");
+import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 
 export default function Lot({id}){
     const dispatch = useDispatch();
@@ -20,25 +18,32 @@ export default function Lot({id}){
         }
     }, []);
 
+    const classes = useMemo(() => {
+        return {
+            titleClasses : classNames("main__title","title"),
+            lotInfoClasses : classNames("main__lot-info", "lot-info", "info")
+        }
+    }, [])
+
     if(loading){
         return <LoadingPage/>
     }
     if(!lot){
-        return "There is no such lot on the server"
+        return <CustomMessagePage message={"There is no such lot on the server"}/>
     }
 
     return (
         <div className='main container-border'>
-            <img className='main__image' src={lot.imagePath}/>
+            <img className='main__image' src={lot.imagePath} alt="lot"/>
             <div className='main__lot-info-wrapper'>
-                    <div className={titleClasses}>
+                    <div className={classes.titleClasses}>
                         {lot.name}
                         {lot.isSold && <div className="main__sold-lot-message">Lot is sold!</div>}
                     </div>
-                <div className={lotInfoClasses}>
+                <div className={classes.lotInfoClasses}>
                     <div className='lot-info__item'><span className="lot-info__name">Description: </span><span>{lot.description}</span></div>
                     <div className='lot-info__item'><span className="lot-info__name">Price: </span><span>{lot.priceUsd || lot.minPriceUsd} USD</span></div>
-                    <Timer id={id} lot={lot}/>
+                    <Timer lot={lot}/>
                     <IncreaseRateButtons id={id}/>
                 </div>
             </div>

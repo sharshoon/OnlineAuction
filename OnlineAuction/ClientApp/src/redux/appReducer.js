@@ -1,8 +1,13 @@
-import {HIDE_LOT_LOADER, HIDE_WINNERS_LOADER, SHOW_LOT_LOADER, SHOW_WINNERS_LOADER} from "./types";
+import {
+    HIDE_LOT_LOADER,
+    HIDE_WINNERS_LOADER,
+    SHOW_LOT_LOADER,
+    SHOW_WINNERS_LOADER
+} from "./types";
 
 const initialState = {
     lotLoading: false,
-    winnersLoading: false
+    winnersLoading: false,
 }
 
 export const appReducer = (state = initialState, action) => {

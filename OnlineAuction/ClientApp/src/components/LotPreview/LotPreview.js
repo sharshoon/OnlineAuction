@@ -17,7 +17,7 @@ export default function LotPreview({lot}){
     return (
         <div className={classes.lotPreviewClasses}>
             <div className='lot-preview__image-wrapper'>
-                <img className='lot-preview__image' src={lot.imagePath}/>
+                <img className='lot-preview__image' src={lot.imagePath} alt="lot"/>
             </div>
             <div className={classes.lotPreviewInfo}>
                 <NavLink className={classes.lotNameClasses} to={`/lots/${lot.id}`}  tag={Link}>{lot.name}</NavLink>

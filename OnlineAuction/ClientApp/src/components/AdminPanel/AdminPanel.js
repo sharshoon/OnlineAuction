@@ -1,20 +1,22 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import classNames from "classnames";
-import {fetchLots, updateLot} from "../../redux/actions";
+import {fetchLots} from "../../redux/actions";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import AdminLotPreview from "../AdminLotPreview/AdminLotPreview";
-import {activateLotCommand, activateLotMessage, lotHubPath} from "../LotConstants";
+import {lotHubPath} from "../LotConstants";
 import * as signalR from "@microsoft/signalr";
 import ResultTextBlock from "../ResultTextBlock/ResultTextBlock";
+import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 
 export default function AdminPanel(){
     const dispatch = useDispatch();
+    const lots = useSelector(state => state.lotsInfo.lots);
+    const loading = useSelector(state => state.app.lotLoading);
     const [operationResult, setResult] = useState({
         message: "",
         successed: true
     });
-    const lots = useSelector(state => state.lotsInfo.lots);
     const lotsWrapperClasses = classNames("main", "main__admin-lot-preview-wrapper", "container-border");
     useEffect(() => {
         dispatch(fetchLots());
@@ -33,8 +35,11 @@ export default function AdminPanel(){
         });
     }, [])
 
-    if(!lots.length){
+    if(loading){
         return <LoadingPage/>
+    }
+    if(!lots.length){
+        return <CustomMessagePage message={"There are no lots on the server"}/>
     }
     return (
         <div className={lotsWrapperClasses}>

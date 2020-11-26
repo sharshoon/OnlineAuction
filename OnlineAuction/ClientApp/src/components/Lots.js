@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchLots} from "../redux/actions";
 import classNames from "classnames"
 import LoadingPage from "./LoadingPage/LoadingPage";
+import CustomMessagePage from "./CustomMessagePage/CustomMessagePage";
 
 export default function Lots(){
     const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export default function Lots(){
         return <LoadingPage/>
     }
     if(!lots.length){
-        return "There are no lots on the server"
+        return <CustomMessagePage message={"There are no lots on the server"}/>
     }
     return (
         <div className={lotsWrapperClasses}>

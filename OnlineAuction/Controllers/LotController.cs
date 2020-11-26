@@ -133,7 +133,7 @@ namespace OnlineAuction.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Lot>> DeleteLotAsync(int id)
         {
-            var result = await this._repository.TryDeleteLotAsync(id);
+            var result = await this._repository.TryDeleteLotAsync(id, DefaultImage);
             if (result)
             {
                 return Ok("Lot was successfully deleted");

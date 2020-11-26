@@ -20,7 +20,7 @@ export default function AdminLotPreview({lot, connection, setOperationResult}){
         connection.invoke(startLotMethod, "active", id);
     }, [connection]);
 
-    const deleteLotCallback = useCallback((id) => {
+    const deleteLotCallback = useCallback((id, dispatch) => {
         try{
             dispatch(deleteLot(id));
             setOperationResult({
@@ -41,7 +41,7 @@ export default function AdminLotPreview({lot, connection, setOperationResult}){
             <NavLink className={classes.lotNameClasses} to={`/lots/${lot.id}`}  tag={Link}>{lot.name}</NavLink>
             <div className="admin-lot-preview__buttons-wrapper">
                 <button className={classes.buttonClasses} disabled={!connection} onClick={() => startLot(lot.id)}>Start Lot</button>
-                <button className={classes.buttonWarningClasses} onClick={() => deleteLotCallback(lot.id)}>Delete lot</button>
+                <button className={classes.buttonWarningClasses} onClick={() => deleteLotCallback(lot.id, dispatch)}>Delete lot</button>
                 <div>
                     <Link className={classes.buttonClasses} to={`/lots/${lot.id}`} tag={Link}>
                         Go to the lot page

@@ -3,8 +3,8 @@ import {
     DELETE_LOT,
     FETCH_LOT,
     FETCH_LOTS,
-    HIDE_LOT_LOADER,
-    SHOW_LOT_LOADER,
+    HIDE_LOT_LOADER, HIDE_WINNERS_LOADER,
+    SHOW_LOT_LOADER, SHOW_WINNERS_LOADER,
     UPDATE_LOT,
     UPDATE_LOT_ACTIVITY,
     UPDATE_LOT_PRICE
@@ -85,5 +85,17 @@ export function showLoader() {
 export function hideLoader() {
     return {
         type: HIDE_LOT_LOADER
+    }
+}
+
+export function showWinnersLoader() {
+    return {
+        type: SHOW_WINNERS_LOADER
+    }
+}
+
+export function hideWinnersLoader() {
+    return {
+        type: HIDE_WINNERS_LOADER
     }
 }

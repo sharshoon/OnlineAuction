@@ -1,19 +1,18 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import classNames from "classnames"
 import {
     activateLotCommand,
     activateLotMessage,
     decreaseTimeCommand,
     lotHubPath,
-    startLotMethod, stopCommand
+    stopCommand
 } from "../LotConstants";
 import {closeLot, updateLot, updateLotActivity} from "../../redux/actions";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import * as signalR from "@microsoft/signalr";
 
 const minuteSeconds = 60;
 const hourSeconds = 3600;
-const daySeconds = 86400;
 
 const renderTime = (dimension, time, timerItemClasses) => {
     return (
@@ -43,7 +42,7 @@ const openHubConnection = function(dispatch, lot){
     return hubConnection;
 }
 
-export default function Timer({id, lot}) {
+export default function Timer({lot}) {
     const [remainSeconds, setSeconds] = useState(0);
     const hubConnection = useRef(null);
     const isMountedRef = useRef(null);

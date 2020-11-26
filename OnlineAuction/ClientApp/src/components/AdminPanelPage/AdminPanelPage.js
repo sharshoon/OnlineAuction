@@ -3,6 +3,7 @@ import authService from "../api-authorization/AuthorizeService";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import AdminPanel from "../AdminPanel/AdminPanel";
 import {UserRoles} from "../api-authorization/ApiAuthorizationConstants";
+import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 
 export default function AdminPanelPage(){
     let [admin, setAdmin] = useState(null);
@@ -15,7 +16,7 @@ export default function AdminPanelPage(){
     useEffect(() => {
         authService.subscribe(() => CheckAdminRights());
         CheckAdminRights();
-    }, [])
+    }, [CheckAdminRights])
 
 
     if(admin){
@@ -26,7 +27,7 @@ export default function AdminPanelPage(){
         )
     }
     if(admin === false){
-        return ("You dont have access to this component!")
+        return <CustomMessagePage message={"You dont have access to this component!"}/>
     }
     else{
         return <LoadingPage/>;

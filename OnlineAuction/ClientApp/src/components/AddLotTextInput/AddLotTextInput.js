@@ -1,5 +1,5 @@
 import FormErrors from "../FormErrors/FormErrors";
-import React, {useCallback, useMemo, useRef, useState} from "react";
+import React, {useCallback, useMemo} from "react";
 import classNames from "classnames";
 
 export default function AddLotTextInput({labelText, type, checkingFunctions, state, setState}){
@@ -24,7 +24,7 @@ export default function AddLotTextInput({labelText, type, checkingFunctions, sta
             value : event.target.value,
             errors: errors
         });
-    }, [setState])
+    }, [checkingFunctions, setState])
 
     return(
         <div className={classes.formClasses}>
