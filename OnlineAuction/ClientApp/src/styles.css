@@ -340,10 +340,15 @@ label {
 .form-item__buttons-wrapper {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .form-item__button {
   width: 30%;
   padding: 0.5rem 0;
+  text-align: center;
+}
+.form-item__error-wrapper {
+  width: 100%;
   text-align: center;
 }
 .form-item__error {

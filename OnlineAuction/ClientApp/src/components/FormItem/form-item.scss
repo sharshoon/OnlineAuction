@@ -27,11 +27,17 @@
     &__buttons-wrapper{
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
     }
 
     &__button{
         width: 30%;
         padding: .5rem 0;
+        text-align: center;
+    }
+
+    &__error-wrapper{
+        width: 100%;
         text-align: center;
     }
 

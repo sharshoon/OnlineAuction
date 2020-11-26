@@ -59,7 +59,7 @@ export default function Winners(){
                             <th className="table__item">{winner.lotName}</th>
                             <th className="table__item">{winner.userId}</th>
                             <th className="table__item">{winner.ownerName}</th>
-                            <th className="table__item">{winner.priceUSd}</th>
+                            <th className="table__item">{winner.priceUsd} USD</th>
                         </tr>
                     )
                 })}

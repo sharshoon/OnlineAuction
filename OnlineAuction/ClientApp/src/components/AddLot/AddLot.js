@@ -5,6 +5,13 @@ import classNames from "classnames"
 import FormErrors from "../FormErrors/FormErrors";
 import AddLotTextInput from "../AddLotTextInput/AddLotTextInput";
 import ResultTextBlock from "../ResultTextBlock/ResultTextBlock";
+import checkImageSize from "./checkImageSize";
+import {
+    descriptionCheckingFunctions,
+    durationCheckingFunctions,
+    minPriceCheckingFunctions,
+    nameCheckingFunctions
+} from "./inputCheckingFunctions";
 
 export default function AddLot(){
     const [file, setFile] = useState({
@@ -30,8 +37,18 @@ export default function AddLot(){
         value: 0,
         errors: []
     });
+    const [fileErrors, setFileErrors] = useState([]);
+
     const fileSelectedHandler = event => {
-        setFile(event.target.files[0]);
+        checkImageSize(event.target.files[0], (result) => {
+            if(result){
+                setFile(event.target.files[0]);
+                setFileErrors([]);
+            }
+            else{
+                setFileErrors(["Image size is invalid!"]);
+            }
+        });
     }
 
     const uploadData = useCallback(async (lotName, lotDescription, lotMinPrice, lotDuration) => {
@@ -55,7 +72,6 @@ export default function AddLot(){
                 },
                 body: formData
             });
-            console.log(response);
             if(response.ok){
                 setAddingResult({
                     successed: true,
@@ -64,7 +80,7 @@ export default function AddLot(){
             }else{
                 setAddingResult({
                     successed: false,
-                    message: "Lot wasn't added",
+                    message: "Lot wasn't added. Check your image for validity",
                 });
             }
         }
@@ -96,62 +112,14 @@ export default function AddLot(){
         }
     }, []);
 
-    const descriptionCheckingFunctions = useMemo(() => {
-        const descriptionMinLength = 20;
-        const functions = [];
-        functions.push((value) => {
-            if(value.length <= descriptionMinLength){
-                return `Description length can't be shorter then ${descriptionMinLength}`;
+    const checkParametersValidity = useCallback((fields) => {
+        for(let field of fields){
+            if (field.length || (field.errors && field.errors.length)){
+                return true;
             }
-        });
-
-        return functions;
-    }, []);
-
-    const nameCheckingFunctions = useMemo(() => {
-        const functions = [];
-
-        functions.push((value) => {
-            if(!value){
-                return "Name can't be empty!";
-            }
-        });
-
-        return functions;
-    }, []);
-
-    const minPriceCheckingFunctions = useMemo(() => {
-        const functions = [];
-        functions.push((value) => {
-            if(isNaN(+value) || value < 0){
-                return "Invalid price!";
-            }
-        });
-
-        return functions;
-    }, []);
-
-    const durationCheckingFunctions = useMemo(() => {
-        const maxDuration = 86400;
-        const functions = [];
-        functions.push((value) => {
-            if(isNaN(+value)){
-                return "Invalid duration!";
-            }
-        });
-        functions.push((value) => {
-            if(+value < 0){
-                return "Duration is too small"
-            }
-        });
-        functions.push((value) => {
-            if(+value > maxDuration){
-                return "Duration is too big!";
-            }
-        });
-
-        return functions;
-    }, []);
+        }
+        return false;
+    }, [])
 
     return (
         <div className={classes.mainClasses}>
@@ -163,12 +131,19 @@ export default function AddLot(){
                 <AddLotTextInput labelText={"Minimum price USD:"} type={"number"} checkingFunctions={minPriceCheckingFunctions} state={lotMinPrice} setState={setMinPrice}/>
                 <AddLotTextInput labelText={"Duration, sec:"} type={"number"} checkingFunctions={durationCheckingFunctions} state={lotDuration} setState={setDuration}/>
                 <div className={classes.buttonWrapperClasses}>
+                    <div className={"form-item__error-wrapper"}>
+                        <FormErrors errors={fileErrors}/>
+                    </div>
                     <label className={classes.buttonClasses} htmlFor="choose-file-input">{file.name || "Choose File..."}</label>
-                    <FormErrors/>
                     <input className="form-item__file-choose" type="file" onChange={fileSelectedHandler} id="choose-file-input"/>
                 </div>
                 <div className={classes.buttonWrapperClasses}>
-                    <button type="submit" className={classes.buttonClasses}>Upload</button>
+                    <button disabled={checkParametersValidity([lotName, lotDescription, lotMinPrice, lotDuration, fileErrors])}
+                            type="submit"
+                            className={classes.buttonClasses}
+                    >
+                        Upload
+                    </button>
                 </div>
             </form>
         </div>
