@@ -8,44 +8,69 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Online Auction</title>
-    <link rel="stylesheet" href="~/Identity/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Identity/css/site.css" />
+    <link rel="stylesheet" href="~/css/styles.css" />
+    @*<link rel="stylesheet" href="~/Identity/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/Identity/css/site.css" />*@
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-light navbar-toggleable-sm bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" href="~/">Online Auction</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    @{
-                        var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
-                    }
-                    @if (result.Success)
-                    {
-                        await Html.RenderPartialAsync("_LoginPartial");
-                        await Html.RenderPartialAsync("_AdminLinkPartial");
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("The default Identity UI layout requires a partial view '_LoginPartial' " +
-                            "usually located at '/Pages/_LoginPartial' or at '/Views/Shared/_LoginPartial' to work. Based on your configuration " +
-                            $"we have looked at it in the following locations: {System.Environment.NewLine}{string.Join(System.Environment.NewLine, result.SearchedLocations)}.");
-                    }
+<div class="casing casing__body">
+        <header>
+            <div class="casing__header header container-border">
+                <div class="header__logo">
+                    <h1 class="header__title">
+                        <a class="title logo" href="/">Online Auction</a>
+                    </h1>
+                    <div class="header__logo-description">
+                        The biggest online auction platform in solar system!
+                    </div>
                 </div>
+                <ul class="header__buttons-wrapper">
+                    <li>
+                        <a class="header__button" href="/">Home</a>
+                    </li>
+                    <li>
+                        <a class="header__button" href="/winners">Winners</a>
+                    </li>
+                    @{
+                        await Html.RenderPartialAsync("_LoginPartial");
+                    }
+                </ul>
             </div>
-        </nav>
-    </header>
-
-    <div class="container">
-        <main role="main" class="pb-3">
+        </header>
+        <main role="main">
             @RenderBody()
         </main>
+        <footer class="casing__footer footer container-border">
+            <div class="footer__card">
+                <div class="footer__card-name title">copyrights</div>
+                <div class="footer__card-info">@@2020. Online Auction. All rights reserved</div>
+            </div>
+            <div class="footer__card">
+                <div class="footer__card-name title">connect me</div>
+                <ul class="footer__sn-wrapper">
+                    <li class="footer__sn">
+                        <a class="footer__sn-link" href="mailto:Mickita.Sharshun@itechart-group.com">
+                            <img class="footer__sn-icon" src="https://localhost:44390/api/images/icons/outlook-icon.png" alt="outlook"/>
+                            <span class="footer__card-info">Outlook</span>
+                        </a>
+                    </li>
+                    <li class="footer__sn">
+                        <a class="footer__sn-link" href="https://github.com/sharshoon">
+                            <img class="footer__sn-icon" src="https://localhost:44390/api/images/icons/github-icon.png" alt="github"/>
+                            <span class="footer__card-info">GitHub</span>
+                        </a>
+                    </li>
+                    <li class="footer__sn">
+                        <a class="footer__sn-link" href="https://join.skype.com/invite/b4dT1glZDPZ4">
+                            <img class="footer__sn-icon" src="https://localhost:44390/api/images/icons/skype-icon.png" alt="skype"/>
+                            <span class="footer__card-info">Skype</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
     </div>
-<script src="~/Identity/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/Identity/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/Identity/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Identity/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)

@@ -17,7 +17,7 @@ export default function Footer(){
                 <div className={classes.cardNameClasses}>copyrights</div>
                 <div className="footer__card-info">@2020. Online Auction. All rights reserved</div>
             </div>
-            <div className="footer__card footer__card--remove-bottom-indent">
+            <div className="footer__card">
                 <div className={classes.cardNameClasses}>connect me</div>
                 <ul className="footer__sn-wrapper">
                     <li className="footer__sn">

@@ -21,15 +21,15 @@ export default class App extends Component {
         const containerClasses = classNames("casing", "casing__body");
         return (
             <div className={containerClasses}>
-                    <Layout className='container'>
-                        <Route exact path='/' component={Home} />
-                        <Route exact path='/timer' component={Timer} />
-                        <Route path='/lots/:id?' component={LotsPlug}/>
-                        <Route path='/winners' component={Winners}/>
-                        <AuthorizeRoute path='/new-lot' component={AddLotPage}/>
-                        <AuthorizeRoute path='/admin-panel' component={AdminPanelPage}/>
-                        <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
-                    </Layout>
+                <Layout className='container'>
+                    <Route exact path='/' component={Home} />
+                    <Route exact path='/timer' component={Timer} />
+                    <Route path='/lots/:id?' component={LotsPlug}/>
+                    <Route path='/winners' component={Winners}/>
+                    <AuthorizeRoute path='/new-lot' component={AddLotPage}/>
+                    <AuthorizeRoute path='/admin-panel' component={AdminPanelPage}/>
+                    <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
+                </Layout>
             </div>
         );
     }

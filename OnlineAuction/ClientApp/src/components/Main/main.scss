@@ -91,4 +91,9 @@
         color: $title-color;
         font-size: 1.3rem;
     }
+
+    &__form-item{
+        width: 50%;
+        margin: 0 auto 1rem auto;
+    }
 }
