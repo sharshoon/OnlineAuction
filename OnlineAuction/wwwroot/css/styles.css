@@ -140,6 +140,9 @@ label {
   height: 3.5rem;
   padding: 0 1.1rem;
   text-transform: uppercase;
+  background-color: inherit;
+  font-size: inherit;
+  font-family: inherit;
 }
 .header__button:focus {
   background-color: #f2d400;
@@ -228,6 +231,12 @@ label {
   width: 50%;
   margin: 0 auto 1rem auto;
 }
+.main__profile {
+  display: flex;
+}
+.main__profile-title {
+  margin-top: 0;
+}
 
 .lot-info__item {
   padding: 0.5rem 0;
@@ -285,6 +294,9 @@ label {
 .lot-preview__info {
   width: 50%;
   margin-left: 1rem;
+  display: flex;
+  align-content: space-between;
+  flex-wrap: wrap;
 }
 .lot-preview__name {
   text-align: center;
@@ -294,13 +306,12 @@ label {
 }
 .lot-preview__description {
   margin-top: 0.5rem;
-  overflow-wrap: break-word;
+  word-break: break-all;
 }
 .lot-preview__button {
   display: block;
   font-size: 1.2rem;
   padding: 1rem;
-  margin-top: 3rem;
   text-align: center;
 }
 .lot-preview__button-wrapper {
@@ -450,4 +461,25 @@ label {
   background-color: #f2d400;
   border-radius: 1.5rem;
   margin-right: 0.2rem;
+}
+
+.profile__menu {
+  width: 30%;
+  padding-right: 3rem;
+  border-right: 0.07 solid #ccc;
+}
+.profile__menu-item {
+  color: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 100%;
+  border-radius: 0.3rem;
+}
+.profile__menu-item--active {
+  background-color: #f2d400;
+}
+.profile__content {
+  width: 70%;
 }

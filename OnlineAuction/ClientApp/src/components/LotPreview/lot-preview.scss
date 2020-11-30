@@ -13,6 +13,9 @@
     &__info{
         width: 50%;
         margin-left: 1rem;
+        display: flex;
+        align-content: space-between;
+        flex-wrap: wrap;
     }
 
     &__name{
@@ -24,14 +27,13 @@
 
     &__description{
         margin-top: .5rem;
-        overflow-wrap: break-word;
+        word-break: break-all;
     }
 
     &__button{
         display: block;
         font-size: 1.2rem;
         padding: 1rem;
-        margin-top: 3rem;
         text-align: center;
     }
 

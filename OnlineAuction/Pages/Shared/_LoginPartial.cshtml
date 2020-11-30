@@ -27,7 +27,9 @@
         <a class="header__button" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
     </li>
     <li>
-        <a class='header__button' href="/authentication/logout">Logout</a>
+        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
+            <button type="submit"class="header__button">Logout</button>
+        </form>
     </li>
 }
 else

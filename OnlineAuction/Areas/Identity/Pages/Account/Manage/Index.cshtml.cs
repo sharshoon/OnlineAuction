@@ -24,6 +24,7 @@ namespace OnlineAuction.Areas.Identity.Pages.Account.Manage
         }
 
         public string Username { get; set; }
+        public string Id { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -36,18 +37,29 @@ namespace OnlineAuction.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            [Display(Name = "First Name")]
+            [StringLength(20, MinimumLength = 2, ErrorMessage = "Wrong first name length")]
+            public string FirstName { get; set; }
+            [Display(Name = "Last Name")]
+            [StringLength(20, MinimumLength = 2, ErrorMessage = "Wrong last name length")]
+            public string LastName { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
 
             Username = userName;
+            Id = user.Id;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = firstName,
+                LastName = lastName
             };
         }
 
@@ -84,6 +96,18 @@ namespace OnlineAuction.Areas.Identity.Pages.Account.Manage
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";
+                    return RedirectToPage();
+                }
+            }
+
+            if (user.FirstName != Input.FirstName || user.LastName != Input.LastName)
+            {
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    StatusMessage = "Name input error!";
                     return RedirectToPage();
                 }
             }
