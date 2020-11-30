@@ -1,0 +1,24 @@
+.profile{
+    &__menu{
+        width: 30%;
+        padding-right: 3rem;
+        border-right: 0.07 solid $border-color;
+        
+        &-item{
+            color: $title-color;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 3rem;
+            width: 100%;
+            border-radius: .3rem;
+            &--active{
+                background-color: $yellow-background-color;
+            }
+        }
+    }
+
+    &__content{
+        width: 70%;
+    }
+}

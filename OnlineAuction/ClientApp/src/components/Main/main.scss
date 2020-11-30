@@ -96,4 +96,11 @@
         width: 50%;
         margin: 0 auto 1rem auto;
     }
+
+    &__profile{
+        display: flex;
+        &-title{
+            margin-top: 0;
+        }
+    }
 }

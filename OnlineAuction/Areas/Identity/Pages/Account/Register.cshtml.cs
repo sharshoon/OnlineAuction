@@ -50,7 +50,15 @@ namespace OnlineAuction.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
-
+            [Display(Name = "First Name (optional)")]
+            [StringLength(20, MinimumLength = 2, ErrorMessage = "Wrong first name length")]
+            public string FirstName { get; set; }
+            [Display(Name = "Last Name (optional)")]
+            [StringLength(20, MinimumLength = 2, ErrorMessage = "Wrong last name length")]
+            public string LastName { get; set; }
+            [Phone]
+            [Display(Name = "Phone number (optional)")]
+            public string PhoneNumber { get; set; }
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
@@ -75,7 +83,16 @@ namespace OnlineAuction.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, EmailConfirmed = true, LockoutEnabled = false};
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email, 
+                    Email = Input.Email, 
+                    FirstName = Input.FirstName, 
+                    LastName = Input.LastName,
+                    PhoneNumber = Input.PhoneNumber,
+                    EmailConfirmed = true, 
+                    LockoutEnabled = false
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

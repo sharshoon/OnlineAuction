@@ -20,8 +20,10 @@ export default function LotPreview({lot}){
                 <img className='lot-preview__image' src={lot.imagePath} alt="lot"/>
             </div>
             <div className={classes.lotPreviewInfo}>
-                <NavLink className={classes.lotNameClasses} to={`/lots/${lot.id}`}  tag={Link}>{lot.name}</NavLink>
-                <div className='lot-preview__description'>{lot.description}</div>
+                <div>
+                    <NavLink className={classes.lotNameClasses} to={`/lots/${lot.id}`}  tag={Link}>{lot.name}</NavLink>
+                    <div className='lot-preview__description'>{lot.description}</div>
+                </div>
                 <div>
                     <Link className={buttonClasses} to={`/lots/${lot.id}`} tag={Link}>
                             Go to the lot page
