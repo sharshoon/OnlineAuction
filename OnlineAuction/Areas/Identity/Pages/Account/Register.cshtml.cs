@@ -58,6 +58,7 @@ namespace OnlineAuction.Areas.Identity.Pages.Account
             public string LastName { get; set; }
             [Phone]
             [Display(Name = "Phone number (optional)")]
+            [RegularExpression(@"^[+]*[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{5,10}$")]
             public string PhoneNumber { get; set; }
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]

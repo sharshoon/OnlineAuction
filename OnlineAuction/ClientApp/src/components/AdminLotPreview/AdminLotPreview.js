@@ -16,8 +16,20 @@ export default function AdminLotPreview({lot, connection, setOperationResult}){
         }
     }, []);
 
-    const startLot = useCallback((id) => {
-        connection.invoke(startLotMethod, "active", id);
+    const startLot = useCallback((lot) => {
+        if(!lot.isSold){
+            connection.invoke(startLotMethod, "active", lot.id);
+            setOperationResult({
+                message: "Lot started successfully!",
+                successed: true
+            })
+        }
+        else{
+            setOperationResult({
+                message: "The lot has already been sold!",
+                successed: false
+            })
+        }
     }, [connection]);
 
     const deleteLotCallback = useCallback((id, dispatch) => {
@@ -40,7 +52,7 @@ export default function AdminLotPreview({lot, connection, setOperationResult}){
         <div className={classes.lotPreviewClasses}>
             <NavLink className={classes.lotNameClasses} to={`/lots/${lot.id}`}  tag={Link}>{lot.name}</NavLink>
             <div className="admin-lot-preview__buttons-wrapper">
-                <button className={classes.buttonClasses} disabled={!connection} onClick={() => startLot(lot.id)}>Start Lot</button>
+                <button className={classes.buttonClasses} disabled={!connection} onClick={() => startLot(lot)}>Start Lot</button>
                 <button className={classes.buttonWarningClasses} onClick={() => deleteLotCallback(lot.id, dispatch)}>Delete lot</button>
                 <div>
                     <Link className={classes.buttonClasses} to={`/lots/${lot.id}`} tag={Link}>

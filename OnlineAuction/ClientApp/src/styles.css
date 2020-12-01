@@ -23,6 +23,7 @@ button:focus,
 input {
   border: 0;
   outline: none;
+  cursor: pointer;
 }
 
 label {

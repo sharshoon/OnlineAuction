@@ -29,7 +29,7 @@ namespace OnlineAuction.Hubs
         public async Task StartLot(string message, int lotId)
         {
             var lotResponse = _repository.GetLotResponse(lotId);
-            if (lotResponse != null && !_runningLots.Lots.ContainsKey(lotResponse.Id))
+            if (lotResponse != null && !lotResponse.IsSold && !_runningLots.Lots.ContainsKey(lotResponse.Id))
             {
                 if (_runningLots.Lots.TryAdd(lotResponse.Id, lotResponse))
                 {
