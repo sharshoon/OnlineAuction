@@ -26,12 +26,12 @@
                     <li>
                         <a class="header__button" href="/">Home</a>
                     </li>
-                    <li>
-                        <a class="header__button" href="/winners">Winners</a>
-                    </li>
                     @{
                         await Html.RenderPartialAsync("_LoginPartial");
                     }
+                    <li>
+                        <a class="header__button" href="/winners">Winners</a>
+                    </li>
                 </ul>
             </div>
         </header>

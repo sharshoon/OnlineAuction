@@ -7,34 +7,34 @@
 
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <form id="profile-form" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="main__form-item form-item">
-            <label asp-for="Id" class="form-item__label"></label>
-            <input asp-for="Id" class="form-item__input container-border" disabled />
-        </div>
-        <div class="main__form-item form-item">
-            <label asp-for="Username" class="form-item__label"></label>
-            <input asp-for="Username" class="form-item__input container-border" disabled />
-        </div>
-        <div class="main__form-item form-item">
-            <label asp-for="Input.FirstName" class="form-item__label"></label>
-            <span asp-validation-for="Input.FirstName" class="form-item__error"></span>
-            <input asp-for="Input.FirstName" class="form-item__input container-border" />
-        </div>
-        <div class="main__form-item form-item">
-            <label asp-for="Input.LastName" class="form-item__label"></label>
-            <span asp-validation-for="Input.LastName" class="form-item__error"></span>
-            <input asp-for="Input.LastName" class="form-item__input container-border" />
-        </div>
-        <div class="main__form-item form-item">
-            <label asp-for="Input.PhoneNumber" class="form-item__label"></label>
-            <span asp-validation-for="Input.PhoneNumber" class="form-item__error"></span>
-            <input asp-for="Input.PhoneNumber" class="form-item__input container-border" />
-        </div>
-        <div class="main__form-item form-item form-item__buttons-wrapper">
-            <button id="update-profile-button" type="submit" class="button form-item__button">Save</button>
-        </div>
-    </form>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="main__form-item form-item">
+        <label asp-for="Id" class="form-item__label"></label>
+        <input asp-for="Id" class="form-item__input container-border" disabled />
+    </div>
+    <div class="main__form-item form-item">
+        <label asp-for="Username" class="form-item__label"></label>
+        <input asp-for="Username" class="form-item__input container-border" disabled />
+    </div>
+    <div class="main__form-item form-item">
+        <label asp-for="Input.FirstName" class="form-item__label"></label>
+        <span asp-validation-for="Input.FirstName" class="form-item__error"></span>
+        <input asp-for="Input.FirstName" class="form-item__input container-border" />
+    </div>
+    <div class="main__form-item form-item">
+        <label asp-for="Input.LastName" class="form-item__label"></label>
+        <span asp-validation-for="Input.LastName" class="form-item__error"></span>
+        <input asp-for="Input.LastName" class="form-item__input container-border" />
+    </div>
+    <div class="main__form-item form-item">
+        <label asp-for="Input.PhoneNumber" class="form-item__label"></label>
+        <span asp-validation-for="Input.PhoneNumber" class="form-item__error"></span>
+        <input asp-for="Input.PhoneNumber" class="form-item__input container-border" />
+    </div>
+    <div class="main__form-item form-item form-item__buttons-wrapper">
+        <button id="update-profile-button" type="submit" class="button form-item__button">Save</button>
+    </div>
+</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
