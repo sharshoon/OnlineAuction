@@ -37,7 +37,7 @@ export default function AdminLotPreview({lot, connection, setOperationResult}){
             dispatch(deleteLot(id));
             setOperationResult({
                 message: "Lot was successfully deleted",
-                successed: false
+                successed: true
             })
         }
         catch(e){

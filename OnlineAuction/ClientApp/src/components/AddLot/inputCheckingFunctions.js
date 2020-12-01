@@ -42,7 +42,7 @@ export const durationCheckingFunctions = () => {
         }
     });
     functions.push((value) => {
-        if(+value < 0){
+        if(+value < 10){
             return "Duration is too small"
         }
     });

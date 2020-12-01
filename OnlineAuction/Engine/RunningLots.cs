@@ -9,7 +9,6 @@ namespace OnlineAuction.Engine
 {
     public class RunningLots
     {
-        public readonly ConcurrentDictionary<int, LotResponse> Lots = new ConcurrentDictionary<int, LotResponse>();
-        public ApplicationUser Leader { get; set; }
+        public readonly ConcurrentDictionary<int, RunningLot> Lots = new ConcurrentDictionary<int, RunningLot>();
     }
 }

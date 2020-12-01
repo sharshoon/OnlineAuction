@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.Models
 {
-    public class LotResponse : Lot
+    public class LotTimer
     {
-        public string OwnerName { get; set; }
-        public bool IsActive { get; set; } = false;
+        public int SecondsLeft { get; set; }
     }
 }

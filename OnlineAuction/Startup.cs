@@ -121,8 +121,7 @@ namespace OnlineAuction
         private void OnShutdown()
         {
             var manager = (SignInManager<ApplicationUser>)this.app.ApplicationServices.GetService(typeof(SignInManager<ApplicationUser>));
-            manager.SignOutAsync();
+            manager.SignOutAsync().Wait();
         }
-
     }
 }

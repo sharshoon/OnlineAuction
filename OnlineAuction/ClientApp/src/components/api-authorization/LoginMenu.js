@@ -15,6 +15,7 @@ export class LoginMenu extends Component {
     }
 
     componentDidMount() {
+        this.populateState();
         this._subscription = authService.subscribe(() => this.populateState());
         this.populateState();
     }
@@ -25,6 +26,7 @@ export class LoginMenu extends Component {
 
     async populateState() {
         const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+        console.log(isAuthenticated, user);
         this.setState({
             isAuthenticated,
             userName: user && user.name

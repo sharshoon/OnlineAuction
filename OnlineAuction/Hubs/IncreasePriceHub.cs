@@ -31,26 +31,33 @@ namespace OnlineAuction.Hubs
             if (emailClaim != null)
             {
                 var user = await _userManagementService.GetUserByEmailAsync(emailClaim.Value);
-                if (_runningLots.Lots.TryGetValue(lotId, out var lot))
+                if (_runningLots.Lots.TryGetValue(lotId, out var runningLot))
                 {
+                    var updatedLot = (RunningLot)runningLot.Clone();
                     message.LotId = lotId;
-                    if (lot.PriceUsd == price || lot.MinPriceUsd == price)
+                    if (updatedLot.ActualPrice == price || updatedLot.Lot.MinPriceUsd == price)
                     {
-                        if (lot.PriceUsd == 0)
+                        if (updatedLot.ActualPrice == 0)
                         {
-                            lot.PriceUsd = lot.MinPriceUsd;
+                            updatedLot.ActualPrice = updatedLot.Lot.MinPriceUsd;
                         }
-                        lot.PriceUsd += price * percentage / 100;
+                        updatedLot.ActualPrice += price * percentage / 100;
+                        updatedLot.Leader = user;
                         message.Successed = true;
                         message.Message = "Price has been successfully updated";
-                        _runningLots.Leader = user;
                     }
                     else
                     {
                         message.Successed = false;
                         message.Message = "Lot price is out of date, please try again";
                     }
-                    message.PriceUsd = lot.PriceUsd;
+
+                    message.PriceUsd = updatedLot.ActualPrice;
+                    if (!_runningLots.Lots.TryUpdate(lotId, updatedLot, runningLot))
+                    {
+                        message.Successed = false;
+                        message.Message = "Information is out of date please try again";
+                    }
                 }
                 else
                 {
