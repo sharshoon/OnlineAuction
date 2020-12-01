@@ -1,0 +1,27 @@
+﻿@page
+@using OnlineAuction.Controllers
+@model OnlineAuction.Areas.Identity.Pages.Account.Manage.WinningLotsModel
+@{
+    ViewData["ActivePage"] = ManageNavPages.WinningLots;
+}
+
+@if (Model.Winners.Count != 0)
+{
+    @foreach (var winner in Model.Winners)
+    {
+        <details>
+            <summary>@winner.LotName</summary>
+            <p>Congratulations! You won a @winner.LotName lot</p>
+            <p>Lot price: @winner.PriceUsd USD</p>
+            <p>Your order will arrive at your place very soon!</p>
+        </details>
+    }
+}
+else
+{
+    <p class="main__custom-message-page">You have no lots won</p>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
