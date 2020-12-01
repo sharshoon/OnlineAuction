@@ -65,6 +65,7 @@ namespace OnlineAuction
             services.AddScoped<IUserManagementService, UserManagementService>();
             services.AddScoped<IAuctionRepository, AuctionRepository>();
             services.AddSingleton<RunningLots>();
+            services.AddSingleton<IEmailService, EmailService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSpaStaticFiles(configuration =>

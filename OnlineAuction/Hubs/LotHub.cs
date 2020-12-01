@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -19,10 +20,12 @@ namespace OnlineAuction.Hubs
     {
         private readonly IAuctionRepository _repository;
         private readonly RunningLots _runningLots;
-        public LotHub(IAuctionRepository repository, RunningLots lots)
+        private readonly IEmailService _emailService;
+        public LotHub(IAuctionRepository repository, RunningLots lots, IEmailService emailService)
         {
             this._repository = repository;
             _runningLots = lots;
+            _emailService = emailService;
         }
 
         public async Task StartLot(string message, int lotId)
@@ -68,9 +71,12 @@ namespace OnlineAuction.Hubs
                             PriceUsd = removeResult.ActualPrice
                         };
                         await _repository.AddWinnerAsync(winner);
-                        
+
                         removeResult.Lot.IsSold = true;
                         await _repository.UpdateLotAsync(removeResult.Lot);
+
+                        await _emailService.SendEmailToWinnerAsync(removeResult.Leader?.Email,
+                            removeResult.Leader?.FullName, removeResult.Lot, removeResult.ActualPrice);
                     }
                 }
             }
