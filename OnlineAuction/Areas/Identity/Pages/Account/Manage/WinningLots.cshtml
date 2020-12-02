@@ -9,11 +9,13 @@
 {
     @foreach (var winner in Model.Winners)
     {
-        <details>
-            <summary>@winner.LotName</summary>
-            <p>Congratulations! You won a @winner.LotName lot</p>
-            <p>Lot price: @winner.PriceUsd USD</p>
-            <p>Your order will arrive at your place very soon!</p>
+        <details class="winner-details container-border">
+            <summary class="winner-details__title">@winner.LotName</summary>
+            <div class="winner-details__content">
+                <p class="winner-details__content-item">Congratulations! You won a @winner.LotName lot</p>
+                <p class="winner-details__content-item">Lot price: @winner.PriceUsd USD</p>
+                <p class="winner-details__content-item">Your order will arrive at your place very soon!</p>
+            </div>
         </details>
     }
 }

@@ -76,6 +76,7 @@ label {
   font-weight: bold;
   font-size: 1rem;
   background-color: #f2d400;
+  cursor: pointer;
 }
 .button--success {
   background-color: #54eb4c;
@@ -483,4 +484,59 @@ label {
 }
 .profile__content {
   width: 70%;
+}
+
+.winner-details {
+  font-size: 1rem;
+  margin: 1rem auto;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  background: #f3f3f3;
+  border-radius: 0.3rem;
+  position: relative;
+}
+.winner-details__title {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  outline: none;
+  font-size: 1.1rem;
+  color: #444;
+  padding: 0 1rem;
+  height: 2.5rem;
+}
+.winner-details__title::after {
+  content: "^";
+  position: absolute;
+  height: 1rem;
+  right: 1.2rem;
+  opacity: 0.5;
+  font-size: 1.5rem;
+}
+.winner-details__title:hover .winner-details__title::after {
+  opacity: 1;
+}
+.winner-details__title::-webkit-details-marker {
+  display: none;
+}
+.winner-details__content {
+  border-top: 0.07rem solid #ccc;
+  cursor: default;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+.winner-details__content:focus {
+  outline: none;
+}
+.winner-details__content-item {
+  margin: 0.5rem 0;
+}
+.winner-details:hover {
+  cursor: pointer;
+}
+.winner-details:hover .winner-details__title::after {
+  opacity: 1;
+}
+.winner-details[open] .winner-details__title::after {
+  transform: rotate(180deg);
 }

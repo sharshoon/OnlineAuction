@@ -1,0 +1,37 @@
+.winner-details {
+  font-size: 1rem;
+  margin: 1.5rem auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  position: relative;
+}
+.winner-details__title {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  outline: none;
+  font-size: 1.1rem;
+}
+.winner-details__title::after {
+  content: "^";
+  position: absolute;
+  top: 0.75em;
+  right: 1rem;
+  opacity: 0.5;
+}
+.winner-details__title::-webkit-details-marker {
+  display: none;
+}
+.winner-details__content {
+  border-top: 1px solid #e2e8f0;
+  cursor: default;
+  padding: 1rem;
+}
+.winner-details__content:focus {
+  outline: none;
+}
+.winner-details:hover {
+  cursor: pointer;
+}
