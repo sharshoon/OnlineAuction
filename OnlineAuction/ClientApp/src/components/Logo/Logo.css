@@ -1,0 +1,9 @@
+.logo {
+  font-size: 1.87rem;
+  padding: 0;
+}
+@media (min-width: 280px) and (max-width: 415px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+}

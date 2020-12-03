@@ -4,12 +4,21 @@
 
     &__logo{
         margin-left: 1rem;
+
+        @media(min-width:280px) and (max-width: 1024px){
+            margin: 1.5rem 0rem 1.5rem 1rem;
+            max-width: 70%;
+        }   
     }
     
     &__logo-description{
         color: $description-color;
         font-size: 0.8rem;
         text-transform: uppercase;
+
+        @media (min-width: 280px) and (max-width: 415px) {
+            font-size: 0.6rem;
+        }
     }
 
     &__title{
@@ -20,6 +29,19 @@
     &__buttons-wrapper{
         display: flex;
         margin-right: 2.3rem;
+
+        @media(min-width:280px) and (max-width: 1024px){
+            display: none;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        &--open{
+            @media(min-width:280px) and (max-width: 1024px){
+                display: block;
+            }
+        }
     }
 
     &__button{
@@ -38,5 +60,30 @@
         &:focus{
             background-color: $yellow-background-color;
         }
+
+        @media(min-width:280px) and (max-width: 1024px){
+            display: block;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 1rem 2rem;
+            border-top: .0625rem solid $description-color;
+            border-radius: 0;
+        }
+    }
+
+    &__menu-button{
+        &--hidden{
+            display: none;
+        }
+
+        @media(min-width:280px) and (max-width: 1024px){
+            display: block;
+            margin-right: 1.875rem;
+        }
+    }
+
+    @media(min-width:280px) and (max-width: 1024px){
+        height: auto;
     }
 }

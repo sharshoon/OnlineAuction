@@ -15,14 +15,14 @@ export class NavMenu extends Component {
 
     constructor (props) {
         super(props);
-        this.titleClasses = classNames("title", "logo");
-        this.headerClasses = classNames("casing__header", "header", "container-border");
-        this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,
             isAdmin : false,
             role : "none"
         };
+        this.titleClasses = classNames("title", "logo");
+        this.headerClasses = classNames("casing__header", "header", "container-border");
+        this.toggleNavbar = this.toggleNavbar.bind(this);
     }
 
     toggleNavbar () {
@@ -43,7 +43,10 @@ export class NavMenu extends Component {
         })
     }
 
+
+
     render () {
+        this.buttonsWrapperClasses = classNames("header__buttons-wrapper", {"header__buttons-wrapper--open" : !this.state.collapsed});
         return (
             <header>
                 <Navbar>
@@ -56,8 +59,12 @@ export class NavMenu extends Component {
                                 The biggest online auction platform in solar system!
                             </div>
                         </div>
-                        <Collapse isOpen={!this.state.collapsed} navbar>
-                            <ul className='header__buttons-wrapper'>
+                            <a className="header__menu-button header__menu-button--hidden" onClick={() => this.toggleNavbar()}>
+                                <div className="menu-icon-bar"/>
+                                <div className="menu-icon-bar"/>
+                                <div className="menu-icon-bar"/>
+                            </a>
+                            <ul className={this.buttonsWrapperClasses}>
                                 <NavItem>
                                     <NavLink className='header__button' tag={Link} to="/">Home</NavLink>
                                 </NavItem>
@@ -79,7 +86,6 @@ export class NavMenu extends Component {
                                 <LoginMenu>
                                 </LoginMenu>
                             </ul>
-                        </Collapse>
                     </Container>
                 </Navbar>
             </header>
