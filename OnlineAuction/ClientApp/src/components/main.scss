@@ -3,6 +3,10 @@
     padding: 2rem 1rem;
     display: flex;
 
+    @media(max-width: 768px){
+        flex-wrap: wrap;
+    } 
+
     &__body{
         margin-top: 1.5rem;
     }
@@ -14,6 +18,8 @@
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
+        float: right;
+        width: 58%;
 
         &::after{
             content: "";
@@ -25,15 +31,37 @@
             bottom: 0;
             left: 0;
         }
+
+        @media(max-width: 768px){
+            width: 100%;
+        } 
+    }
+
+    &__lot-info{
+        width: 58%;
+        float: right;
+
+        @media(max-width: 768px){
+            width: 100%;
+            text-align: center;
+        } 
     }
 
     &__image{
         max-width: 40%;
+        float: left;
+
+        @media(max-width: 768px){
+            max-width: 100%;
+            float: unset;
+            margin-right: auto;
+            margin-left: auto;
+            display: block;
+        } 
     }
 
     &__lot-info-wrapper{
-        width: 60%;
-        margin-left: 3rem;
+        width: 100%;
     }
 
     &__timer{
@@ -50,6 +78,10 @@
     &__lot-preview{
         margin-bottom: 1rem;
         display: flex;
+        @media(max-width: 768px){
+            flex-wrap: wrap;
+            justify-content: center;
+        } 
     }
 
     &__lot-preview-wrapper{

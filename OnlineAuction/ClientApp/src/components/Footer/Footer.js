@@ -7,7 +7,7 @@ export default function Footer(){
         return {
             footerClasses : classNames("casing__footer", "footer", "container-border"),
             cardNameClasses : classNames("footer__card-name", "title"),
-            snInfoClasses : classNames("footer__card-info, footer__sn-info")
+            snInfoClasses : classNames("footer__card-info", "footer__sn-info")
         }
     }, [])
 

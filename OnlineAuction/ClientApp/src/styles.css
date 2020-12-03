@@ -181,7 +181,6 @@ label {
 @media (min-width: 280px) and (max-width: 1024px) {
   .header__button {
     display: block;
-    width: 100%;
     height: 100%;
     margin: 0;
     padding: 1rem 2rem;
@@ -219,6 +218,11 @@ label {
   padding: 2rem 1rem;
   display: flex;
 }
+@media (max-width: 768px) {
+  .main {
+    flex-wrap: wrap;
+  }
+}
 .main__body {
   margin-top: 1.5rem;
 }
@@ -229,6 +233,8 @@ label {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  float: right;
+  width: 58%;
 }
 .main__title::after {
   content: "";
@@ -240,12 +246,36 @@ label {
   bottom: 0;
   left: 0;
 }
+@media (max-width: 768px) {
+  .main__title {
+    width: 100%;
+  }
+}
+.main__lot-info {
+  width: 58%;
+  float: right;
+}
+@media (max-width: 768px) {
+  .main__lot-info {
+    width: 100%;
+    text-align: center;
+  }
+}
 .main__image {
   max-width: 40%;
+  float: left;
+}
+@media (max-width: 768px) {
+  .main__image {
+    max-width: 100%;
+    float: unset;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+  }
 }
 .main__lot-info-wrapper {
-  width: 60%;
-  margin-left: 3rem;
+  width: 100%;
 }
 .main__timer {
   display: flex;
@@ -259,6 +289,12 @@ label {
 .main__lot-preview {
   margin-bottom: 1rem;
   display: flex;
+}
+@media (max-width: 768px) {
+  .main__lot-preview {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 .main__lot-preview-wrapper {
   display: flex;
@@ -351,11 +387,21 @@ label {
   width: 43%;
   padding: 1.5rem;
 }
+@media (max-width: 768px) {
+  .lot-preview {
+    width: 90%;
+  }
+}
 .lot-preview__image {
   width: 100%;
 }
 .lot-preview__image-wrapper {
   max-width: 50%;
+}
+@media (max-width: 768px) {
+  .lot-preview__image-wrapper {
+    max-width: 75%;
+  }
 }
 .lot-preview__info {
   width: 50%;
@@ -364,11 +410,40 @@ label {
   align-content: space-between;
   flex-wrap: wrap;
 }
+@media (max-width: 768px) {
+  .lot-preview__info {
+    width: 100%;
+    justify-content: center;
+  }
+}
+.lot-preview__info-text-wrapper {
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .lot-preview__info-text-wrapper {
+    width: 100%;
+    text-align: center;
+  }
+}
+.lot-preview__info-button-wrapper {
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .lot-preview__info-button-wrapper {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
 .lot-preview__name {
   text-align: center;
   font-size: 1.5rem;
   margin-top: auto;
   margin-bottom: auto;
+}
+@media (max-width: 768px) {
+  .lot-preview__name {
+    font-size: 1.8rem;
+  }
 }
 .lot-preview__description {
   margin-top: 0.5rem;
@@ -379,6 +454,11 @@ label {
   font-size: 1.2rem;
   padding: 1rem;
   text-align: center;
+}
+@media (max-width: 768px) {
+  .lot-preview__button {
+    font-size: 1.6rem;
+  }
 }
 .lot-preview__button-wrapper {
   width: 100%;
@@ -500,7 +580,7 @@ label {
 .footer__card {
   width: 40%;
   text-align: center;
-  margin: 0 0.5rem;
+  margin: 0.5rem 0;
 }
 .footer__card-name {
   font-size: 1.25rem;
