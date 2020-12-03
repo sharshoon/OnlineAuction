@@ -500,6 +500,7 @@ label {
 .footer__card {
   width: 40%;
   text-align: center;
+  margin: 0 0.5rem;
 }
 .footer__card-name {
   font-size: 1.25rem;
@@ -510,13 +511,30 @@ label {
   font-family: "Source Sans Pro", sans-serif;
   color: #a5a5a5;
 }
+@media (min-width: 280px) and (max-width: 768px) {
+  .footer__sn-info {
+    display: none;
+  }
+}
 .footer__sn-wrapper {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin: 0 0 1rem 0;
+  padding: 0;
+}
+@media (min-width: 280px) and (max-width: 768px) {
+  .footer__sn-wrapper {
+    padding: 0;
+  }
 }
 .footer__sn {
   margin: 0 1rem;
+}
+@media (min-width: 280px) and (max-width: 768px) {
+  .footer__sn {
+    margin: 0 0.5rem;
+  }
 }
 .footer__sn-link {
   display: flex;

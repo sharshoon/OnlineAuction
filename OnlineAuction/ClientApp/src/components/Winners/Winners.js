@@ -37,8 +37,6 @@ export default function Winners(){
         return <CustomMessagePage message={"No information about the lot winners!"}/>
     }
 
-    console.log(winners);
-
     return (
         <div className={classes.mainClasses}>
             <table className={classes.tableClasses}>

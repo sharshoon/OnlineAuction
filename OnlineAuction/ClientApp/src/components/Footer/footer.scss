@@ -5,6 +5,7 @@
     &__card{
         width: 40%;
         text-align: center;
+        margin: .5rem 0;
     }
 
     &__card-name{
@@ -15,17 +16,33 @@
     &__card-info{
         font-size: .875rem;
         font-family: 'Source Sans Pro', sans-serif;
-        color: $description-color;
+        color: $description-color; 
+    }
+
+    &__sn-info{
+        @media(min-width:280px) and (max-width: 768px){
+            display: none;
+        } 
     }
 
     &__sn-wrapper{
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         margin: 0 0 1rem 0;
+        padding: 0;
+
+        @media(min-width:280px) and (max-width: 768px){
+            padding: 0;
+        }  
     }
 
     &__sn{
         margin: 0 1rem;
+
+        @media(min-width:280px) and (max-width: 768px){
+            margin: 0 .5rem;
+        } 
     }
 
     &__sn-link{

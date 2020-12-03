@@ -6,7 +6,8 @@ export default function Footer(){
     const classes = useMemo(() => {
         return {
             footerClasses : classNames("casing__footer", "footer", "container-border"),
-            cardNameClasses : classNames("footer__card-name", "title")
+            cardNameClasses : classNames("footer__card-name", "title"),
+            snInfoClasses : classNames("footer__card-info, footer__sn-info")
         }
     }, [])
 
@@ -23,19 +24,19 @@ export default function Footer(){
                     <li className="footer__sn">
                         <a className="footer__sn-link" href="mailto:Mickita.Sharshun@itechart-group.com">
                             <img className="footer__sn-icon" src={`${iconsPath}/outlook-icon.png`} alt="outlook"/>
-                            <span className="footer__card-info">Outlook</span>
+                            <span className={classes.snInfoClasses}>Outlook</span>
                         </a>
                     </li>
                     <li className="footer__sn">
                         <a className="footer__sn-link" href="https://github.com/sharshoon">
                             <img className="footer__sn-icon" src={`${iconsPath}/github-icon.png`} alt="github"/>
-                            <span className="footer__card-info">GitHub</span>
+                            <span className={classes.snInfoClasses}>GitHub</span>
                         </a>
                     </li>
                     <li className="footer__sn">
                         <a className="footer__sn-link" href="https://join.skype.com/invite/b4dT1glZDPZ4">
                             <img className="footer__sn-icon" src={`${iconsPath}/skype-icon.png`} alt="skype"/>
-                            <span className="footer__card-info">Skype</span>
+                            <span className={classes.snInfoClasses}>Skype</span>
                         </a>
                     </li>
                 </ul>
