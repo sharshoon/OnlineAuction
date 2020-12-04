@@ -21,4 +21,10 @@
         width: 30%;
         padding: 1rem 0;
     }
+
+    &__error{
+        margin: 0;
+        text-align: center;
+        color: red;
+    }
 }

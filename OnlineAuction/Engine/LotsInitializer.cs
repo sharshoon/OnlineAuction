@@ -15,7 +15,7 @@ namespace OnlineAuction.Engine
         {
             var repository = services.GetRequiredService<IAuctionRepository>();
             var webPath = services.GetRequiredService<IConfiguration>().GetConnectionString("ServerUrl");
-            var imageName = "default-image.jpg";
+            const string imageName = "default-image.jpg";
             if (!repository.Lots.Any())
             {
                 var defaultLot = new Lot()

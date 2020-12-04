@@ -20,7 +20,9 @@ namespace OnlineAuction.Engine
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             if (context == null)
+            {
                 return;
+            }
 
             var claims = context.Subject.Claims
                 .Where(claim => claim.Type == JwtClaimTypes.Email || claim.Type == JwtClaimTypes.Role).ToList();

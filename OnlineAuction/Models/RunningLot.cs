@@ -11,13 +11,13 @@ namespace OnlineAuction.Models
     {
         public LotResponse Lot { get; set; }
 
-        private int _actualPrice;
+        private Price _actualPrice = new Price();
         public int ActualPrice
         {
-            get => _actualPrice;
+            get => _actualPrice.ActualPrice;
             set
             {
-                _actualPrice = value; 
+                _actualPrice.ActualPrice = value; 
                 this.LotTimer.SecondsLeft += 60;
             }
         }

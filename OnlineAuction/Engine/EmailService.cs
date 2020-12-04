@@ -24,7 +24,8 @@ namespace OnlineAuction.Engine
         public async Task SendEmailToWinnerAsync(string email,string name, Lot lot, int price)
         {
             var emailMessage = new MimeMessage();
-            
+
+            // Create an email message
             emailMessage.From.Add(new MailboxAddress("Online Auction", _emailSender));
             emailMessage.To.Add(new MailboxAddress("", "sharshoon321@gmail.com"));
             emailMessage.Subject = "Winner instructions";
@@ -43,6 +44,9 @@ namespace OnlineAuction.Engine
 
             using var client = new SmtpClient();
             await client.ConnectAsync("smtp.gmail.com", 587);
+
+            // In the email account settings, I disabled protection against third-party applications,
+            // so we don't need this field.
             client.AuthenticationMechanisms.Remove("XOAUTH2");
             await client.AuthenticateAsync(_emailSender, _emailSenderPassword);
             await client.SendAsync(emailMessage);

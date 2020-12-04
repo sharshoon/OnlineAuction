@@ -54,6 +54,7 @@ namespace OnlineAuction
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("IsAdmin", policy =>

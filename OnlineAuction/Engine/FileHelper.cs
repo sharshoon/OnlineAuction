@@ -11,6 +11,7 @@ namespace OnlineAuction.Engine
 {
     public static class FileHelper
     {
+        private const int BytesPerMegabyte = 1048576;
         public static async Task<byte[]> ProcessStreamedFile(
             MultipartSection section, ContentDispositionHeaderValue contentDisposition,
             ModelStateDictionary modelState, string[] permittedExtensions, long sizeLimit)
@@ -18,7 +19,6 @@ namespace OnlineAuction.Engine
             try
             {
                 using var memoryStream = new MemoryStream();
-
                 await section.Body.CopyToAsync(memoryStream);
 
                 if (memoryStream.Length == 0)
@@ -27,7 +27,8 @@ namespace OnlineAuction.Engine
                 }
                 else if (memoryStream.Length > sizeLimit)
                 {
-                    var megabyteSizeLimit = sizeLimit / 1048576;
+                    // For a more understandable error, it is better to convert bytes to megabytes
+                    var megabyteSizeLimit = sizeLimit / BytesPerMegabyte;
                     modelState.AddModelError("File", $"The file exceeds {megabyteSizeLimit:N1} MB.");
                 }
                 else if (!IsValidFileExtension(contentDisposition.FileName.Value, memoryStream, permittedExtensions))
@@ -53,15 +54,11 @@ namespace OnlineAuction.Engine
                 return false;
             }
 
+            // Get file extension to check
             var ext = Path.GetExtension(fileName);
             ext = ext.Substring(1, ext.Length - 1).ToLowerInvariant();
 
-            if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
-            {
-                return false;
-            }
-
-            return true;
+            return !string.IsNullOrEmpty(ext) && permittedExtensions.Contains(ext);
         }
     }
 }

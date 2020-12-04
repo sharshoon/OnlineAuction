@@ -7,7 +7,7 @@ import {
     lotHubPath,
     stopCommand
 } from "../LotConstants";
-import {closeLot, updateLot, updateLotActivity} from "../../redux/actions";
+import {closeLot, updateLot, updateLotActivity, updateLotPrice} from "../../redux/actions";
 import {useDispatch} from "react-redux";
 import * as signalR from "@microsoft/signalr";
 
@@ -56,13 +56,17 @@ export default function Timer({lot}) {
         if(lot && !hubConnection.current) {
             hubConnection.current = openHubConnection(dispatch, lot);
 
-            hubConnection.current.on(decreaseTimeCommand, function (seconds) {
-                if(isMountedRef.current){
+            hubConnection.current.on(decreaseTimeCommand, function (seconds, price, id) {
+                if(isMountedRef.current && id === lot.id){
                     if(!isActive.current){
                         isActive.current = true;
                         dispatch(updateLotActivity(lot.id, true));
                     }
                     setSeconds(seconds);
+
+                    if(lot.priceUsd !== price){
+                        dispatch(updateLotPrice(lot.id, price));
+                    }
                 }
             });
 

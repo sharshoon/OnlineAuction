@@ -10,8 +10,6 @@ namespace OnlineAuction.Engine
 {
     public interface IUserManagementService
     {
-        Task<IdentityRole> GetRoleByNameAsync(string name);
-        Task<List<ApplicationUser>> GetAllUsersAsync(string searchString);
         Task<string> GetUserRoleAsync(string userId, bool returnName);
         Task<string> GetUserRoleAsync(string email);
         Task<ApplicationUser> FindUserAsync(string userId);
@@ -19,10 +17,10 @@ namespace OnlineAuction.Engine
         Task<IdentityResult> UpdateUserAsync(ApplicationUser user, string newUserRole, byte[] rowVersion);
         Task<IdentityResult> DeleteUserAsync(string userId);
         Task<IdentityResult> ChangePasswordAsync(ApplicationUser user, string password);
-        Task<bool> IsEmailInUseAsync(string email, string excludeUserID);
-        Task<bool> IsEmailInUseAsync(string email);
+
         Task<ApplicationUser> GetUserAsync(ClaimsPrincipal claimsPrincipal);
         Task<ApplicationUser> GetUserAsync(string userId);
         Task<ApplicationUser> GetUserByEmailAsync(string email);
+        Task<IList<string>> GetRolesAsync(ApplicationUser user);
     }
 }

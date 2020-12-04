@@ -12,6 +12,8 @@ import {
     minPriceCheckingFunctions,
     nameCheckingFunctions
 } from "./inputCheckingFunctions";
+import TryAddLot from "./tryAddLot";
+import {classes} from "./addLotClasses";
 
 export default function AddLot(){
     const [file, setFile] = useState({
@@ -64,25 +66,7 @@ export default function AddLot(){
         formData.append('duration', lotDuration);
 
         try{
-            const response = await fetch(lotControllerPath,{
-                method: 'POST',
-                headers: !token ? {} : {
-                    'Accept': '*/*',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: formData
-            });
-            if(response.ok){
-                setAddingResult({
-                    successed: true,
-                    message: "Lot was successfully added!",
-                });
-            }else{
-                setAddingResult({
-                    successed: false,
-                    message: "Lot wasn't added. Check your image for validity",
-                });
-            }
+            await TryAddLot(token, formData, setAddingResult);
         }
         catch (error){
             setAddingResult({
@@ -102,15 +86,6 @@ export default function AddLot(){
         event.preventDefault();
         uploadData(lotName.value, lotDescription.value, lotMinPrice.value, lotDuration.value);
     }
-
-    const classes = useMemo(() => {
-        return {
-            mainClasses : classNames("main", "container", "container-border", "add-lot"),
-            titleClasses : classNames("title", "title--center"),
-            buttonClasses : classNames("button", "form-item__button"),
-            buttonWrapperClasses : classNames("add-lot__item", "form-item", "form-item__buttons-wrapper")
-        }
-    }, []);
 
     const checkParametersValidity = useCallback((fields) => {
         for(let field of fields){

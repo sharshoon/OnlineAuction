@@ -9,6 +9,7 @@ namespace OnlineAuction.Engine
 {
     public static class MultipartRequestHelper
     {
+        // Gets the guid separator of the content in the request body
         public static string GetBoundary(MediaTypeHeaderValue contentType, int lengthLimit)
         {
             var boundary = HeaderUtilities.RemoveQuotes(contentType.Boundary).Value;

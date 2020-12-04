@@ -45,6 +45,8 @@ namespace OnlineAuction.Engine
 
             var imagePath = $"{_imageDir}\\{lot.ImagePath.Split("/")[^1]}";
             this._context.Lots.Remove(lot);
+
+            // After the lot is removed from the database, we also need to delete the picture associated with it
             if (File.Exists(imagePath) && imagePath != $"{_imageDir}\\{defaultImageName}")
             {
                 File.Delete(imagePath);

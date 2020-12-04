@@ -24,12 +24,6 @@ namespace OnlineAuction.Engine
 			_roleManager = roleManager;
 		}
 
-		public async Task<IdentityRole> GetRoleByNameAsync(string name)
-		{
-			return await _context.Roles.AsNoTracking().Where(role => role.Name == name)
-				.FirstOrDefaultAsync();
-		}
-
         public async Task<List<ApplicationUser>> GetAllUsersAsync(string searchString)
 		{
 			var users = _userManager.Users.AsNoTracking();
@@ -51,9 +45,11 @@ namespace OnlineAuction.Engine
 			{
 				var identityRole = await _context.Roles.AsNoTracking().Where(role => role.Name == rolePair.Name)
 					.FirstOrDefaultAsync();
-				if (identityRole != null && roles.Contains(identityRole.Name))
-					return returnName ? rolePair.Name : rolePair.Description;
-			}
+                if (identityRole != null && roles.Contains(identityRole.Name))
+                {
+                    return returnName ? rolePair.Name : rolePair.Description;
+                }
+            }
 			return "";
 		}
 		public async Task<string> GetUserRoleAsync(string email)
@@ -61,12 +57,14 @@ namespace OnlineAuction.Engine
 			var user = await _context.Users.AsNoTracking().Where(u => u.Email == email).FirstOrDefaultAsync();
 			var roles = await _userManager.GetRolesAsync(user);
 
-			foreach (RoleHelpers.RolePair rolePair in RoleHelpers.Roles)
+			foreach (var rolePair in RoleHelpers.Roles)
 			{
 				var identityRole = await _context.Roles.AsNoTracking().Where(role => role.Name == rolePair.Name).FirstOrDefaultAsync();
-				if (roles.Contains(identityRole.Name))
-					return rolePair.Name;
-			}
+                if (roles.Contains(identityRole.Name))
+                {
+                    return rolePair.Name;
+                }
+            }
 			return "";
 		}
 		public async Task<ApplicationUser> FindUserAsync(string userId)
@@ -119,16 +117,7 @@ namespace OnlineAuction.Engine
 
 			return result;
 		}
-		public async Task<bool> IsEmailInUseAsync(string email, string excludeUserID)
-		{
-			var user = await _userManager.FindByEmailAsync(email);
-
-			return user != null && user.Id != excludeUserID;
-		}
-		public async Task<bool> IsEmailInUseAsync(string email)
-		{
-			return await IsEmailInUseAsync(email, null);
-		}
+		
 		public async Task<ApplicationUser> GetUserAsync(ClaimsPrincipal claimsPrincipal)
 		{
             return await _userManager.GetUserAsync(claimsPrincipal);
@@ -141,6 +130,11 @@ namespace OnlineAuction.Engine
         public async Task<ApplicationUser> GetUserByEmailAsync(string email)
         {
             return await _userManager.FindByEmailAsync(email);
+        }
+
+        public async Task<IList<string>> GetRolesAsync(ApplicationUser user)
+        {
+            return await _userManager.GetRolesAsync(user);
         }
 	}
 }

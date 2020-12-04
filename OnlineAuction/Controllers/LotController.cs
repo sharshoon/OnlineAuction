@@ -56,12 +56,15 @@ namespace OnlineAuction.Controllers
         [HttpPost]
         public async Task<ActionResult<Lot>> AddLotAsync()
         {
+            // if content is not multipart/form-data
             if (!MultipartRequestHelper.IsMultipartContentType(Request.ContentType))
             {
                 return BadRequest();
             }
 
             var lot = new Lot();
+
+            // get bondary which separates sections in the request body
             var boundary = MultipartRequestHelper.GetBoundary(MediaTypeHeaderValue.Parse(Request.ContentType), new FormOptions().MultipartBoundaryLengthLimit);
             var reader = new MultipartReader(boundary, HttpContext.Request.Body);
             var section = await reader.ReadNextSectionAsync();
@@ -74,6 +77,8 @@ namespace OnlineAuction.Controllers
                 {
                     if (contentDisposition.IsFileDisposition())
                     {
+                        // For each file, you need to come up with a name under which it will be stored,
+                        // so that there is no error loading files with the same names
                         var fileName = Path.GetRandomFileName() + contentDisposition.FileName.Value;
                         var streamedFileContent = await FileHelper.ProcessStreamedFile(section, contentDisposition, ModelState, _permittedExtensions, FileSizeLimit);
 
@@ -93,17 +98,14 @@ namespace OnlineAuction.Controllers
                         {
                             lot.Name = content;
                         }
-
                         if (contentDisposition.Name == "description")
                         {
                             lot.Description = content;
                         }
-
                         if (contentDisposition.Name == "minPrice" && int.TryParse(content, out var minPrice))
                         {
                             lot.MinPriceUsd = minPrice;
                         }
-
                         if (contentDisposition.Name == "duration" && int.TryParse(content, out var duration))
                         {
                             lot.ActionTimeSec = duration;
@@ -114,6 +116,7 @@ namespace OnlineAuction.Controllers
                 section = await reader.ReadNextSectionAsync();
             }
 
+            // If the user has not added pictures to the lot, then set the default picture
             if (string.IsNullOrEmpty(lot.ImagePath?.Trim()))
             {
                 lot.ImagePath = $"{_imagesPath}/{DefaultImage}";

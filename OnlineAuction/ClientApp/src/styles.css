@@ -381,6 +381,11 @@ html {
   width: 30%;
   padding: 1rem 0;
 }
+.lot-info__error {
+  margin: 0;
+  text-align: center;
+  color: red;
+}
 
 .timer {
   text-align: center;

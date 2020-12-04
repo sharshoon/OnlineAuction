@@ -40,19 +40,19 @@ namespace OnlineAuction.Hubs
                     ActualPrice = lotResponse.MinPriceUsd
                 };
 
+                // Adding a lot to running lots
                 if (_runningLots.Lots.TryAdd(lotResponse.Id, runningLot))
                 {
+                    // Notify subscribers that the lot has begun
                     await this.Clients.All.SendAsync("ActivateLot", message, lotId);
-
-                    var startTime = DateTime.Now;
-                    var endTime = startTime.AddSeconds(lotResponse.ActionTimeSec);
 
                     await Task.Factory.StartNew(() =>
                     {
-                        runningLot.LotTimer.SecondsLeft = (int)Math.Round((endTime - startTime).TotalSeconds);
+                        runningLot.LotTimer.SecondsLeft = lotResponse.ActionTimeSec;
+                        // Notify subscribers every second that the timer has changed
                         while (runningLot.LotTimer.SecondsLeft >= 0)
                         {
-                            this.Clients.All.SendAsync("DecreaseTime", runningLot.LotTimer.SecondsLeft);
+                            this.Clients.All.SendAsync("DecreaseTime", runningLot.LotTimer.SecondsLeft, runningLot.ActualPrice, runningLot.Lot.Id);
                             runningLot.LotTimer.SecondsLeft -= 1;
                             Thread.Sleep(1000);
                         }
@@ -62,6 +62,7 @@ namespace OnlineAuction.Hubs
 
                     if (_runningLots.Lots.TryRemove(lotResponse.Id, out var removeResult))
                     {
+                        // Preparing an entry in the table about the auction winners
                         var winner = new Winner
                         {
                             Id = removeResult.Lot.Id,
