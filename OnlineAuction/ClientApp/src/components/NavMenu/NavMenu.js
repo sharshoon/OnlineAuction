@@ -8,21 +8,20 @@ import './NavMenu.css';
 import '../../styles.css';
 import authService from "../api-authorization/AuthorizeService";
 import {UserRoles} from "../api-authorization/ApiAuthorizationConstants";
-import '../../styles.css';
 
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
 
     constructor (props) {
         super(props);
-        this.titleClasses = classNames("title", "logo");
-        this.headerClasses = classNames("casing__header", "header", "container-border");
-        this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,
             isAdmin : false,
             role : "none"
         };
+        this.titleClasses = classNames("title", "logo");
+        this.headerClasses = classNames("casing__header", "header", "container-border");
+        this.toggleNavbar = this.toggleNavbar.bind(this);
     }
 
     toggleNavbar () {
@@ -43,7 +42,10 @@ export class NavMenu extends Component {
         })
     }
 
+
+
     render () {
+        this.buttonsWrapperClasses = classNames("header__buttons-wrapper", {"header__buttons-wrapper--open" : !this.state.collapsed});
         return (
             <header>
                 <Navbar>
@@ -56,30 +58,33 @@ export class NavMenu extends Component {
                                 The biggest online auction platform in solar system!
                             </div>
                         </div>
-                        <Collapse isOpen={!this.state.collapsed} navbar>
-                            <ul className='header__buttons-wrapper'>
-                                <NavItem>
-                                    <NavLink className='header__button' tag={Link} to="/">Home</NavLink>
-                                </NavItem>
-                                {
-                                    this.state.isAdmin &&
-                                        <NavItem>
-                                            <NavLink className='header__button' tag={Link} to="/new-lot">New Lot</NavLink>
-                                        </NavItem>
-                                }
-                                {
-                                    this.state.isAdmin &&
-                                        <NavItem>
-                                            <NavLink className='header__button' tag={Link} to="/admin-panel">Admin Panel</NavLink>
-                                        </NavItem>
-                                }
-                                <NavItem>
-                                    <NavLink className='header__button' tag={Link} to="/winners">Winners</NavLink>
-                                </NavItem>
-                                <LoginMenu>
-                                </LoginMenu>
-                            </ul>
-                        </Collapse>
+                        <a className="header__menu-button header__menu-button--hidden" onClick={() => this.toggleNavbar()}>
+                            <div className="menu-icon-bar"/>
+                            <div className="menu-icon-bar"/>
+                            <div className="menu-icon-bar"/>
+                        </a>
+                        <ul className={this.buttonsWrapperClasses}>
+                            <NavItem>
+                                <NavLink className='header__button' tag={Link} to="/">Home</NavLink>
+                            </NavItem>
+                            {
+                                this.state.isAdmin &&
+                                    <NavItem>
+                                        <NavLink className='header__button' tag={Link} to="/new-lot">New Lot</NavLink>
+                                    </NavItem>
+                            }
+                            {
+                                this.state.isAdmin &&
+                                    <NavItem>
+                                        <NavLink className='header__button' tag={Link} to="/admin-panel">Admin Panel</NavLink>
+                                    </NavItem>
+                            }
+                            <NavItem>
+                                <NavLink className='header__button' tag={Link} to="/winners">Winners</NavLink>
+                            </NavItem>
+                            <LoginMenu>
+                            </LoginMenu>
+                        </ul>
                     </Container>
                 </Navbar>
             </header>

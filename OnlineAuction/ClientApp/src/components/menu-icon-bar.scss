@@ -1,0 +1,10 @@
+.menu-icon-bar{
+    background-color: $title-color;
+    border-radius: 0.1rem;
+    width: 2rem;
+    height: 0.2rem;
+
+    & + &{
+        margin-top: 0.33rem;
+    }
+}

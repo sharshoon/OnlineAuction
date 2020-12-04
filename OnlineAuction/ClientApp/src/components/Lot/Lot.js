@@ -34,12 +34,12 @@ export default function Lot({id}){
 
     return (
         <div className='main container-border'>
-            <img className='main__image' src={lot.imagePath} alt="lot"/>
             <div className='main__lot-info-wrapper'>
-                    <div className={classes.titleClasses}>
-                        {lot.name}
-                        {lot.isSold && <div className="main__sold-lot-message">Lot is sold!</div>}
-                    </div>
+                <div className={classes.titleClasses}>
+                    {lot.name}
+                    {lot.isSold && <div className="main__sold-lot-message">Lot is sold!</div>}
+                </div>
+                <img className='main__image' src={lot.imagePath} alt="lot"/>
                 <div className={classes.lotInfoClasses}>
                     <div className='lot-info__item'><span className="lot-info__name">Description: </span><span>{lot.description}</span></div>
                     <div className='lot-info__item'><span className="lot-info__name">Price: </span><span>{lot.priceUsd || lot.minPriceUsd} USD</span></div>

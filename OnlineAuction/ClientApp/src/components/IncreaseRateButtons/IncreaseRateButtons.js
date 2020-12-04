@@ -31,7 +31,7 @@ export default function IncreaseRateButtons({id}){
             });
         }
         catch(e){
-            alert(e.message);
+            console.log(e);
         }
     }, [dispatch])
 
