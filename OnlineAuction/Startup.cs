@@ -26,7 +26,6 @@ namespace OnlineAuction
         }
 
         public IConfiguration Configuration { get; }
-        private IApplicationBuilder app;
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -77,8 +76,6 @@ namespace OnlineAuction
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
-            applicationLifetime.ApplicationStopping.Register(OnShutdown);
-            this.app = app;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -118,12 +115,6 @@ namespace OnlineAuction
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
-        }
-
-        private void OnShutdown()
-        {
-            var manager = (SignInManager<ApplicationUser>)this.app.ApplicationServices.GetService(typeof(SignInManager<ApplicationUser>));
-            manager.SignOutAsync().Wait();
         }
     }
 }
