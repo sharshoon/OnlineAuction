@@ -71,6 +71,14 @@
         }
     }
 
+    &__post-button{
+        width: 100%;
+        @media(min-width:280px) and (max-width: 1024px){
+            width: 100%;
+            text-align: left;
+        }
+    }
+
     &__menu-button{
         &--hidden{
             display: none;

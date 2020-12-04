@@ -3,6 +3,10 @@
     font-family:'Source Sans Pro', sans-serif;
     margin:0;
     width:100%;
+
+    @media(max-width: 768px){
+        font-size: .9rem;
+    } 
     
     &__header{
         font-weight: bold;

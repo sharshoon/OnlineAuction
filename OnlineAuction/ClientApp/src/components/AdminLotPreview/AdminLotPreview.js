@@ -54,7 +54,7 @@ export default function AdminLotPreview({lot, connection, setOperationResult}){
             <div className="admin-lot-preview__buttons-wrapper">
                 <button className={classes.buttonClasses} disabled={!connection} onClick={() => startLot(lot)}>Start Lot</button>
                 <button className={classes.buttonWarningClasses} onClick={() => deleteLotCallback(lot.id, dispatch)}>Delete lot</button>
-                <div>
+                <div className="admin-lot-preview__link-wrapper">
                     <Link className={classes.buttonClasses} to={`/lots/${lot.id}`} tag={Link}>
                         Go to the lot page
                     </Link>

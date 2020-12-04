@@ -8,7 +8,6 @@ import './NavMenu.css';
 import '../../styles.css';
 import authService from "../api-authorization/AuthorizeService";
 import {UserRoles} from "../api-authorization/ApiAuthorizationConstants";
-import '../../styles.css';
 
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
@@ -59,33 +58,33 @@ export class NavMenu extends Component {
                                 The biggest online auction platform in solar system!
                             </div>
                         </div>
-                            <a className="header__menu-button header__menu-button--hidden" onClick={() => this.toggleNavbar()}>
-                                <div className="menu-icon-bar"/>
-                                <div className="menu-icon-bar"/>
-                                <div className="menu-icon-bar"/>
-                            </a>
-                            <ul className={this.buttonsWrapperClasses}>
-                                <NavItem>
-                                    <NavLink className='header__button' tag={Link} to="/">Home</NavLink>
-                                </NavItem>
-                                {
-                                    this.state.isAdmin &&
-                                        <NavItem>
-                                            <NavLink className='header__button' tag={Link} to="/new-lot">New Lot</NavLink>
-                                        </NavItem>
-                                }
-                                {
-                                    this.state.isAdmin &&
-                                        <NavItem>
-                                            <NavLink className='header__button' tag={Link} to="/admin-panel">Admin Panel</NavLink>
-                                        </NavItem>
-                                }
-                                <NavItem>
-                                    <NavLink className='header__button' tag={Link} to="/winners">Winners</NavLink>
-                                </NavItem>
-                                <LoginMenu>
-                                </LoginMenu>
-                            </ul>
+                        <a className="header__menu-button header__menu-button--hidden" onClick={() => this.toggleNavbar()}>
+                            <div className="menu-icon-bar"/>
+                            <div className="menu-icon-bar"/>
+                            <div className="menu-icon-bar"/>
+                        </a>
+                        <ul className={this.buttonsWrapperClasses}>
+                            <NavItem>
+                                <NavLink className='header__button' tag={Link} to="/">Home</NavLink>
+                            </NavItem>
+                            {
+                                this.state.isAdmin &&
+                                    <NavItem>
+                                        <NavLink className='header__button' tag={Link} to="/new-lot">New Lot</NavLink>
+                                    </NavItem>
+                            }
+                            {
+                                this.state.isAdmin &&
+                                    <NavItem>
+                                        <NavLink className='header__button' tag={Link} to="/admin-panel">Admin Panel</NavLink>
+                                    </NavItem>
+                            }
+                            <NavItem>
+                                <NavLink className='header__button' tag={Link} to="/winners">Winners</NavLink>
+                            </NavItem>
+                            <LoginMenu>
+                            </LoginMenu>
+                        </ul>
                     </Container>
                 </Navbar>
             </header>

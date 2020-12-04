@@ -5,6 +5,10 @@
         margin: 0 2rem;
         width: 70%;
         margin: auto;
+
+        @media(max-width: 768px){
+            width: 90%;
+        } 
     }
 
     &__item{

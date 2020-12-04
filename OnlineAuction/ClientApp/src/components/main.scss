@@ -134,5 +134,9 @@
         &-title{
             margin-top: 0;
         }
+
+        @media(max-width: 768px){
+            flex-wrap: wrap;
+        } 
     }
 }

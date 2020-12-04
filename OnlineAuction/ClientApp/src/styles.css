@@ -30,6 +30,15 @@ label {
   font-size: 1rem;
 }
 
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
 .info {
   font-size: 1.2rem;
   font-family: "Times", "Times New Roman", serif;
@@ -188,6 +197,15 @@ label {
     border-radius: 0;
   }
 }
+.header__post-button {
+  width: 100%;
+}
+@media (min-width: 280px) and (max-width: 1024px) {
+  .header__post-button {
+    width: 100%;
+    text-align: left;
+  }
+}
 .header__menu-button--hidden {
   display: none;
 }
@@ -339,6 +357,11 @@ label {
 .main__profile-title {
   margin-top: 0;
 }
+@media (max-width: 768px) {
+  .main__profile {
+    flex-wrap: wrap;
+  }
+}
 
 .lot-info__item {
   padding: 0.5rem 0;
@@ -443,6 +466,8 @@ label {
 @media (max-width: 768px) {
   .lot-preview__name {
     font-size: 1.8rem;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
 .lot-preview__description {
@@ -471,6 +496,11 @@ label {
   margin: 0 2rem;
   width: 70%;
   margin: auto;
+}
+@media (max-width: 768px) {
+  .add-lot__form {
+    width: 90%;
+  }
 }
 .add-lot__item {
   width: 100%;
@@ -508,6 +538,11 @@ label {
   padding: 0.5rem 0;
   text-align: center;
 }
+@media (max-width: 768px) {
+  .form-item__button {
+    width: 80%;
+  }
+}
 .form-item__error-wrapper {
   width: 100%;
   text-align: center;
@@ -527,12 +562,29 @@ label {
 .admin-lot-preview__buttons-wrapper {
   display: flex;
 }
+@media (max-width: 768px) {
+  .admin-lot-preview__buttons-wrapper {
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+}
 .admin-lot-preview__button {
   display: block;
   font-size: 1.1rem;
   padding: 0.5rem;
   text-align: center;
   margin: 0 1rem;
+}
+@media (max-width: 768px) {
+  .admin-lot-preview__button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+@media (max-width: 768px) {
+  .admin-lot-preview__link-wrapper {
+    width: 80%;
+  }
 }
 
 .result-block {
@@ -554,6 +606,11 @@ label {
   font-family: "Source Sans Pro", sans-serif;
   margin: 0;
   width: 100%;
+}
+@media (max-width: 768px) {
+  .table {
+    font-size: 0.9rem;
+  }
 }
 .table__header {
   font-weight: bold;
@@ -613,7 +670,7 @@ label {
 }
 @media (min-width: 280px) and (max-width: 768px) {
   .footer__sn {
-    margin: 0 0.5rem;
+    margin: 0 0.4rem;
   }
 }
 .footer__sn-link {
@@ -630,7 +687,21 @@ label {
 .profile__menu {
   width: 30%;
   padding-right: 3rem;
-  border-right: 0.07 solid #ccc;
+  border-right: 0.07rem solid #ccc;
+}
+@media (max-width: 768px) {
+  .profile__menu {
+    width: 100%;
+    padding: 0;
+    border-style: none;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+@media (max-width: 768px) {
+  .profile__menu-item-wrapper {
+    width: 30%;
+  }
 }
 .profile__menu-item {
   color: #444;
@@ -646,6 +717,16 @@ label {
 }
 .profile__content {
   width: 70%;
+}
+@media (max-width: 768px) {
+  .profile__content {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+.profile__form-item {
+  width: 90%;
 }
 
 .winner-details {

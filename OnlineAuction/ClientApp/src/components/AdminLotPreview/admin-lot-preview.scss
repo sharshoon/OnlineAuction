@@ -4,6 +4,10 @@
 
     &__buttons-wrapper{
         display: flex;
+        @media (max-width: 768px) {
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
     }
 
     &__button{
@@ -12,5 +16,16 @@
         padding: .5rem;
         text-align: center;
         margin: 0 1rem;
+
+        @media (max-width: 768px) {
+            width: 100%;
+            margin-top: .5rem;
+        }
+    }
+
+    &__link-wrapper{
+        @media (max-width: 768px) {
+            width: 80%;
+        }
     }
 }
