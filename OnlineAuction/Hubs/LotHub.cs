@@ -30,57 +30,63 @@ namespace OnlineAuction.Hubs
 
         public async Task StartLot(string message, int lotId)
         {
-            var lotResponse = _repository.GetLotResponse(lotId);
-            if (lotResponse != null && !lotResponse.IsSold && !_runningLots.Lots.ContainsKey(lotResponse.Id))
+            int? nextLotId = lotId;
+            do
             {
-                var runningLot = new RunningLot
+                var lotResponse = _repository.GetLotResponse((int)nextLotId);
+                if (lotResponse != null && !lotResponse.IsSold && !_runningLots.Lots.ContainsKey(lotResponse.Id))
                 {
-                    LotTimer = new LotTimer(),
-                    Lot = lotResponse,
-                    ActualPrice = lotResponse.MinPriceUsd
-                };
-
-                // Adding a lot to running lots
-                if (_runningLots.Lots.TryAdd(lotResponse.Id, runningLot))
-                {
-                    // Notify subscribers that the lot has begun
-                    await this.Clients.All.SendAsync("ActivateLot", message, lotId);
-
-                    await Task.Factory.StartNew(() =>
+                    var runningLot = new RunningLot
                     {
-                        runningLot.LotTimer.SecondsLeft = lotResponse.ActionTimeSec;
-                        // Notify subscribers every second that the timer has changed
-                        while (runningLot.LotTimer.SecondsLeft >= 0)
+                        LotTimer = new LotTimer(),
+                        Lot = lotResponse,
+                        ActualPrice = lotResponse.MinPriceUsd
+                    };
+
+                    // Adding a lot to running lots
+                    if (_runningLots.Lots.TryAdd(lotResponse.Id, runningLot))
+                    {
+                        // Notify subscribers that the lot has begun
+                        await this.Clients.All.SendAsync("ActivateLot", message, lotId);
+
+                        await Task.Factory.StartNew(() =>
                         {
-                            this.Clients.All.SendAsync("DecreaseTime", runningLot.LotTimer.SecondsLeft, runningLot.ActualPrice, runningLot.Lot.Id);
-                            runningLot.LotTimer.SecondsLeft -= 1;
-                            Thread.Sleep(1000);
+                            runningLot.LotTimer.SecondsLeft = lotResponse.ActionTimeSec;
+                            // Notify subscribers every second that the timer has changed
+                            while (runningLot.LotTimer.SecondsLeft >= 0)
+                            {
+                                this.Clients.All.SendAsync("DecreaseTime", runningLot.LotTimer.SecondsLeft,
+                                    runningLot.ActualPrice, runningLot.Lot.Id);
+                                runningLot.LotTimer.SecondsLeft -= 1;
+                                Thread.Sleep(1000);
+                            }
+                        });
+
+                        await this.Clients.All.SendAsync("Stop");
+
+                        if (_runningLots.Lots.TryRemove(lotResponse.Id, out var removeResult))
+                        {
+                            // Preparing an entry in the table about the auction winners
+                            var winner = new Winner
+                            {
+                                Id = removeResult.Lot.Id,
+                                UserId = removeResult.Leader?.Id ?? "-",
+                                LotName = removeResult.Lot.Name,
+                                PriceUsd = removeResult.ActualPrice
+                            };
+                            await _repository.AddWinnerAsync(winner);
+
+                            removeResult.Lot.IsSold = true;
+                            await _repository.UpdateLotAsync(removeResult.Lot);
+
+                            await _emailService.SendEmailToWinnerAsync(removeResult.Leader?.Email,
+                                removeResult.Leader?.FullName, removeResult.Lot, removeResult.ActualPrice);
                         }
-                    });
-
-                    await this.Clients.All.SendAsync("Stop");
-
-                    if (_runningLots.Lots.TryRemove(lotResponse.Id, out var removeResult))
-                    {
-                        // Preparing an entry in the table about the auction winners
-                        var winner = new Winner
-                        {
-                            Id = removeResult.Lot.Id,
-                            UserId = removeResult.Leader?.Id ?? "-",
-                            LotName = removeResult.Lot.Name,
-                            OwnerName = removeResult.Leader?.FullName ?? "-",
-                            PriceUsd = removeResult.ActualPrice
-                        };
-                        await _repository.AddWinnerAsync(winner);
-
-                        removeResult.Lot.IsSold = true;
-                        await _repository.UpdateLotAsync(removeResult.Lot);
-
-                        await _emailService.SendEmailToWinnerAsync(removeResult.Leader?.Email,
-                            removeResult.Leader?.FullName, removeResult.Lot, removeResult.ActualPrice);
                     }
                 }
-            }
+
+                nextLotId = lotResponse.NextLotId;
+            } while (nextLotId != null);
         }
     }
 }

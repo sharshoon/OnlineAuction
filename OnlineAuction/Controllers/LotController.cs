@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
@@ -137,6 +138,26 @@ namespace OnlineAuction.Controllers
             }
 
             return BadRequest("This lot was not found on the server!");
+        }
+
+        [Authorize(Policy = "IsAdmin")]
+        [HttpPatch]
+        public async Task<ActionResult<Lot>> SetNextLotId()
+        {
+            using var reader = new StreamReader(Request.Body);
+            var body = reader.ReadToEndAsync().Result;
+
+            var patch = JsonConvert.DeserializeObject<NexLotPatch>(body, JsonConverterSettings.ConverterSettings);
+            if (patch != null)
+            {
+                var result = await this._repository.SetNextLotId(patch.LotId, patch.PreviousLotId);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+            }
+
+            return BadRequest();
         }
     }
 }

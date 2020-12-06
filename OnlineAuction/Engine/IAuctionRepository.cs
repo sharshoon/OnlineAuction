@@ -18,5 +18,7 @@ namespace OnlineAuction.Engine
         IQueryable<LotResponse> GetLotResponses();
         LotResponse GetLotResponse(int id);
         Task<Winner> AddWinnerAsync(Winner winner);
+        IQueryable<object> GetWinners();
+        Task<Lot> SetNextLotId(int lotId, int previousLotId);
     }
 }

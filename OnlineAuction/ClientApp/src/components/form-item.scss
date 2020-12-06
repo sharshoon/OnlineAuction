@@ -48,6 +48,10 @@
     &__error{
         margin: 0;
         color: red;
+
+        &--center{
+            text-align: center;
+        }
     }
 
     &__link{

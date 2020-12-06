@@ -366,6 +366,7 @@ html {
 .lot-info__item {
   padding: 0.5rem 0;
   border-bottom: 0.05rem dashed #dfdfdf;
+  word-break: break-all;
 }
 .lot-info__name {
   font-weight: bold;
@@ -462,6 +463,16 @@ html {
     margin-top: 1rem;
   }
 }
+.lot-preview__title-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  word-break: break-all;
+}
+@media (max-width: 768px) {
+  .lot-preview__title-wrapper {
+    justify-content: center;
+  }
+}
 .lot-preview__name {
   text-align: center;
   font-size: 1.5rem;
@@ -471,8 +482,6 @@ html {
 @media (max-width: 768px) {
   .lot-preview__name {
     font-size: 1.8rem;
-    margin-right: auto;
-    margin-left: auto;
   }
 }
 .lot-preview__description {
@@ -492,6 +501,18 @@ html {
 }
 .lot-preview__button-wrapper {
   width: 100%;
+}
+.lot-preview__sold-lot-message {
+  background-color: #f54040;
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+.lot-preview__id {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .add-lot {
@@ -556,6 +577,9 @@ html {
   margin: 0;
   color: red;
 }
+.form-item__error--center {
+  text-align: center;
+}
 .form-item__link {
   text-align: center;
 }
@@ -580,16 +604,36 @@ html {
   text-align: center;
   margin: 0 1rem;
 }
+.admin-lot-preview__button--hidden {
+  display: none;
+}
 @media (max-width: 768px) {
   .admin-lot-preview__button {
     width: 100%;
     margin-top: 0.5rem;
   }
 }
+.admin-lot-preview__set-next-lot-button {
+  padding: 0.1rem 0;
+  margin: 0.2rem 0 0 0;
+  font-size: 1rem;
+  width: 100%;
+}
 @media (max-width: 768px) {
   .admin-lot-preview__link-wrapper {
     width: 80%;
   }
+}
+.admin-lot-preview__input-wrapper {
+  display: none;
+  width: 5rem;
+}
+.admin-lot-preview__input-wrapper--visible {
+  display: block;
+}
+.admin-lot-preview__set-next-lot-input {
+  width: 85%;
+  height: 1.4rem;
 }
 
 .result-block {

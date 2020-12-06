@@ -22,21 +22,12 @@ namespace OnlineAuction.Engine
 			_context = context;
 			_userManager = userManager;
 			_roleManager = roleManager;
+            Users = _userManager.Users;
 		}
 
-        public async Task<List<ApplicationUser>> GetAllUsersAsync(string searchString)
-		{
-			var users = _userManager.Users.AsNoTracking();
+        public IQueryable<ApplicationUser> Users { get; }
 
-			if (!string.IsNullOrEmpty(searchString))
-				users = users.Where(user => (user.LastName.Contains(searchString)
-					|| user.FirstName.Contains(searchString)
-					|| user.Email.Contains(searchString)));
-
-			return await users.ToListAsync();
-		}
-
-		public async Task<string> GetUserRoleAsync(string userId, bool returnName)
+        public async Task<string> GetUserRoleAsync(string userId, bool returnName)
 		{
 			var user = await _context.Users.AsNoTracking().Where(u => u.Id == userId).FirstOrDefaultAsync();
 			var roles = await _userManager.GetRolesAsync(user);

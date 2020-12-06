@@ -19,9 +19,9 @@ namespace OnlineAuction.Controllers
         {
             this._auctionRepository = auctionRepository;
         }
-        public IEnumerable<Winner> GetWinners()
+        public IEnumerable<object> GetWinners()
         {
-            return _auctionRepository.Winners;
+            return _auctionRepository.GetWinners();
         }
     }
 }

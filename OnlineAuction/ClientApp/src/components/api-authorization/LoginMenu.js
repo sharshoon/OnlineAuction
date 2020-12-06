@@ -25,7 +25,6 @@ export class LoginMenu extends Component {
 
     async populateState() {
         const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
-        console.log(isAuthenticated, user);
         this.setState({
             isAuthenticated,
             userName: user && user.name

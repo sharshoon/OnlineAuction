@@ -1,3 +1,5 @@
+import {maxDurationSec} from "../LotConstants";
+
 export const descriptionCheckingFunctions = () => {
     const descriptionMinLength = 20;
     const functions = [];
@@ -34,7 +36,6 @@ export const minPriceCheckingFunctions = () => {
 }
 
 export const durationCheckingFunctions = () => {
-    const maxDuration = 86400;
     const functions = [];
     functions.push((value) => {
         if(isNaN(+value)){
@@ -47,7 +48,7 @@ export const durationCheckingFunctions = () => {
         }
     });
     functions.push((value) => {
-        if(+value > maxDuration){
+        if(+value > maxDurationSec){
             return "Duration is too big!";
         }
     });

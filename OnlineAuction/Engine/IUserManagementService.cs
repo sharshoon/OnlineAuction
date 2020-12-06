@@ -10,6 +10,7 @@ namespace OnlineAuction.Engine
 {
     public interface IUserManagementService
     {
+        IQueryable<ApplicationUser> Users { get; }
         Task<string> GetUserRoleAsync(string userId, bool returnName);
         Task<string> GetUserRoleAsync(string email);
         Task<ApplicationUser> FindUserAsync(string userId);

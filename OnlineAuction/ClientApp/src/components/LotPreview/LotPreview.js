@@ -21,7 +21,10 @@ export default function LotPreview({lot}){
             </div>
             <div className={classes.lotPreviewInfo}>
                 <div className="lot-preview__info-text-wrapper">
-                    <NavLink className={classes.lotNameClasses} to={`/lots/${lot.id}`}  tag={Link}>{lot.name}</NavLink>
+                    <div className="lot-preview__title-wrapper">
+                        <NavLink className={classes.lotNameClasses} to={`/lots/${lot.id}`}  tag={Link}>{lot.name}</NavLink>
+                        {lot.isSold && <div className="lot-preview__sold-lot-message">Lot is sold!</div>}
+                    </div>
                     <div className='lot-preview__description'>{lot.description}</div>
                 </div>
                 <div className="lot-preview__info-button-wrapper">

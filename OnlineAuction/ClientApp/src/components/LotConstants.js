@@ -14,3 +14,5 @@ export const stopCommand = "Stop";
 export const winnersControllerPath = "api/winners";
 
 export const iconsPath = "https://localhost:44390/api/images/icons";
+
+export const maxDurationSec = 86400;

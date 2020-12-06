@@ -28,6 +28,7 @@ namespace OnlineAuction.Engine
         private readonly IUserManagementService userManagementService;
         public IQueryable<Lot> Lots => this._context.Lots;
         public IQueryable<Winner> Winners => this._context.Winners;
+
         public async Task<Lot> AddNewLotAsync(Lot lot)
         {
             var result = await this._context.Lots.AddAsync(lot);
@@ -108,7 +109,7 @@ namespace OnlineAuction.Engine
                     MinPriceUsd = lot.MinPriceUsd,
                     ActionTimeSec = lot.ActionTimeSec,
                     ImagePath = lot.ImagePath,
-                    OwnerName = m.OwnerName,
+                    //OwnerName = m.OwnerName,
                     IsSold = lot.IsSold
                 });
             return result;
@@ -129,11 +130,42 @@ namespace OnlineAuction.Engine
                     MinPriceUsd = lot.MinPriceUsd,
                     ActionTimeSec = lot.ActionTimeSec,
                     ImagePath = lot.ImagePath,
-                    OwnerName = m.OwnerName,
+                    //OwnerName = m.OwnerName,
                     IsSold = lot.IsSold
                 });
 
             return lotResponse.FirstOrDefault();
+        }
+
+        public IQueryable<object> GetWinners()
+        {
+            var result = from winner in this._context.Winners
+                join user in this.userManagementService.Users on winner.UserId equals user.Id 
+                select new
+                {
+                    winner.PriceUsd,
+                    winner.Id,
+                    winner.LotName,
+                    winner.UserId,
+                    OwnerName = user.FullName
+                };
+
+            return result;
+        }
+
+        public async Task<Lot> SetNextLotId(int lotId, int previousLotId)
+        {
+            var lot = this._context.Lots.FirstOrDefault(currentLot => currentLot.Id == lotId);
+            var previousLot = this._context.Lots.FirstOrDefault(currentLot => currentLot.Id == previousLotId);
+            if (lot != null && previousLot != null && previousLot.NextLotId == null && !previousLot.IsSold)
+            {
+                previousLot.NextLotId = lot.Id;
+                var result = this._context.Lots.Update(lot);
+                await this._context.SaveChangesAsync();
+                return result.Entity;
+            }
+
+            return null;
         }
     }
 }

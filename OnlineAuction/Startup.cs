@@ -60,6 +60,10 @@ namespace OnlineAuction
                 {
                     policy.RequireClaim(ClaimTypes.Role, "admin");
                 });
+                options.AddPolicy("IsUser", policy =>
+                {
+                    policy.RequireClaim(ClaimTypes.Role, "user");
+                });
             });
 
             services.AddScoped<IUserManagementService, UserManagementService>();

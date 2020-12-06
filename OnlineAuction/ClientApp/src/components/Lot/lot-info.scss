@@ -2,6 +2,7 @@
     &__item{
         padding: .5rem 0;
         border-bottom: 0.05rem dashed $outline-color;
+        word-break: break-all;
     }
 
     &__name{

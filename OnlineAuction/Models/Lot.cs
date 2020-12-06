@@ -10,7 +10,7 @@ namespace OnlineAuction.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string NextLotId { get; set; }
+        public int? NextLotId { get; set; } = null;
         [Required]
         public string ImagePath { get; set; }
         public string Description { get; set; }
