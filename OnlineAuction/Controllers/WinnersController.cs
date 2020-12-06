@@ -21,7 +21,14 @@ namespace OnlineAuction.Controllers
         }
         public IEnumerable<object> GetWinners()
         {
-            return _auctionRepository.GetWinners();
+            try
+            {
+                return _auctionRepository.GetWinners();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

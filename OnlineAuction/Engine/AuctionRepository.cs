@@ -139,18 +139,27 @@ namespace OnlineAuction.Engine
 
         public IQueryable<object> GetWinners()
         {
-            var result = from winner in this._context.Winners
-                join user in this.userManagementService.Users on winner.UserId equals user.Id 
-                select new
-                {
-                    winner.PriceUsd,
-                    winner.Id,
-                    winner.LotName,
-                    winner.UserId,
-                    OwnerName = user.FullName
-                };
+            try
+            {
+                var result = from winner in this._context.Winners
+                    join user in this.userManagementService.Users on winner.UserId equals user.Id into users
+                    from m in users.DefaultIfEmpty()
+                    select new
+                    {
+                        winner.PriceUsd,
+                        winner.Id,
+                        winner.LotName,
+                        winner.UserId,
+                        OwnerName = m != null ? m.FullName : "-"
+                    };
 
-            return result;
+                return result;
+            }
+            catch(Exception exception)
+            {
+                return null;
+            }
+            
         }
 
         public async Task<Lot> SetNextLotId(int lotId, int previousLotId)

@@ -55,8 +55,8 @@ export default function Winners(){
                         <tr key={winner.id}>
                             <th className="table__item">{winner.id}</th>
                             <th className="table__item">{winner.lotName}</th>
-                            <th className="table__item">{winner.userId}</th>
-                            <th className="table__item">{winner.ownerName}</th>
+                            <th className="table__item">{winner.userId  ?? "-"}</th>
+                            <th className="table__item">{winner.ownerName ?? "-"}</th>
                             <th className="table__item">{winner.priceUsd} USD</th>
                         </tr>
                     )

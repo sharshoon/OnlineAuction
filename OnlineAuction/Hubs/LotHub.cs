@@ -70,7 +70,7 @@ namespace OnlineAuction.Hubs
                             var winner = new Winner
                             {
                                 Id = removeResult.Lot.Id,
-                                UserId = removeResult.Leader?.Id ?? "-",
+                                UserId = removeResult.Leader?.Id,
                                 LotName = removeResult.Lot.Name,
                                 PriceUsd = removeResult.ActualPrice
                             };
