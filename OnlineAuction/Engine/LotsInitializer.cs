@@ -26,8 +26,37 @@ namespace OnlineAuction.Engine
                     MinPriceUsd = 50,
                     ActionTimeSec = 10
                 };
-
                 await repository.AddNewLotAsync(defaultLot);
+
+                var defaultLot2 = new Lot()
+                {
+                    Name = "Default2",
+                    ImagePath = $"{webPath}/api/images/test.jpg",
+                    Description = "This is second lot!",
+                    MinPriceUsd = 100,
+                    ActionTimeSec = 30
+                };
+                await repository.AddNewLotAsync(defaultLot2);
+
+                var defaultLot3 = new Lot()
+                {
+                    Name = "Default3",
+                    ImagePath = $"{webPath}/api/images/{imageName}",
+                    Description = "This is third default lot!",
+                    MinPriceUsd = 150,
+                    ActionTimeSec = 15
+                };
+                await repository.AddNewLotAsync(defaultLot3);
+
+                var defaultLot4 = new Lot()
+                {
+                    Name = "Default4",
+                    ImagePath = $"{webPath}/api/images/test.jpg",
+                    Description = "This is forth lot!",
+                    MinPriceUsd = 200,
+                    ActionTimeSec = 20
+                };
+                await repository.AddNewLotAsync(defaultLot4);
             }
         }
     }
