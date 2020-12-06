@@ -1,11 +1,8 @@
 import React, {useCallback, useMemo, useState} from "react";
-import {lotControllerPath} from "../LotConstants";
 import authService from "../api-authorization/AuthorizeService";
-import classNames from "classnames"
 import FormErrors from "../FormErrors/FormErrors";
 import AddLotTextInput from "../AddLotTextInput/AddLotTextInput";
 import ResultTextBlock from "../ResultTextBlock/ResultTextBlock";
-import checkImageSize from "./checkImageSize";
 import {
     descriptionCheckingFunctions,
     durationCheckingFunctions,
@@ -14,6 +11,8 @@ import {
 } from "./inputCheckingFunctions";
 import TryAddLot from "./tryAddLot";
 import {classes} from "./addLotClasses";
+import {fileSelectedHandler} from "./fileSelectedHandler";
+import {checkParametersValidity} from "./checkParametersValidity";
 
 export default function AddLot(){
     const [file, setFile] = useState({
@@ -41,19 +40,7 @@ export default function AddLot(){
     });
     const [fileErrors, setFileErrors] = useState([]);
 
-    const fileSelectedHandler = event => {
-        checkImageSize(event.target.files[0], (result) => {
-            if(result){
-                setFile(event.target.files[0]);
-                setFileErrors([]);
-            }
-            else{
-                setFileErrors(["Image size is invalid!"]);
-            }
-        });
-    }
-
-    const uploadData = useCallback(async (lotName, lotDescription, lotMinPrice, lotDuration) => {
+    const uploadDataCallback = useCallback(async (lotName, lotDescription, lotMinPrice, lotDuration) => {
         const token = await authService.getAccessToken();
         const formData = new FormData();
 
@@ -84,17 +71,8 @@ export default function AddLot(){
 
     const fileUploadHandler = (event) => {
         event.preventDefault();
-        uploadData(lotName.value, lotDescription.value, lotMinPrice.value, lotDuration.value);
+        uploadDataCallback(lotName.value, lotDescription.value, lotMinPrice.value, lotDuration.value);
     }
-
-    const checkParametersValidity = useCallback((fields) => {
-        for(let field of fields){
-            if (field.length || (field.errors && field.errors.length)){
-                return true;
-            }
-        }
-        return false;
-    }, [])
 
     return (
         <div className={classes.mainClasses}>
@@ -110,7 +88,7 @@ export default function AddLot(){
                         <FormErrors errors={fileErrors}/>
                     </div>
                     <label className={classes.buttonClasses} htmlFor="choose-file-input">{file.name || "Choose File..."}</label>
-                    <input className="form-item__file-choose" type="file" onChange={fileSelectedHandler} id="choose-file-input"/>
+                    <input className="form-item__file-choose" type="file" onChange={(event) => fileSelectedHandler(event, setFile, setFileErrors)} id="choose-file-input"/>
                 </div>
                 <div className={classes.buttonWrapperClasses}>
                     <button disabled={checkParametersValidity([lotName, lotDescription, lotMinPrice, lotDuration, fileErrors])}
