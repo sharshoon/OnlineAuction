@@ -57,7 +57,7 @@ export function closeLot(id){
     }
 }
 
-export function deleteLot(id){
+export function deleteLotAction(id){
     return async dispatch => {
         const token = await authService.getAccessToken();
         const response = await fetch(`${lotControllerPath}/${id}`, {

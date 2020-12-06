@@ -1,6 +1,6 @@
 import {startLotMethod} from "../LotConstants";
 
-export const startLot = (lot, connection, setOperationResult) => {
+export function startLot(lot, connection, setOperationResult){
     if(!lot.isSold && !lot.isActive){
         connection.invoke(startLotMethod, "active", lot.id);
         setOperationResult({

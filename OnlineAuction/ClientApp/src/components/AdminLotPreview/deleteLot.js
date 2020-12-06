@@ -1,6 +1,8 @@
+import {deleteLotAction} from "../../redux/actions";
+
 export const deleteLot = (dispatch, id, setOperationResult) => {
     try{
-        dispatch(deleteLot(id));
+        dispatch(deleteLotAction(id));
         setOperationResult({
             message: "Lot was successfully deleted",
             successed: true

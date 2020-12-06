@@ -27,7 +27,7 @@ namespace OnlineAuction.Engine
 
             // Create an email message
             emailMessage.From.Add(new MailboxAddress("Online Auction", _emailSender));
-            emailMessage.To.Add(new MailboxAddress("", "sharshoon321@gmail.com"));
+            emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = "Winner instructions";
             emailMessage.Body = new BodyBuilder
             {

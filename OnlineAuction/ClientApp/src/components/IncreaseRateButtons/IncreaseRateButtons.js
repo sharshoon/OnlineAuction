@@ -49,10 +49,14 @@ export default function IncreaseRateButtons({id}){
         if(hubConnection.current){
             hubConnection.current.invoke(increasePriceMethod, lot.id, parseInt(lot.priceUsd) || parseInt(lot.minPriceUsd), percentage);
         }
-    }, [hubConnection.current]);
+    }, []);
 
     const buttonClasses = useMemo(() => {
         return classNames("button", "lot-info__button")
+    }, []);
+
+    const getNewPrice = useCallback((price, percentage) => {
+        return Math.trunc(price + price * percentage / 100);
     }, [])
 
     return (
@@ -61,9 +65,9 @@ export default function IncreaseRateButtons({id}){
                 !isUser && <p className="lot-info__error">You cannot place bets as you are not a user</p>
             }
             <div className='lot-info__buttons'>
-                <button className={buttonClasses} disabled={!lot.isActive || !isUser} onClick={() => updatePrice(5, lot)}>+5%</button>
-                <button className={buttonClasses} disabled={!lot.isActive || !isUser} onClick={() => updatePrice(10, lot)}>+10%</button>
-                <button className={buttonClasses} disabled={!lot.isActive || !isUser} onClick={() => updatePrice(20, lot)}>+20%</button>
+                <button className={buttonClasses} disabled={!lot.isActive || !isUser} onClick={() => updatePrice(5, lot)}>+5% [{getNewPrice(lot.priceUsd || lot.minPriceUsd,5)}]</button>
+                <button className={buttonClasses} disabled={!lot.isActive || !isUser} onClick={() => updatePrice(10, lot)}>+10% [{getNewPrice(lot.priceUsd || lot.minPriceUsd,10)}]</button>
+                <button className={buttonClasses} disabled={!lot.isActive || !isUser} onClick={() => updatePrice(20, lot)}>+20% [{getNewPrice(lot.priceUsd || lot.minPriceUsd,20)}]</button>
             </div>
         </div>
     )

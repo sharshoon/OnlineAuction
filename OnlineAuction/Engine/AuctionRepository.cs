@@ -139,9 +139,7 @@ namespace OnlineAuction.Engine
 
         public IQueryable<object> GetWinners()
         {
-            try
-            {
-                var result = from winner in this._context.Winners
+              var result = from winner in this._context.Winners
                     join user in this.userManagementService.Users on winner.UserId equals user.Id into users
                     from m in users.DefaultIfEmpty()
                     select new
@@ -155,12 +153,6 @@ namespace OnlineAuction.Engine
 
                 return result;
             }
-            catch(Exception exception)
-            {
-                return null;
-            }
-            
-        }
 
         public async Task<Lot> SetNextLotId(int lotId, int previousLotId)
         {

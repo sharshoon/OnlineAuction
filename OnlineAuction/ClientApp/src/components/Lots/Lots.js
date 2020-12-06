@@ -13,7 +13,7 @@ export default function Lots(){
     const loading = useSelector(state => state.app.lotLoading);
     useEffect(() => {
         dispatch(fetchLots());
-    },[])
+    },[dispatch])
 
     if(loading){
         return <LoadingPage/>

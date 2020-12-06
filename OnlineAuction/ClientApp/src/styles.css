@@ -344,6 +344,7 @@ html {
 }
 .main__custom-message-page {
   justify-content: center;
+  text-align: center;
   color: #444;
   font-size: 1.3rem;
 }
@@ -782,7 +783,7 @@ html {
   font-size: 1rem;
   margin: 1rem auto;
   font-family: "Roboto", sans-serif;
-  width: 100%;
+  width: 90%;
   background: #f3f3f3;
   border-radius: 0.3rem;
   position: relative;

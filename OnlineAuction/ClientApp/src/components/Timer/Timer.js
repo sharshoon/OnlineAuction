@@ -38,8 +38,11 @@ export default function Timer({lot}) {
                 }
             });
 
-            hubConnection.current.on(stopCommand, function(){
-                dispatch(closeLot(lot.id));
+            hubConnection.current.on(stopCommand, function(id){
+                console.log(lot, id);
+                if(lot.id === id){
+                    dispatch(closeLot(lot.id));
+                }
             });
         }
 

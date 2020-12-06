@@ -47,7 +47,7 @@ namespace OnlineAuction.Hubs
                     if (_runningLots.Lots.TryAdd(lotResponse.Id, runningLot))
                     {
                         // Notify subscribers that the lot has begun
-                        await this.Clients.All.SendAsync("ActivateLot", message, lotId);
+                        await this.Clients.All.SendAsync("ActivateLot", message, runningLot.Lot.Id);
 
                         await Task.Factory.StartNew(() =>
                         {
@@ -62,7 +62,7 @@ namespace OnlineAuction.Hubs
                             }
                         });
 
-                        await this.Clients.All.SendAsync("Stop");
+                        await this.Clients.All.SendAsync("Stop", runningLot.Lot.Id);
 
                         if (_runningLots.Lots.TryRemove(lotResponse.Id, out var removeResult))
                         {
@@ -79,12 +79,16 @@ namespace OnlineAuction.Hubs
                             removeResult.Lot.IsSold = true;
                             await _repository.UpdateLotAsync(removeResult.Lot);
 
-                            await _emailService.SendEmailToWinnerAsync(removeResult.Leader?.Email,
-                                removeResult.Leader?.FullName, removeResult.Lot, removeResult.ActualPrice);
+                            if (removeResult.Leader != null)
+                            {
+                                await _emailService.SendEmailToWinnerAsync(removeResult.Leader?.Email,
+                                    removeResult.Leader?.FullName, removeResult.Lot, removeResult.ActualPrice);
+                            }
                         }
                     }
                 }
 
+                lotResponse = _repository.GetLotResponse((int)nextLotId);
                 nextLotId = lotResponse.NextLotId;
             } while (nextLotId != null);
         }

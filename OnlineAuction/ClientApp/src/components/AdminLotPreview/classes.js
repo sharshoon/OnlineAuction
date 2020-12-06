@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-export const classes =  {
+export const adminLotPreviewClasses =  {
     lotPreviewClasses: classNames("main__lot-preview", "main__admin-lot-preview", "admin-lot-preview", "container-border"),
     lotNameClasses: classNames("lot-preview__name title"),
     buttonClasses : classNames("button", "admin-lot-preview__button"),
