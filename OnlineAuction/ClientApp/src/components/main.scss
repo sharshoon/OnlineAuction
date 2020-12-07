@@ -3,7 +3,7 @@
     padding: 2rem 1rem;
     display: flex;
 
-    @media(max-width: 768px){
+    @media(max-width: $tablet-size){
         flex-wrap: wrap;
     } 
 
@@ -32,7 +32,7 @@
             left: 0;
         }
 
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             width: 100%;
         } 
     }
@@ -41,7 +41,7 @@
         width: 58%;
         float: right;
 
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             width: 100%;
             text-align: center;
         } 
@@ -51,7 +51,7 @@
         max-width: 40%;
         float: left;
 
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             max-width: 100%;
             float: unset;
             margin-right: auto;
@@ -78,7 +78,7 @@
     &__lot-preview{
         margin-bottom: 1rem;
         display: flex;
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             flex-wrap: wrap;
             justify-content: center;
         } 
@@ -136,7 +136,7 @@
             margin-top: 0;
         }
 
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             flex-wrap: wrap;
         } 
     }

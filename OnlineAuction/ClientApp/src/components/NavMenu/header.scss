@@ -5,7 +5,7 @@
     &__logo{
         margin-left: 1rem;
 
-        @media(min-width:280px) and (max-width: 1024px){
+        @media(min-width:280px) and (max-width: $desktop-size){
             margin: 1.5rem 0rem 1.5rem 1rem;
             max-width: 70%;
         }   
@@ -16,7 +16,7 @@
         font-size: 0.8rem;
         text-transform: uppercase;
 
-        @media (min-width: 280px) and (max-width: 415px) {
+        @media (min-width: $min-size) and (max-width: $phone-size) {
             font-size: 0.6rem;
         }
     }
@@ -30,7 +30,7 @@
         display: flex;
         margin-right: 2.3rem;
 
-        @media(min-width:280px) and (max-width: 1024px){
+        @media(min-width: $min-size) and (max-width: $desktop-size){
             display: none;
             width: 100%;
             margin: 0;
@@ -38,7 +38,7 @@
         }
 
         &--open{
-            @media(min-width:280px) and (max-width: 1024px){
+            @media(min-width: $min-size) and (max-width: $desktop-size){
                 display: block;
             }
         }
@@ -61,7 +61,7 @@
             background-color: $yellow-background-color;
         }
 
-        @media(min-width:280px) and (max-width: 1024px){
+        @media(min-width: $min-size) and (max-width: $desktop-size){
             display: block;
             height: 100%;
             margin: 0;
@@ -73,7 +73,7 @@
 
     &__post-button{
         width: 100%;
-        @media(min-width:280px) and (max-width: 1024px){
+        @media(min-width: $min-size) and (max-width: $desktop-size){
             width: 100%;
             text-align: left;
         }
@@ -84,13 +84,13 @@
             display: none;
         }
 
-        @media(min-width:280px) and (max-width: 1024px){
+        @media(min-width: $min-size) and (max-width: $desktop-size){
             display: block;
             margin-right: 1.875rem;
         }
     }
 
-    @media(min-width:280px) and (max-width: 1024px){
+    @media(min-width: $min-size) and (max-width: $desktop-size){
         height: auto;
     }
 }

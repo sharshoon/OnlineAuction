@@ -4,7 +4,7 @@
 
     &__buttons-wrapper{
         display: flex;
-        @media (max-width: 768px) {
+        @media (max-width: $tablet-size) {
             flex-wrap: wrap;
             margin-top: 1rem;
         }
@@ -21,7 +21,7 @@
             display: none;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: $tablet-size) {
             width: 100%;
             margin-top: .5rem;
         }
@@ -35,7 +35,7 @@
     }
 
     &__link-wrapper{
-        @media (max-width: 768px) {
+        @media (max-width: $tablet-size) {
             width: 80%;
         }
     }

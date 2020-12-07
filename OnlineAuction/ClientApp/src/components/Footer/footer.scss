@@ -20,7 +20,7 @@
     }
 
     &__sn-info{
-        @media(min-width:280px) and (max-width: 768px){
+        @media(min-width:280px) and (max-width: $tablet-size){
             display: none;
         } 
     }
@@ -32,7 +32,7 @@
         margin: 0 0 1rem 0;
         padding: 0;
 
-        @media(min-width:280px) and (max-width: 768px){
+        @media(min-width: $min-size) and (max-width: $tablet-size){
             padding: 0;
         }  
     }
@@ -40,7 +40,7 @@
     &__sn{
         margin: 0 1rem;
 
-        @media(min-width:280px) and (max-width: 768px){
+        @media(min-width: $min-size) and (max-width: $tablet-size){
             margin: 0 .4rem;
         } 
     }

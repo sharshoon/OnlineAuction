@@ -2,7 +2,7 @@
     width: 43%;
     padding: 1.5rem;
 
-    @media(max-width: 768px){
+    @media(max-width: $tablet-size){
         width: 90%;
     } 
 
@@ -13,7 +13,7 @@
     &__image-wrapper{
         max-width: 50%;
 
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             max-width: 75%;
         } 
     }
@@ -25,7 +25,7 @@
         align-content: space-between;
         flex-wrap: wrap;
 
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             width: 100%;
             justify-content: center;
         } 
@@ -33,7 +33,7 @@
 
     &__info-text-wrapper{
         width: 100%;
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             width: 100%;
             text-align: center;
         } 
@@ -41,7 +41,7 @@
 
     &__info-button-wrapper{
         width: 100%;
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             width: 100%;
             margin-top: 1rem;
         } 
@@ -52,7 +52,7 @@
         flex-wrap: wrap;
         word-break: break-all;
 
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             justify-content: center;
         } 
     }
@@ -63,7 +63,7 @@
         margin-top: auto;
         margin-bottom: auto;
 
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             font-size: 1.8rem;
         } 
     }
@@ -79,7 +79,7 @@
         padding: 1rem;
         text-align: center;
 
-        @media(max-width: 768px){
+        @media(max-width: $tablet-size){
             font-size: 1.6rem;
         } 
     }
