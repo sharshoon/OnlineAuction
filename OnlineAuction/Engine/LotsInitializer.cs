@@ -31,7 +31,7 @@ namespace OnlineAuction.Engine
                 var defaultLot2 = new Lot()
                 {
                     Name = "Default2",
-                    ImagePath = $"{webPath}/api/images/test.jpg",
+                    ImagePath = $"{webPath}/api/images/{imageName}",
                     Description = "This is second lot!",
                     MinPriceUsd = 100,
                     ActionTimeSec = 30
@@ -51,7 +51,7 @@ namespace OnlineAuction.Engine
                 var defaultLot4 = new Lot()
                 {
                     Name = "Default4",
-                    ImagePath = $"{webPath}/api/images/test.jpg",
+                    ImagePath = $"{webPath}/api/images/{imageName}",
                     Description = "This is forth lot!",
                     MinPriceUsd = 200,
                     ActionTimeSec = 20
