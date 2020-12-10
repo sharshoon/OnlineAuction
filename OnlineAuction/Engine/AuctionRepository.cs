@@ -158,7 +158,7 @@ namespace OnlineAuction.Engine
         {
             var lot = this._context.Lots.FirstOrDefault(currentLot => currentLot.Id == lotId);
             var previousLot = this._context.Lots.FirstOrDefault(currentLot => currentLot.Id == previousLotId);
-            if (lot != null && previousLot != null && previousLot.NextLotId == null && !previousLot.IsSold)
+            if (lot != null && previousLot != null && previousLot.NextLotId == null && !previousLot.IsSold && lotId != previousLotId)
             {
                 previousLot.NextLotId = lot.Id;
                 var result = this._context.Lots.Update(lot);
