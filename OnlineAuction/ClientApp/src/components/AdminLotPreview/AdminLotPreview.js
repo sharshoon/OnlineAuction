@@ -4,7 +4,6 @@ import {Link, NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {startAfter} from "./startAfter";
 import {handleStartAfter} from "./handleStartAfter";
-import {startLot} from "./startLot";
 import {adminLotPreviewClasses} from "./classes";
 import {deleteLot} from "./deleteLot";
 import {lotHubPath, startLotMethod} from "../LotConstants";
@@ -67,7 +66,9 @@ export default function AdminLotPreview({lot, connection, setOperationResult}){
                            })}
                            type="number"
                            required={true}/>
-                    <button className={adminLotPreviewClasses.buttonSetNexLotClasses} disabled={!connection} onClick={() => startAfter(lot, nextLot, setOperationResult, setNextLot)}>Set</button>
+                    <button className={adminLotPreviewClasses.buttonSetNexLotClasses} disabled={!connection} onClick={() => {
+                        startAfter(lot, nextLot, setOperationResult, setNextLot)
+                    }}>Set</button>
                 </div>
                 <button className={adminLotPreviewClasses.buttonWarningClasses} onClick={() => deleteLotCallback(lot.id, dispatch)}>Delete lot</button>
                 <div className="admin-lot-preview__link-wrapper">

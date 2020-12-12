@@ -80,6 +80,7 @@ namespace OnlineAuction
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

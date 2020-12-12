@@ -36,7 +36,7 @@
 
     &__link-wrapper{
         @media (max-width: $tablet-size) {
-            width: 80%;
+            width: 88%;
         }
     }
 
@@ -46,11 +46,21 @@
 
         &--visible{
             display: block;
+            @media (max-width: $tablet-size) {
+                margin: .5rem 0;
+                margin-left: auto;
+                margin-right: auto;
+                width: 90%;
+            }
         }
     }
 
     &__set-next-lot-input{
         width: 85%;
         height: 1.4rem;
+        @media (max-width: $tablet-size) {
+            width: 100%;
+            box-sizing: border-box;
+        }
     }
 }

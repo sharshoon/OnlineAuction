@@ -622,7 +622,7 @@ html {
 }
 @media (max-width: 768px) {
   .admin-lot-preview__link-wrapper {
-    width: 80%;
+    width: 88%;
   }
 }
 .admin-lot-preview__input-wrapper {
@@ -632,9 +632,23 @@ html {
 .admin-lot-preview__input-wrapper--visible {
   display: block;
 }
+@media (max-width: 768px) {
+  .admin-lot-preview__input-wrapper--visible {
+    margin: 0.5rem 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+  }
+}
 .admin-lot-preview__set-next-lot-input {
   width: 85%;
   height: 1.4rem;
+}
+@media (max-width: 768px) {
+  .admin-lot-preview__set-next-lot-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 .result-block {

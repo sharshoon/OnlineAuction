@@ -2,6 +2,14 @@ import authService from "../api-authorization/AuthorizeService";
 import {lotControllerPath} from "../LotConstants";
 
 export const startAfter = async (lot, nextLot, setOperationResult, setNextLot) => {
+    if(nextLot.lotId.toString() === nextLot.previousLotId.toString() && nextLot.lotId !==""){
+        setOperationResult({
+            successed: false,
+            message: "Cannot start this lot after itself!",
+        });
+        return;
+    }
+
     if(!lot.isSold && !lot.isActive) {
         if (nextLot.lotId) {
             const token = await authService.getAccessToken();

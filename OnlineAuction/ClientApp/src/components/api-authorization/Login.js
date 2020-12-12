@@ -22,7 +22,8 @@ export class Login extends Component {
         const action = this.props.action;
         switch (action) {
             case LoginActions.Login:
-                this.login(this.getReturnUrl());
+                // this.login(this.getReturnUrl());
+                this.login("/");
                 break;
             case LoginActions.LoginCallback:
                 this.processLoginCallback();
@@ -57,7 +58,7 @@ export class Login extends Component {
                     return (<LoadingPage/>);
                 case LoginActions.Profile:
                 case LoginActions.Register:
-                    return (<div></div>);
+                    return (<LoadingPage/>);
                 default:
                     throw new Error(`Invalid action '${action}'`);
             }
