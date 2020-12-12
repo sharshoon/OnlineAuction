@@ -66,39 +66,11 @@ namespace OnlineAuction.Engine
                 {
                     if (contentDisposition.IsFileDisposition())
                     {
-                        // For each file, you need to come up with a name under which it will be stored,
-                        // so that there is no error loading files with the same names
-                        var fileName = Path.GetRandomFileName() + contentDisposition.FileName.Value;
-                        var streamedFileContent = await FileHelper.ProcessStreamedFile(section, contentDisposition, modelState, _permittedExtensions, FileSizeLimit);
-
-                        if (!modelState.IsValid)
-                        {
-                            throw new InvalidNewLotDataException("bad data", modelState);
-                        }
-
-                        await using var targetStream = System.IO.File.Create($"{_imageFolder}/{fileName}");
-                        await targetStream.WriteAsync(streamedFileContent);
-                        lot.ImagePath = $"{_imagesPath}/{fileName}";
+                        await RecognizeImage(lot, contentDisposition, modelState, section);
                     }
                     else if (contentDisposition.IsFormDisposition())
                     {
-                        var content = await new StreamReader(section.Body).ReadToEndAsync();
-                        if (contentDisposition.Name == "name")
-                        {
-                            lot.Name = content;
-                        }
-                        if (contentDisposition.Name == "description")
-                        {
-                            lot.Description = content;
-                        }
-                        if (contentDisposition.Name == "minPrice" && int.TryParse(content, out var minPrice))
-                        {
-                            lot.MinPriceUsd = minPrice;
-                        }
-                        if (contentDisposition.Name == "duration" && int.TryParse(content, out var duration))
-                        {
-                            lot.ActionTimeSec = duration;
-                        }
+                        await RecognizeSection(lot, section.Body, contentDisposition);
                     }
 
                 }
@@ -113,7 +85,7 @@ namespace OnlineAuction.Engine
             return await this._repository.AddNewLotAsync(lot);
         }
 
-        public async Task<Lot> DeleteLotAsync(int id)
+        public async Task<Lot> TryDeleteLotAsync(int id)
         {
             return await this._repository.TryDeleteLotAsync(id, DefaultImage);
         }
@@ -134,6 +106,44 @@ namespace OnlineAuction.Engine
             }
 
             return null;
+        }
+
+        private async Task RecognizeSection(Lot lot, Stream stream, ContentDispositionHeaderValue contentDisposition)
+        {
+            var content = await new StreamReader(stream).ReadToEndAsync();
+            if (contentDisposition.Name == "name")
+            {
+                lot.Name = content;
+            }
+            if (contentDisposition.Name == "description")
+            {
+                lot.Description = content;
+            }
+            if (contentDisposition.Name == "minPrice" && int.TryParse(content, out var minPrice))
+            {
+                lot.MinPriceUsd = minPrice;
+            }
+            if (contentDisposition.Name == "duration" && int.TryParse(content, out var duration))
+            {
+                lot.ActionTimeSec = duration;
+            }
+        }
+
+        private async Task RecognizeImage(Lot lot, ContentDispositionHeaderValue contentDisposition, ModelStateDictionary modelState, MultipartSection section)
+        {
+            // For each file, you need to come up with a name under which it will be stored,
+            // so that there is no error loading files with the same names
+            var fileName = Path.GetRandomFileName() + contentDisposition.FileName.Value;
+            var streamedFileContent = await FileHelper.ProcessStreamedFile(section, contentDisposition, modelState, _permittedExtensions, FileSizeLimit);
+
+            if (!modelState.IsValid)
+            {
+                throw new InvalidNewLotDataException("bad data", modelState);
+            }
+
+            await using var targetStream = System.IO.File.Create($"{_imageFolder}/{fileName}");
+            await targetStream.WriteAsync(streamedFileContent);
+            lot.ImagePath = $"{_imagesPath}/{fileName}";
         }
     }
 }
