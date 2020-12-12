@@ -36,16 +36,16 @@ namespace OnlineAuction.Engine
             return result.Entity;
         }
 
-        public async Task<bool> TryDeleteLotAsync(int id, string defaultImageName)
+        public async Task<Lot> TryDeleteLotAsync(int id, string defaultImageName)
         {
             var lot = await this._context.Lots.FirstOrDefaultAsync(lot => lot.Id == id);
             if (lot == null)
             {
-                return false;
+                return null;
             }
 
             var imagePath = $"{_imageDir}\\{lot.ImagePath.Split("/")[^1]}";
-            this._context.Lots.Remove(lot);
+            var result = this._context.Lots.Remove(lot);
 
             // After the lot is removed from the database, we also need to delete the picture associated with it
             if (File.Exists(imagePath) && imagePath != $"{_imageDir}\\{defaultImageName}")
@@ -53,7 +53,7 @@ namespace OnlineAuction.Engine
                 File.Delete(imagePath);
             }
             await this._context.SaveChangesAsync();
-            return true;
+            return result.Entity;
         }
         public async Task<Lot> UpdateLotAsync(Lot lot)
         {
