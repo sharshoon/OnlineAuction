@@ -8,10 +8,11 @@ import {lotHubPath} from "../LotConstants";
 import * as signalR from "@microsoft/signalr";
 import ResultTextBlock from "../ResultTextBlock/ResultTextBlock";
 import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
+import Pagination from "../Pagination/Pagination";
 
 export default function AdminPanel(){
     const dispatch = useDispatch();
-    const lots = useSelector(state => state.lotsInfo.lots);
+    const lotsInfo = useSelector(state => state.lotsInfo);
     const loading = useSelector(state => state.app.lotLoading);
     const [operationResult, setResult] = useState({
         message: "",
@@ -19,7 +20,7 @@ export default function AdminPanel(){
     });
     const lotsWrapperClasses = classNames("main", "main__admin-lot-preview-wrapper", "container-border");
     useEffect(() => {
-        dispatch(fetchLots());
+        dispatch(fetchLots(1, false));
     },[dispatch]);
     const [hubConnection, setConnection] = useState(null);
 
@@ -36,13 +37,19 @@ export default function AdminPanel(){
     if(loading){
         return <LoadingPage/>
     }
-    if(!lots.length){
+    if(!lotsInfo.lots){
+        return <CustomMessagePage message={"Error"}/>
+    }
+    if(!lotsInfo.lots.length){
         return <CustomMessagePage message={"There are no lots on the server"}/>
     }
     return (
         <div className={lotsWrapperClasses}>
             <ResultTextBlock successed={operationResult.successed} message={operationResult.message}/>
-            {lots.map(lot => <AdminLotPreview lot={lot} key={lot.id} connection={hubConnection} setOperationResult={setResult}/>)}
+            {lotsInfo.lots.map(lot => <AdminLotPreview lot={lot} key={lot.id} connection={hubConnection} setOperationResult={setResult}/>)}
+            <div className="main__pagination">
+                <Pagination pageCount={lotsInfo.totalPages}/>
+            </div>
         </div>
     )
 }

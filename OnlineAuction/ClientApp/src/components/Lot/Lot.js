@@ -6,6 +6,7 @@ import Timer from "../Timer/Timer";
 import IncreaseRateButtons from "../IncreaseRateButtons/IncreaseRateButtons";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
+import {lotClasses} from "./classes";
 
 export default function Lot({id}){
     const dispatch = useDispatch();
@@ -37,7 +38,8 @@ export default function Lot({id}){
             <div className='main__lot-info-wrapper'>
                 <div className={classes.titleClasses}>
                     {lot.name}
-                    {lot.isSold && <div className="main__sold-lot-message">Lot is sold!</div>}
+                    {lot.isSold && <div className={lotClasses.soldLotClasses}>Lot is sold!</div>}
+                    {!lot.isSold && !lot.isActive && <div className={lotClasses.notActiveClasses}>Lot is not active!</div>}
                 </div>
                 <img className='main__image' src={lot.imagePath} alt="lot"/>
                 <div className={classes.lotInfoClasses}>

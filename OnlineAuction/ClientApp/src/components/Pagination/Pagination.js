@@ -22,7 +22,7 @@ export default function Pagination({pageCount}){
             {
                 lotsInfo.activePage !== 1 && <button
                 className="pagination__link"
-                onClick={() => dispatch(fetchLots(lotsInfo.activePage - 1))}
+                onClick={() => dispatch(fetchLots(lotsInfo.activePage - 1, lotsInfo.onlyUnsold))}
                 >
                     «
                 </button>
@@ -31,7 +31,7 @@ export default function Pagination({pageCount}){
             {
                 lotsInfo.activePage !== lotsInfo.totalPages && <button
                     className="pagination__link"
-                    onClick={() => dispatch(fetchLots(lotsInfo.activePage + 1))}
+                    onClick={() => dispatch(fetchLots(lotsInfo.activePage + 1, lotsInfo.onlyUnsold))}
                 >
                     »
                 </button>

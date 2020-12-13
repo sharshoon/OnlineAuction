@@ -330,12 +330,17 @@ html {
   justify-content: center;
   align-items: center;
 }
-.main__sold-lot-message {
-  background-color: #f54040;
+.main__lot-message {
   padding: 0.5rem;
   border-radius: 0.3rem;
   font-size: 1rem;
   margin-left: 1rem;
+}
+.main__lot-message--sold {
+  background-color: #f54040;
+}
+.main__lot-message--not-active {
+  background-color: orange;
 }
 .main__winners {
   display: flex;
@@ -874,7 +879,7 @@ html {
   background-color: #f2d400;
   border-radius: 0.3rem;
 }
-.pagination__link:hover:not(:focus) {
+.pagination__link:hover:not(.pagination__link--active) {
   background-color: #ddd;
   border-radius: 0.3rem;
 }

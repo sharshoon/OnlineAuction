@@ -104,12 +104,19 @@
         align-items: center;
     }
 
-    &__sold-lot-message{
-        background-color: $error-color;
+    &__lot-message{
         padding: .5rem;
         border-radius: .3rem;
         font-size: 1rem;
         margin-left: 1rem;
+
+        &--sold{
+            background-color: $error-color;
+        }
+
+        &--not-active{
+            background-color: orange;
+        }
     }
 
     &__winners{

@@ -48,11 +48,10 @@ export default function Timer({lot}) {
         return () => isMountedRef.current = false;
     }, [lot, hubConnection]);
 
-    if(lot.isSold){
-        lotMessage = <div className='timer__not-active'>This lot is sold!</div>
-    }
-    else if(!lot.isActive){
-        lotMessage = <div className='timer__not-active'>This lot is not active!</div>
+    if(lot.isSold || !lot.isActive){
+        return null;
+        // lotMessage = <div className='timer__not-active'>This lot is sold!</div>
+        // lotMessage = <div className='timer__not-active'>This lot is not active!</div>
     }
     return (
         <div className='main__timer-wrapper'>

@@ -59,6 +59,9 @@ export default function IncreaseRateButtons({id}){
         return Math.trunc(price + price * percentage / 100);
     }, [])
 
+    if(lot.isSold || !lot.isActive){
+        return null;
+    }
     return (
         <div>
             {

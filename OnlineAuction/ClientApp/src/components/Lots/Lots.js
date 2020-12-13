@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import LotPreview from "../LotPreview/LotPreview";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchLots} from "../../redux/actions";
 import classNames from "classnames"
 import LoadingPage from "../LoadingPage/LoadingPage";
-import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 import Pagination from "../Pagination/Pagination";
 import Switcher from "../Switcher/Switcher";
 
