@@ -24,7 +24,7 @@ namespace OnlineAuction.Controllers
         [HttpGet]
         public LotsResponse GetLots(int page = 1, bool onlyUnsold = true)
         {
-            return _lotService.GetLotPage(page);
+            return _lotService.GetLotPage(page, onlyUnsold);
         }
 
         [HttpGet("{id}")]

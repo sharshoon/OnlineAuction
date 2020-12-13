@@ -3,13 +3,20 @@ import {UPDATE_LOT, FETCH_LOT, FETCH_LOTS, UPDATE_LOT_PRICE, DELETE_LOT, UPDATE_
 const initialState = {
     lots : [],
     activePage : 1,
-    totalPages : 0
+    totalPages : 0,
+    onlyUnsold : true
 }
 
 export const lotsReducer = (state = initialState, action) => {
     switch (action.type){
         case FETCH_LOTS:
-            return {...state, lots: action.payload.lots, totalPages: action.payload.pagesCount, activePage: action.payload.activePage};
+            return {
+                ...state,
+                lots: action.payload.lots,
+                totalPages: action.payload.pagesCount,
+                activePage: action.payload.activePage,
+                onlyUnsold: action.payload.onlyUnsold
+            };
         case FETCH_LOT:
             return {...state, lots : state.lots.concat(action.payload)};
         case UPDATE_LOT:
