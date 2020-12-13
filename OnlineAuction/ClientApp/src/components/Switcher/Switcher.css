@@ -1,0 +1,62 @@
+.switcher {
+  position: relative;
+  top: 50%;
+  width: 9rem;
+  height: 2.5rem;
+  margin: -1.1rem auto 0 auto;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+.switcher__checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+.switcher__knobs, .switcher__layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.switcher__knobs {
+  z-index: 2;
+  transition: 0.3s ease all;
+}
+.switcher__knobs::before {
+  content: "only unsold";
+  text-transform: uppercase;
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 7rem;
+  height: 0.6rem;
+  color: black;
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  padding: 0.6rem 0.25rem;
+  background-color: #f2d400;
+  border-radius: 0.3rem;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+.switcher__layer {
+  width: 100%;
+  background-color: #ebf7fc;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+.switcher__checkbox:checked + .switcher__knobs::before {
+  content: "NO";
+  left: 2.6rem;
+  background-color: #f44336;
+}
+.switcher__checkbox:checked ~ .switcher__layer {
+  background-color: #fcebeb;
+}

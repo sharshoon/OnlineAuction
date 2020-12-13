@@ -114,9 +114,9 @@ namespace OnlineAuction.Engine
             return result;
         }
 
-        public IQueryable<LotResponse> GetLotResponses(int page, int pageSize)
+        public IQueryable<LotResponse> GetLotResponses(int page, int pageSize, bool onlyUnsold)
         {
-            var result = (from lot in this._context.Lots.Skip((page - 1) * pageSize).Take(pageSize)
+            var result = (from lot in this._context.Lots.Skip((page - 1) * pageSize).Where(lot => !(onlyUnsold && lot.IsSold)).Take(pageSize)
                 join soldLot in this._context.Winners on lot.Id equals soldLot.Id into soldLots
                 from m in soldLots.DefaultIfEmpty()
                 select new LotResponse

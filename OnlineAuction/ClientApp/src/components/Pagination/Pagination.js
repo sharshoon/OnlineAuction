@@ -10,7 +10,7 @@ export default function Pagination({pageCount}){
     for(let i = 1; i <= pageCount; i++){
         items.push(<button
             className={classNames("pagination__link", {"pagination__link--active" : lotsInfo.activePage === i})}
-            onClick={() => dispatch(fetchLots(i))}
+            onClick={() => dispatch(fetchLots(i, lotsInfo.onlyUnsold))}
             key={i}
             >
                 {i}
