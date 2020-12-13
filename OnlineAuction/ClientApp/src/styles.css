@@ -363,6 +363,11 @@ html {
     flex-wrap: wrap;
   }
 }
+.main__pagination {
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+}
 
 .lot-info__item {
   padding: 0.5rem 0;
@@ -846,4 +851,25 @@ html {
 }
 .winner-details[open] .winner-details__title::after {
   transform: rotate(180deg);
+}
+
+.pagination {
+  display: inline-block;
+  margin-right: auto;
+  margin-left: auto;
+}
+.pagination__link {
+  color: black;
+  float: left;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  background-color: inherit;
+}
+.pagination__link--active {
+  background-color: #f2d400;
+  border-radius: 0.3rem;
+}
+.pagination__link:hover:not(:focus) {
+  background-color: #ddd;
+  border-radius: 0.3rem;
 }

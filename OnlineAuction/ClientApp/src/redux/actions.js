@@ -12,12 +12,12 @@ import {
 import {lotControllerPath} from "../components/LotConstants";
 import authService from "../components/api-authorization/AuthorizeService";
 
-export function fetchLots(){
+export function fetchLots(page){
     return async dispatch => {
         dispatch(showLoader());
-        const response = await fetch(lotControllerPath);
+        const response = await fetch(`${lotControllerPath}?page=${page}`);
         const json = await response.json();
-        dispatch({type : FETCH_LOTS, payload: json})
+        dispatch({type : FETCH_LOTS, payload: {...json, activePage : page}})
         dispatch(hideLoader());
     }
 }

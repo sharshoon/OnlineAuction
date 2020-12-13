@@ -109,7 +109,25 @@ namespace OnlineAuction.Engine
                     MinPriceUsd = lot.MinPriceUsd,
                     ActionTimeSec = lot.ActionTimeSec,
                     ImagePath = lot.ImagePath,
-                    //OwnerName = m.OwnerName,
+                    IsSold = lot.IsSold
+                });
+            return result;
+        }
+
+        public IQueryable<LotResponse> GetLotResponses(int page, int pageSize)
+        {
+            var result = (from lot in this._context.Lots.Skip((page - 1) * pageSize).Take(pageSize)
+                join soldLot in this._context.Winners on lot.Id equals soldLot.Id into soldLots
+                from m in soldLots.DefaultIfEmpty()
+                select new LotResponse
+                {
+                    Id = lot.Id,
+                    Name = lot.Name,
+                    Description = lot.Description,
+                    NextLotId = lot.NextLotId,
+                    MinPriceUsd = lot.MinPriceUsd,
+                    ActionTimeSec = lot.ActionTimeSec,
+                    ImagePath = lot.ImagePath,
                     IsSold = lot.IsSold
                 });
             return result;

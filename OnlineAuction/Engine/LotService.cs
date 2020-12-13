@@ -30,6 +30,7 @@ namespace OnlineAuction.Engine
         };
         private const long FileSizeLimit = 52428800;
         private const string DefaultImage = "default-image.jpg";
+        private int pageSize = 2;
         private readonly IAuctionRepository _repository;
         private readonly string _imageFolder;
         private readonly string _imagesPath;
@@ -46,7 +47,16 @@ namespace OnlineAuction.Engine
 
         public LotResponse GetLot(int id)
         {
-            return this._repository.GetLotResponse(id);
+            return this._repository.GetLotResponse(id); 
+        }
+
+        public LotsResponse GetLotPage(int page)
+        {
+            return new LotsResponse
+            {
+                Lots = this._repository.GetLotResponses(page, pageSize),
+                PagesCount = (int) Math.Ceiling((decimal) this._repository.Lots.Count() / pageSize)
+            };
         }
 
         public async Task<Lot> AddLotAsync(Stream bodyStream, StringSegment contentType, ModelStateDictionary modelState)

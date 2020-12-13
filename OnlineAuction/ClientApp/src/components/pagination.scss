@@ -1,0 +1,23 @@
+.pagination {
+    display: inline-block;
+    margin-right: auto;
+    margin-left: auto;
+
+    &__link {
+        color: black;
+        float: left;
+        padding: .5rem 1rem;
+        text-decoration: none;
+        background-color: inherit;
+
+        &--active {
+            background-color: $yellow-background-color;
+            border-radius: .3rem;
+        }
+
+        &:hover:not(:focus) {
+            background-color: $hover-color;
+            border-radius: .3rem;
+        }
+    }
+}
