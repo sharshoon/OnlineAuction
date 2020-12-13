@@ -6,6 +6,7 @@ import classNames from "classnames"
 import LoadingPage from "../LoadingPage/LoadingPage";
 import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 import Pagination from "../Pagination/Pagination";
+import Switcher from "../Switcher/Switcher";
 
 export default function Lots(){
     const dispatch = useDispatch();
@@ -24,6 +25,7 @@ export default function Lots(){
     }
     return (
         <div className={lotsWrapperClasses}>
+            <Switcher/>
             {lotsInfo.lots.map(lot => <LotPreview lot={lot} key={lot.id}/>)}
             <div className="main__pagination">
                 <Pagination pageCount={lotsInfo.totalPages}/>
