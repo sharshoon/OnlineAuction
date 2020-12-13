@@ -17,7 +17,7 @@ namespace OnlineAuction.Engine
 
         Task<Lot> AddLotAsync(Stream bodyStream, StringSegment contentType,
             ModelStateDictionary modelState);
-        Task<Lot> DeleteLotAsync(int id);
-        Task<Lot> SetNextLotId(int id);
+        Task<Lot> TryDeleteLotAsync(int id);
+        Task<Lot> SetNextLotId(Stream stream);
     }
 }
