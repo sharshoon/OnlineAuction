@@ -12,13 +12,11 @@ namespace OnlineAuction.Controllers
     [ApiController]
     public class LotController : ControllerBase
     {
-        public LotController(IAuctionRepository repository, ILotService lotService)
+        public LotController(ILotService lotService)
         {
-            this._repository = repository;
             _lotService = lotService;
         }
 
-        private readonly IAuctionRepository _repository;
         private readonly ILotService _lotService;
 
         [HttpGet]
