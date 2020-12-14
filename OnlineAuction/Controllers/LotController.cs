@@ -20,9 +20,9 @@ namespace OnlineAuction.Controllers
         private readonly ILotService _lotService;
 
         [HttpGet]
-        public LotsResponse GetLots(int page = 1, bool onlyUnsold = true)
+        public LotsResponse GetLots(int page = 1, bool showSold = true, bool showUnsold = false)
         {
-            return _lotService.GetLotPage(page, onlyUnsold);
+            return _lotService.GetLotPage(page, showSold, showUnsold);
         }
 
         [HttpGet("{id}")]

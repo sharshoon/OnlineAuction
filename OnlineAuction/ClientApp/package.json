@@ -6,6 +6,7 @@
     "@microsoft/signalr": "^5.0.0",
     "classnames": "^2.2.6",
     "merge": "^1.2.1",
+    "multiselect-react-dropdown": "^1.6.2",
     "oidc-client": "^1.9.0",
     "react": "^17.0.1",
     "react-beforeunload": "^2.3.0",

@@ -50,12 +50,12 @@ namespace OnlineAuction.Engine
             return this._repository.GetLotResponse(id); 
         }
 
-        public LotsResponse GetLotPage(int page, bool onlyUnsold)
+        public LotsResponse GetLotPage(int page, bool showSold, bool showUnsold)
         {
             return new LotsResponse
             {
-                Lots = this._repository.GetLotResponses(page, pageSize, onlyUnsold),
-                PagesCount = (int) Math.Ceiling((decimal) this._repository.Lots.Count(lot => !(onlyUnsold && lot.IsSold)) / pageSize)
+                Lots = this._repository.GetLotResponses(page, pageSize, showSold, showUnsold),
+                PagesCount = (int) Math.Ceiling((decimal) this._repository.Lots.Count(lot => lot.IsSold == showSold || !lot.IsSold == showUnsold) / pageSize)
             };
         }
 

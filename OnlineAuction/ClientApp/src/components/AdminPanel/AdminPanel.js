@@ -20,7 +20,7 @@ export default function AdminPanel(){
     });
     const lotsWrapperClasses = classNames("main", "main__admin-lot-preview-wrapper", "container-border");
     useEffect(() => {
-        dispatch(fetchLots(1, false));
+        dispatch(fetchLots(1, true, true));
     },[dispatch]);
     const [hubConnection, setConnection] = useState(null);
 

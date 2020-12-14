@@ -7,7 +7,6 @@ import {Link} from "react-router-dom";
 
 export default function Pagination({pageCount}){
     const items = [];
-    const dispatch = useDispatch();
     const lotsInfo = useSelector(state => state.lotsInfo);
     for(let i = 1; i <= pageCount; i++){
         items.push(<NavLink

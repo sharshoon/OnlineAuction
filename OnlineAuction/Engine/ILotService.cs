@@ -15,7 +15,7 @@ namespace OnlineAuction.Engine
     {
         IEnumerable<LotResponse> GetLots();
         LotResponse GetLot(int id);
-        LotsResponse GetLotPage(int page, bool onlyUnsold);
+        LotsResponse GetLotPage(int page, bool showSold, bool showUnsold);
 
         Task<Lot> AddLotAsync(Stream bodyStream, StringSegment contentType,
             ModelStateDictionary modelState);
