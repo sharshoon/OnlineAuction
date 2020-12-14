@@ -7,14 +7,14 @@ import LoadingPage from "../LoadingPage/LoadingPage";
 import Pagination from "../Pagination/Pagination";
 import Switcher from "../Switcher/Switcher";
 
-export default function Lots(){
+export default function Lots({page}){
     const dispatch = useDispatch();
     const lotsInfo = useSelector(state => state.lotsInfo);
     const loading = useSelector(state => state.app.lotLoading);
     const lotsWrapperClasses = classNames("main", "main__lot-preview-wrapper", "container-border");
     useEffect(() => {
-        dispatch(fetchLots(1, lotsInfo.onlyUnsold));
-    },[dispatch]);
+        dispatch(fetchLots(page, lotsInfo.onlyUnsold));
+    },[dispatch, page]);
 
     if(loading){
         return <LoadingPage/>
@@ -22,7 +22,7 @@ export default function Lots(){
     if(!lotsInfo.lots){
         return (
             <div className={lotsWrapperClasses}>
-                <Switcher/>
+                <Switcher page={page}/>
                 <div className="main__custom-message-page">Error</div>
             </div>
         )
@@ -30,13 +30,13 @@ export default function Lots(){
     if(lotsInfo.lots && !lotsInfo.lots.length){
         return (
             <div className={lotsWrapperClasses}>
-                <Switcher/>
+                <Switcher page={page}/>
                 <div className="main__custom-message-page">There are no lots on the server</div>
             </div>)
     }
     return (
         <div className={lotsWrapperClasses}>
-            <Switcher/>
+            <Switcher page={page}/>
             {lotsInfo.lots.map(lot => <LotPreview lot={lot} key={lot.id}/>)}
             <div className="main__pagination">
                 <Pagination pageCount={lotsInfo.totalPages}/>

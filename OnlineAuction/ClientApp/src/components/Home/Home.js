@@ -3,6 +3,6 @@ import Lots from "../Lots/Lots";
 
 export function Home(){
   return (
-      <Lots/>
+      <Lots page={1}/>
   )
 }

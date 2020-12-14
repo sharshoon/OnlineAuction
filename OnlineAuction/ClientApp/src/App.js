@@ -8,7 +8,6 @@ import { Home } from './components/Home/Home';
 import './styles.css'
 import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
 import classNames from 'classnames'
-import Timer from "./components/Timer/Timer";
 import LotsPlug from "./components/LotsPlug/LotsPlug";
 import AddLotPage from "./components/AddLotPage/AddLotPage";
 import AdminPanelPage from "./components/AdminPanelPage/AdminPanelPage";
@@ -23,7 +22,6 @@ export default class App extends Component {
             <div className={containerClasses}>
                 <Layout className='container'>
                     <Route exact path='/' component={Home} />
-                    <Route exact path='/timer' component={Timer} />
                     <Route path='/lots/:id?' component={LotsPlug}/>
                     <Route path='/winners' component={Winners}/>
                     <AuthorizeRoute path='/new-lot' component={AddLotPage}/>
