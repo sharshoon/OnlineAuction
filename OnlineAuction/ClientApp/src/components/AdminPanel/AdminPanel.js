@@ -10,7 +10,7 @@ import ResultTextBlock from "../ResultTextBlock/ResultTextBlock";
 import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 import Pagination from "../Pagination/Pagination";
 
-export default function AdminPanel(){
+export default function AdminPanel({page}){
     const dispatch = useDispatch();
     const lotsInfo = useSelector(state => state.lotsInfo);
     const loading = useSelector(state => state.app.lotLoading);
@@ -20,8 +20,8 @@ export default function AdminPanel(){
     });
     const lotsWrapperClasses = classNames("main", "main__admin-lot-preview-wrapper", "container-border");
     useEffect(() => {
-        dispatch(fetchLots(1, true, true));
-    },[dispatch]);
+        dispatch(fetchLots(page, true, true));
+    },[dispatch, page]);
     const [hubConnection, setConnection] = useState(null);
 
     useEffect(() => {

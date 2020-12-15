@@ -8,14 +8,18 @@ import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 export default function AdminPanelPage(){
     let [admin, setAdmin] = useState(null);
 
-    const CheckAdminRights = useCallback(async() => {
+    const CheckAdminRights = useCallback(async(setAdmin) => {
         const isAdmin = await authService.hasRole(UserRoles.Administrator);
         setAdmin(isAdmin)
     }, [])
 
     useEffect(() => {
-        authService.subscribe(() => CheckAdminRights());
-        CheckAdminRights();
+        const subscribeId = authService.subscribe(() => CheckAdminRights(setAdmin));
+        CheckAdminRights(setAdmin);
+
+        return(() => {
+            authService.unsubscribe(subscribeId);
+        })
     }, [CheckAdminRights])
 
 

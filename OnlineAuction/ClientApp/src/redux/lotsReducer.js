@@ -1,5 +1,4 @@
 import {UPDATE_LOT, FETCH_LOT, FETCH_LOTS, UPDATE_LOT_PRICE, DELETE_LOT, UPDATE_LOT_ACTIVITY, CLOSE_LOT} from "./types";
-import {unsoldLot} from "../components/Lots/lotTypes";
 
 const initialState = {
     lots : [],

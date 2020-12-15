@@ -59,7 +59,7 @@ export default function Lots({page}){
     }
     if(resetPages.current){
         resetPages.current = false;
-        return <Redirect page={"/lots"}/>
+        return <Redirect to={"/lots"}/>
     }
     if(!lotsInfo.lots){
         return (

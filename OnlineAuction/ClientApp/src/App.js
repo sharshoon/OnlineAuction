@@ -4,7 +4,6 @@ import { Route } from 'react-router';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
 import { Layout } from './components/Layout';
-import { Home } from './components/Home/Home';
 import './styles.css'
 import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
 import classNames from 'classnames'
@@ -21,7 +20,7 @@ export default class App extends Component {
         return (
             <div className={containerClasses}>
                 <Layout className='container'>
-                    <Route exact path='/' component={Home} />
+                    <Route exact path='/' component={LotsPlug} />
                     <Route path='/lots/:id?' component={LotsPlug}/>
                     <Route path='/winners' component={Winners}/>
                     <AuthorizeRoute path='/new-lot' component={AddLotPage}/>
