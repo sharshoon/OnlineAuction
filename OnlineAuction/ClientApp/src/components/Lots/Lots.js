@@ -9,6 +9,7 @@ import { Multiselect } from 'multiselect-react-dropdown';
 import {multiselectStyles} from "./multiselectStyles";
 import {soldLot, unsoldLot} from "./lotTypes";
 import {Redirect} from "react-router";
+import {getMultiSelect, getSelectedValues, onSelect} from "./selectedValues";
 
 export default function Lots({page}){
     const dispatch = useDispatch();
@@ -22,14 +23,7 @@ export default function Lots({page}){
     const lotsWrapperClasses = classNames("main", "main__lot-preview-wrapper", "container-border");
 
     useEffect(() => {
-        const selectedValues = [];
-        if(lotsInfo.showSold){
-            selectedValues.push({name: "Show sold lots", id : soldLot});
-        }
-        if(lotsInfo.showUnsold){
-            selectedValues.push({name: "Show unsold lots", id : unsoldLot});
-        }
-
+        const selectedValues = getSelectedValues(lotsInfo.showSold, lotsInfo.showUnsold);
         setSelectedLotTypes({...selectedLotTypes, selectedValues});
     }, [dispatch])
 
@@ -37,22 +31,7 @@ export default function Lots({page}){
         dispatch(fetchLots(page, lotsInfo.showSold, lotsInfo.showUnsold));
     }, [dispatch, page])
 
-    const onSelect = useCallback((selectedValues) => {
-        resetPages.current = true;
-        const showSold = selectedValues.some(item => item.id === soldLot);
-        const showUnsold = selectedValues.some(item => item.id === unsoldLot);
-        dispatch(fetchLots(page, showSold, showUnsold));
-        setSelectedLotTypes({...selectedLotTypes, selectedValues});
-    }, [])
-
-    const multiselect =  (<Multiselect
-        options={selectedLotTypes.options}
-        selectedValues={selectedLotTypes.selectedValues}
-        onSelect={onSelect}
-        onRemove={onSelect}
-        displayValue="name"
-        style={multiselectStyles}
-    />);
+    const multiselect =  getMultiSelect(selectedLotTypes, resetPages, page, dispatch, setSelectedLotTypes);
 
     if(loading){
         return <LoadingPage/>
@@ -61,14 +40,7 @@ export default function Lots({page}){
         resetPages.current = false;
         return <Redirect to={"/lots"}/>
     }
-    if(!lotsInfo.lots){
-        return (
-            <div className={lotsWrapperClasses}>
-                <div className="main__custom-message-page">Error</div>
-            </div>
-        )
-    }
-    if(lotsInfo.lots && !lotsInfo.lots.length){
+    if(!lotsInfo.lots || (lotsInfo.lots && !lotsInfo.lots.length)){
         return (
             <div className={lotsWrapperClasses}>
                 {multiselect}

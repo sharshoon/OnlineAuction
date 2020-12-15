@@ -3,7 +3,7 @@ import Lot from "../Lot/Lot";
 import Lots from "../Lots/Lots";
 import authService from "../api-authorization/AuthorizeService";
 import {UserRoles} from "../api-authorization/ApiAuthorizationConstants";
-import AdminPanel from "../AdminPanel/AdminPanel";
+import AdminPanel from "../Lots/AdminPanel";
 import LoadingPage from "../LoadingPage/LoadingPage";
 
 export default function LotsPlug(props){

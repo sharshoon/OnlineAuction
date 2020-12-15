@@ -604,21 +604,47 @@ html {
   width: 90%;
   padding: 1.5rem;
 }
+.admin-lot-preview__image-wrapper {
+  max-width: 40%;
+}
+@media (max-width: 768px) {
+  .admin-lot-preview__image-wrapper {
+    max-width: 75%;
+  }
+}
+.admin-lot-preview__info {
+  width: 60%;
+}
+.admin-lot-preview__title-wrapper {
+  width: 100%;
+  justify-content: center;
+}
+.admin-lot-preview__description {
+  text-align: center;
+}
 .admin-lot-preview__buttons-wrapper {
   display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 @media (max-width: 768px) {
   .admin-lot-preview__buttons-wrapper {
-    flex-wrap: wrap;
     margin-top: 1rem;
   }
+}
+.admin-lot-preview__minor-button {
+  width: 48%;
+}
+.admin-lot-preview__major-button {
+  width: 100%;
 }
 .admin-lot-preview__button {
   display: block;
   font-size: 1.1rem;
   padding: 0.5rem;
   text-align: center;
-  margin: 0 1rem;
+  margin: 0.5rem 0;
 }
 .admin-lot-preview__button--hidden {
   display: none;

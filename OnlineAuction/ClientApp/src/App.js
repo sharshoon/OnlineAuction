@@ -9,7 +9,6 @@ import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
 import classNames from 'classnames'
 import LotsPlug from "./components/LotsPlug/LotsPlug";
 import AddLotPage from "./components/AddLotPage/AddLotPage";
-import AdminPanelPage from "./components/AdminPanelPage/AdminPanelPage";
 import Winners from "./components/Winners/Winners";
 
 export default class App extends Component {
@@ -24,7 +23,6 @@ export default class App extends Component {
                     <Route path='/lots/:id?' component={LotsPlug}/>
                     <Route path='/winners' component={Winners}/>
                     <AuthorizeRoute path='/new-lot' component={AddLotPage}/>
-                    <AuthorizeRoute path='/admin-panel' component={AdminPanelPage}/>
                     <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
                 </Layout>
             </div>

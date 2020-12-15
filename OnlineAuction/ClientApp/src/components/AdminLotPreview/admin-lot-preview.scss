@@ -2,12 +2,43 @@
     width: 90%;
     padding: 1.5rem;
 
+    &__image-wrapper{
+        max-width: 40%;
+
+        @media(max-width: $tablet-size){
+            max-width: 75%;
+        } 
+    }
+
+    &__info{
+        width: 60%;
+    }
+
+    &__title-wrapper{
+        width: 100%;
+        justify-content: center;
+    }
+
+    &__description{
+        text-align: center;
+    }
+
     &__buttons-wrapper{
         display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-around;
         @media (max-width: $tablet-size) {
-            flex-wrap: wrap;
             margin-top: 1rem;
         }
+    }
+
+    &__minor-button{
+        width: 48%;
+    }
+
+    &__major-button{
+        width: 100%;
     }
 
     &__button{
@@ -15,7 +46,7 @@
         font-size: 1.1rem;
         padding: .5rem;
         text-align: center;
-        margin: 0 1rem;
+        margin: .5rem 0;
 
         &--hidden{
             display: none;
