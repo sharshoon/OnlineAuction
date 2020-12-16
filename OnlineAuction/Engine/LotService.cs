@@ -32,11 +32,13 @@ namespace OnlineAuction.Engine
         private const string DefaultImage = "default-image.jpg";
         private int pageSize = 2;
         private readonly IAuctionRepository _repository;
+        private readonly RunningLots _runningLots;
         private readonly string _imageFolder;
         private readonly string _imagesPath;
-        public LotService(IAuctionRepository repository, IHostEnvironment environment, IConfiguration configuration)
+        public LotService(IAuctionRepository repository, IHostEnvironment environment, IConfiguration configuration, RunningLots runningLots)
         {
             this._repository = repository;
+            _runningLots = runningLots;
             _imageFolder = $"{environment.ContentRootPath}/images";
             _imagesPath = $"{configuration.GetConnectionString("ServerUrl")}/api/images";
         }
@@ -97,7 +99,12 @@ namespace OnlineAuction.Engine
 
         public async Task<Lot> TryDeleteLotAsync(int id)
         {
-            return await this._repository.TryDeleteLotAsync(id, DefaultImage);
+            if (!_runningLots.Lots.TryGetValue(id, out var value))
+            {
+                return await this._repository.TryDeleteLotAsync(id, DefaultImage);
+            }
+
+            return null;
         }
 
         public async Task<Lot> SetNextLotId(Stream stream)

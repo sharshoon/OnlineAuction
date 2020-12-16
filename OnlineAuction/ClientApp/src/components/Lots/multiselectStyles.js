@@ -5,7 +5,7 @@ export const multiselectStyles = {
     chips: {
         background: "#f2d400",
         color: "black",
-        "font-size": "1rem",
+        "fontSize": "1rem",
         "margin" : "0 .3rem",
         "padding" : ".5rem .7rem"
     },

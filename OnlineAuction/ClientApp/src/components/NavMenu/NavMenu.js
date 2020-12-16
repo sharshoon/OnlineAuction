@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap';
+import {Container, Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap';
 import classNames from "classnames"
 
 import { Link } from 'react-router-dom';
@@ -31,8 +31,12 @@ export class NavMenu extends Component {
     }
 
     componentDidMount() {
-        authService.subscribe(() => this.isAdmin());
+        this.subsctibeId = authService.subscribe(() => this.isAdmin());
         this.isAdmin();
+    }
+
+    componentWillUnmount() {
+        authService.unsubscribe(this.subsctibeId);
     }
 
     async isAdmin(){
@@ -41,8 +45,6 @@ export class NavMenu extends Component {
             isAdmin
         })
     }
-
-
 
     render () {
         this.buttonsWrapperClasses = classNames("header__buttons-wrapper", {"header__buttons-wrapper--open" : !this.state.collapsed});
@@ -71,12 +73,6 @@ export class NavMenu extends Component {
                                 this.state.isAdmin &&
                                     <NavItem>
                                         <NavLink className='header__button' tag={Link} to="/new-lot">New Lot</NavLink>
-                                    </NavItem>
-                            }
-                            {
-                                this.state.isAdmin &&
-                                    <NavItem>
-                                        <NavLink className='header__button' tag={Link} to="/admin-panel">Admin Panel</NavLink>
                                     </NavItem>
                             }
                             <NavItem>

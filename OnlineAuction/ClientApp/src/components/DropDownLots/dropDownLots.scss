@@ -1,0 +1,47 @@
+.dropDownLots{
+
+    &__content{
+        position: absolute;
+        background-color: $background-color;
+        width: 100%;
+    }
+
+    &__button-wrapper{
+        position: relative;
+        background-color: $background-color;
+        width: 70%;
+    }
+
+    &__button{
+        background-color: $background-color;
+        margin: 0.5rem 0 0.2rem 0;
+
+        &:active, &:focus{
+            border: .0625rem solid $border-color;
+            border-radius: .2rem;
+        }
+    }
+
+    &__item{
+        border-bottom: .06rem solid $border-color;
+        padding: .3rem;
+        font-weight: 600;
+        font-size: 1rem;
+        width: 100%;
+        text-align: left;
+        background-color: inherit;
+
+        &:hover{
+            background-color: $hover-color;
+        }
+
+        &:active, &:focus{
+            border-bottom: .06rem solid $border-color;
+        }
+    }
+
+    &__set-button{
+        width: 30%;
+        margin: 0.5rem 0 0.2rem .5rem;
+    }
+}

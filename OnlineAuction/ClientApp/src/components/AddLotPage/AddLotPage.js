@@ -8,14 +8,18 @@ import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 export default function AddLotPage(){
     let [admin, setAdmin] = useState(null);
 
-    const isAdminCallback = useCallback(async() => {
+    const isAdminCallback = useCallback(async(setAdmin) => {
         const isAdmin = await authService.hasRole(UserRoles.Administrator);
         setAdmin(isAdmin)
     }, [])
 
     useEffect(() => {
-        authService.subscribe(() => isAdminCallback());
-        isAdminCallback();
+        const subscribeId = authService.subscribe(() => isAdminCallback(setAdmin));
+        isAdminCallback(setAdmin);
+
+        return(() => {
+            authService.unsubscribe(subscribeId);
+        })
     }, [isAdminCallback])
 
     if(admin){
