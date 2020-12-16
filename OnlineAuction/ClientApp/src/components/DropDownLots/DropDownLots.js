@@ -5,8 +5,9 @@ import classNames from "classnames";
 import Pagination from "../Pagination/Pagination";
 import {Link, NavLink} from "react-router-dom";
 import DropDownPagination from "../DropDownPagination/DropDownPagination";
+import {startAfter} from "../AdminLotPreview/startAfter";
 
-export default function DropDownLots({lotId}){
+export default function DropDownLots({currentLot, setOperationResult}){
     const [dropDown, setDropDown] = useState({
         isOpen : false,
         page : 1,
@@ -28,7 +29,7 @@ export default function DropDownLots({lotId}){
     }, [])
 
     const dropDownContent = dropDown && dropDown.lots ?
-        dropDown.lots.map(lot => lot.id !== lotId &&
+        dropDown.lots.map(lot => lot.id !== currentLot.id &&
             <button
                 key={lot.id}
                 onClick={() => setDropDown({...dropDown, selected: lot, isOpen: false})}
@@ -54,7 +55,12 @@ export default function DropDownLots({lotId}){
                     </div>
                 }
             </div>
-        <button className={classes.buttonClasses}>Set</button>
+            <button
+                className={classes.buttonClasses}
+                onClick={() => startAfter(currentLot, dropDown.selected, setOperationResult, dropDown, setDropDown)}
+            >
+                Set
+            </button>
         </div>
     )
 }

@@ -9,6 +9,7 @@ import * as signalR from "@microsoft/signalr";
 import ResultTextBlock from "../ResultTextBlock/ResultTextBlock";
 import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 import Pagination from "../Pagination/Pagination";
+import {Redirect} from "react-router";
 
 export default function AdminPanel({page}){
     const dispatch = useDispatch();
@@ -41,12 +42,15 @@ export default function AdminPanel({page}){
         return <CustomMessagePage message={"Error"}/>
     }
     if(!lotsInfo.lots.length){
+        if(page !== 1){
+            return <Redirect to={`/lots?${page - 1}`}/>
+        }
         return <CustomMessagePage message={"There are no lots on the server"}/>
     }
     return (
         <div className={lotsWrapperClasses}>
             <ResultTextBlock successed={operationResult.successed} message={operationResult.message}/>
-            {lotsInfo.lots.map(lot => <AdminLotPreview lot={lot} key={lot.id} connection={hubConnection} setOperationResult={setResult}/>)}
+            {lotsInfo.lots.map(lot => <AdminLotPreview lot={lot} key={lot.id} connection={hubConnection} setOperationResult={setResult} page={page}/>)}
             <div className="main__pagination">
                 <Pagination pageCount={lotsInfo.totalPages}/>
             </div>

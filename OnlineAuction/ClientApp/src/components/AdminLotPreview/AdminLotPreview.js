@@ -6,14 +6,10 @@ import {deleteLot} from "./deleteLot";
 import {lotHubPath, startLotMethod} from "../LotConstants";
 import * as signalR from "@microsoft/signalr";
 import DropDownLots from "../DropDownLots/DropDownLots";
+import {fetchLots} from "../../redux/actions";
 
-export default function AdminLotPreview({lot, connection, setOperationResult}){
+export default function AdminLotPreview({lot, connection, setOperationResult, page}){
     const dispatch = useDispatch();
-    const [nextLot, setNextLot] = useState({
-        lotId: "",
-        previousLotId: "",
-        visible : false
-    });
     const startLotCallback = useCallback((lot, setOperationResult) => {
         if(!lot.isSold && !lot.isActive){
             const startLotConnection = new signalR.HubConnectionBuilder()
@@ -38,6 +34,7 @@ export default function AdminLotPreview({lot, connection, setOperationResult}){
 
     const deleteLotCallback = useCallback((id, dispatch) => {
         deleteLot(dispatch, id, setOperationResult);
+        dispatch(fetchLots(page, true, true));
     }, [setOperationResult])
 
     return (
@@ -56,7 +53,7 @@ export default function AdminLotPreview({lot, connection, setOperationResult}){
                 <div className="admin-lot-preview__buttons-wrapper">
                     <button className={adminLotPreviewClasses.minorButtonClasses} disabled={!connection} onClick={() => startLotCallback(lot, setOperationResult)}>Start Lot</button>
                     <button className={adminLotPreviewClasses.buttonWarningClasses} onClick={() => deleteLotCallback(lot.id, dispatch)}>Delete lot</button>
-                    <DropDownLots lotId={lot.id}/>
+                    <DropDownLots currentLot={lot} setOperationResult={setOperationResult}/>
                     <div className="admin-lot-preview__major-button">
                         <Link className={adminLotPreviewClasses.buttonClasses} to={`/lots/${lot.id}`} tag={Link}>
                             Go to the lot page

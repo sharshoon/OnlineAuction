@@ -1,7 +1,7 @@
 import authService from "../api-authorization/AuthorizeService";
 import {lotControllerPath} from "../LotConstants";
 
-export const startAfter = async (lot, nextLot, setOperationResult, setNextLot) => {
+export const startAfter = async (lot, nextLot, setOperationResult, dropDown, setDropDown) => {
     if(nextLot.lotId.toString() === nextLot.previousLotId.toString() && nextLot.lotId !==""){
         setOperationResult({
             successed: false,
@@ -41,9 +41,9 @@ export const startAfter = async (lot, nextLot, setOperationResult, setNextLot) =
             });
         }
     }
-    setNextLot({
-        lotId : "",
-        previousLotId : "",
-        visible: false
+    setDropDown({
+        ...dropDown,
+        selected : null,
+        isOpen : false
     });
 }
