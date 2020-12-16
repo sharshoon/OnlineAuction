@@ -1,13 +1,11 @@
 import React, {useCallback, useState} from 'react'
-import classNames from "classnames"
 import {Link, NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {startAfter} from "./startAfter";
-import {handleStartAfter} from "./handleStartAfter";
 import {adminLotPreviewClasses} from "./classes";
 import {deleteLot} from "./deleteLot";
 import {lotHubPath, startLotMethod} from "../LotConstants";
 import * as signalR from "@microsoft/signalr";
+import DropDownLots from "../DropDownLots/DropDownLots";
 
 export default function AdminLotPreview({lot, connection, setOperationResult}){
     const dispatch = useDispatch();
@@ -16,8 +14,6 @@ export default function AdminLotPreview({lot, connection, setOperationResult}){
         previousLotId: "",
         visible : false
     });
-    const inputWrapperClasses = classNames("admin-lot-preview__input-wrapper", {"admin-lot-preview__input-wrapper--visible" : nextLot.visible});
-    const buttonNextLotClasses = classNames("button", "admin-lot-preview__button", "admin-lot-preview__major-button",{"admin-lot-preview__button--hidden" : nextLot.visible});
     const startLotCallback = useCallback((lot, setOperationResult) => {
         if(!lot.isSold && !lot.isActive){
             const startLotConnection = new signalR.HubConnectionBuilder()
@@ -60,27 +56,7 @@ export default function AdminLotPreview({lot, connection, setOperationResult}){
                 <div className="admin-lot-preview__buttons-wrapper">
                     <button className={adminLotPreviewClasses.minorButtonClasses} disabled={!connection} onClick={() => startLotCallback(lot, setOperationResult)}>Start Lot</button>
                     <button className={adminLotPreviewClasses.buttonWarningClasses} onClick={() => deleteLotCallback(lot.id, dispatch)}>Delete lot</button>
-                    <button
-                        className={buttonNextLotClasses}
-                        disabled={!connection}
-                        onClick={() => handleStartAfter(setNextLot, nextLot)}
-                    >
-                        Start After...
-                    </button>
-                    <div className={inputWrapperClasses}>
-                        <input className={adminLotPreviewClasses.setNextLotInputClasses}
-                               value={nextLot.nextLotId}
-                               onChange={(event) => setNextLot({
-                                   lotId : lot.id,
-                                   previousLotId: event.target.value,
-                                   visible : true
-                               })}
-                               type="number"
-                               required={true}/>
-                        <button className={adminLotPreviewClasses.buttonSetNexLotClasses} disabled={!connection} onClick={() => {
-                            startAfter(lot, nextLot, setOperationResult, setNextLot)
-                        }}>Set</button>
-                    </div>
+                    <DropDownLots lotId={lot.id}/>
                     <div className="admin-lot-preview__major-button">
                         <Link className={adminLotPreviewClasses.buttonClasses} to={`/lots/${lot.id}`} tag={Link}>
                             Go to the lot page
