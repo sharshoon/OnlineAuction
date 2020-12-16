@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import classNames from "classnames";
 import {fetchLots} from "../../redux/actions";
@@ -10,6 +10,8 @@ import ResultTextBlock from "../ResultTextBlock/ResultTextBlock";
 import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 import Pagination from "../Pagination/Pagination";
 import {Redirect} from "react-router";
+import {getMultiSelect, getSelectedValues} from "./selectedValues";
+import {soldLot, unsoldLot} from "./lotTypes";
 
 export default function AdminPanel({page}){
     const dispatch = useDispatch();
@@ -19,10 +21,22 @@ export default function AdminPanel({page}){
         message: "",
         successed: true
     });
+    const [selectedLotTypes, setSelectedLotTypes] = useState({
+        options: [{name: "Show sold lots", id : soldLot}, {name: "Show unsold lots", id : unsoldLot}],
+        selectedValues : []
+    });
+    const resetPages = useRef(false);
     const lotsWrapperClasses = classNames("main", "main__admin-lot-preview-wrapper", "container-border");
+
     useEffect(() => {
-        dispatch(fetchLots(page, true, true));
+        const selectedValues = getSelectedValues(lotsInfo.showSold, lotsInfo.showUnsold);
+        setSelectedLotTypes({...selectedLotTypes, selectedValues});
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(fetchLots(page, lotsInfo.showSold, lotsInfo.showUnsold));
     },[dispatch, page]);
+
     const [hubConnection, setConnection] = useState(null);
 
     useEffect(() => {
@@ -34,6 +48,8 @@ export default function AdminPanel({page}){
             setConnection(connection);
         });
     }, [])
+
+    const multiselect =  getMultiSelect(selectedLotTypes, resetPages, page, dispatch, setSelectedLotTypes);
 
     if(loading){
         return <LoadingPage/>
@@ -49,6 +65,7 @@ export default function AdminPanel({page}){
     }
     return (
         <div className={lotsWrapperClasses}>
+            {multiselect}
             <ResultTextBlock successed={operationResult.successed} message={operationResult.message}/>
             {lotsInfo.lots.map(lot => <AdminLotPreview lot={lot} key={lot.id} connection={hubConnection} setOperationResult={setResult} page={page}/>)}
             <div className="main__pagination">

@@ -5,8 +5,6 @@ import {fetchLots} from "../../redux/actions";
 import classNames from "classnames"
 import LoadingPage from "../LoadingPage/LoadingPage";
 import Pagination from "../Pagination/Pagination";
-import { Multiselect } from 'multiselect-react-dropdown';
-import {multiselectStyles} from "./multiselectStyles";
 import {soldLot, unsoldLot} from "./lotTypes";
 import {Redirect} from "react-router";
 import {getMultiSelect, getSelectedValues, onSelect} from "./selectedValues";
