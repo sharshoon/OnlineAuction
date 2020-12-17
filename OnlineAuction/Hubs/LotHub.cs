@@ -18,14 +18,14 @@ namespace OnlineAuction.Hubs
 {
     public class LotHub : Hub
     {
-        private readonly IAuctionRepository _repository;
+        private readonly ILotService _lotService;
         private readonly RunningLots _runningLots;
-        private readonly IEmailService _emailService;
-        public LotHub(IAuctionRepository repository, RunningLots lots, IEmailService emailService)
+        private readonly IRunningLotService _runningLotService;
+        public LotHub(RunningLots lots, IRunningLotService runningLotService, ILotService lotService)
         {
-            this._repository = repository;
             _runningLots = lots;
-            _emailService = emailService;
+            _runningLotService = runningLotService;
+            _lotService = lotService;
         }
 
         public async Task StartLot(string message, int lotId)
@@ -33,7 +33,7 @@ namespace OnlineAuction.Hubs
             int? nextLotId = lotId;
             do
             {
-                var lotResponse = _repository.GetLotResponse((int)nextLotId);
+                var lotResponse = _lotService.GetLot((int)nextLotId);
                 if (lotResponse != null && !lotResponse.IsSold && !_runningLots.Lots.ContainsKey(lotResponse.Id))
                 {
                     var runningLot = new RunningLot
@@ -64,31 +64,11 @@ namespace OnlineAuction.Hubs
 
                         await this.Clients.All.SendAsync("Stop", runningLot.Lot.Id);
 
-                        if (_runningLots.Lots.TryRemove(lotResponse.Id, out var removeResult))
-                        {
-                            // Preparing an entry in the table about the auction winners
-                            var winner = new Winner
-                            {
-                                Id = removeResult.Lot.Id,
-                                UserId = removeResult.Leader?.Id,
-                                LotName = removeResult.Lot.Name,
-                                PriceUsd = removeResult.ActualPrice
-                            };
-                            await _repository.AddWinnerAsync(winner);
-
-                            removeResult.Lot.IsSold = true;
-                            await _repository.UpdateLotAsync(removeResult.Lot);
-
-                            if (removeResult.Leader != null)
-                            {
-                                await _emailService.SendEmailToWinnerAsync(removeResult.Leader?.Email,
-                                    removeResult.Leader?.FullName, removeResult.Lot, removeResult.ActualPrice);
-                            }
-                        }
+                        await _runningLotService.RemoveLot(lotResponse.Id);
                     }
                 }
 
-                lotResponse = _repository.GetLotResponse((int)nextLotId);
+                lotResponse = _lotService.GetLot((int)nextLotId);
                 nextLotId = lotResponse.NextLotId;
             } while (nextLotId != null);
         }

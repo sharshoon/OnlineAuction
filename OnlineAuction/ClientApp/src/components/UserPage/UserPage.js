@@ -5,7 +5,6 @@ import {hideUserLoader, showUserLoader} from "../../redux/actions";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
 import classNames from "classnames";
-import {Link, NavLink} from "react-router-dom";
 
 export default function UserPage(props){
     const userId = props.match.params.id;
@@ -25,7 +24,7 @@ export default function UserPage(props){
             setError("Bad Request!");
         }
         dispatch(hideUserLoader());
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         fetchUser(userId);

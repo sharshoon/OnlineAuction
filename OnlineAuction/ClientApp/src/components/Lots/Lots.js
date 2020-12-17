@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import LotPreview from "../LotPreview/LotPreview";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchLots} from "../../redux/actions";
@@ -7,7 +7,7 @@ import LoadingPage from "../LoadingPage/LoadingPage";
 import Pagination from "../Pagination/Pagination";
 import {soldLot, unsoldLot} from "./lotTypes";
 import {Redirect} from "react-router";
-import {getMultiSelect, getSelectedValues, onSelect} from "./selectedValues";
+import {getMultiSelect, getSelectedValues} from "./selectedValues";
 
 export default function Lots({page}){
     const dispatch = useDispatch();

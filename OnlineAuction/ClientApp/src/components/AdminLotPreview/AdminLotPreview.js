@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback} from 'react'
 import {Link, NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {adminLotPreviewClasses} from "./classes";
@@ -30,9 +30,9 @@ export default function AdminLotPreview({lot, connection, setOperationResult, pa
                 successed: false
             })
         }
-    }, [connection, lot]);
+    }, []);
 
-    const deleteLotCallback = useCallback((id, dispatch) => {
+    const deleteLotCallback = useCallback((id, dispatch, page) => {
         deleteLot(dispatch, id, setOperationResult);
         dispatch(fetchLots(page, true, true));
     }, [setOperationResult])
@@ -52,7 +52,7 @@ export default function AdminLotPreview({lot, connection, setOperationResult, pa
                 </div>
                 <div className="admin-lot-preview__buttons-wrapper">
                     <button className={adminLotPreviewClasses.minorButtonClasses} disabled={!connection} onClick={() => startLotCallback(lot, setOperationResult)}>Start Lot</button>
-                    <button className={adminLotPreviewClasses.buttonWarningClasses} onClick={() => deleteLotCallback(lot.id, dispatch)}>Delete lot</button>
+                    <button className={adminLotPreviewClasses.buttonWarningClasses} onClick={() => deleteLotCallback(lot.id, dispatch, page)}>Delete lot</button>
                     <DropDownLots currentLot={lot} setOperationResult={setOperationResult}/>
                     <div className="admin-lot-preview__major-button">
                         <Link className={adminLotPreviewClasses.buttonClasses} to={`/lots/${lot.id}`} tag={Link}>

@@ -1,9 +1,6 @@
 import React, {useEffect, useMemo, useState} from "react"
 import {fetchDropDownLots} from "./fetchDropDrownLots";
-import {handleStartAfter} from "../AdminLotPreview/handleStartAfter";
 import classNames from "classnames";
-import Pagination from "../Pagination/Pagination";
-import {Link, NavLink} from "react-router-dom";
 import DropDownPagination from "../DropDownPagination/DropDownPagination";
 import {startAfter} from "../AdminLotPreview/startAfter";
 
