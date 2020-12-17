@@ -330,12 +330,17 @@ html {
   justify-content: center;
   align-items: center;
 }
-.main__sold-lot-message {
-  background-color: #f54040;
+.main__lot-message {
   padding: 0.5rem;
   border-radius: 0.3rem;
   font-size: 1rem;
   margin-left: 1rem;
+}
+.main__lot-message--sold {
+  background-color: #f54040;
+}
+.main__lot-message--not-active {
+  background-color: orange;
 }
 .main__winners {
   display: flex;
@@ -362,6 +367,24 @@ html {
   .main__profile {
     flex-wrap: wrap;
   }
+}
+.main__pagination {
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+}
+.main__switcher-wrapper {
+  width: 100%;
+  height: 3rem;
+  margin: -1rem 0 1rem 0;
+}
+.main__dropDownLots {
+  width: 100%;
+  display: flex;
+}
+.main__dropDownPagination {
+  width: 100%;
+  display: flex;
 }
 
 .lot-info__item {
@@ -589,21 +612,47 @@ html {
   width: 90%;
   padding: 1.5rem;
 }
+.admin-lot-preview__image-wrapper {
+  max-width: 40%;
+}
+@media (max-width: 768px) {
+  .admin-lot-preview__image-wrapper {
+    max-width: 75%;
+  }
+}
+.admin-lot-preview__info {
+  width: 60%;
+}
+.admin-lot-preview__title-wrapper {
+  width: 100%;
+  justify-content: center;
+}
+.admin-lot-preview__description {
+  text-align: center;
+}
 .admin-lot-preview__buttons-wrapper {
   display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 @media (max-width: 768px) {
   .admin-lot-preview__buttons-wrapper {
-    flex-wrap: wrap;
     margin-top: 1rem;
   }
+}
+.admin-lot-preview__minor-button {
+  width: 48%;
+}
+.admin-lot-preview__major-button {
+  width: 100%;
 }
 .admin-lot-preview__button {
   display: block;
   font-size: 1.1rem;
   padding: 0.5rem;
   text-align: center;
-  margin: 0 1rem;
+  margin: 0.5rem 0;
 }
 .admin-lot-preview__button--hidden {
   display: none;
@@ -622,7 +671,7 @@ html {
 }
 @media (max-width: 768px) {
   .admin-lot-preview__link-wrapper {
-    width: 80%;
+    width: 88%;
   }
 }
 .admin-lot-preview__input-wrapper {
@@ -632,9 +681,23 @@ html {
 .admin-lot-preview__input-wrapper--visible {
   display: block;
 }
+@media (max-width: 768px) {
+  .admin-lot-preview__input-wrapper--visible {
+    margin: 0.5rem 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+  }
+}
 .admin-lot-preview__set-next-lot-input {
   width: 85%;
   height: 1.4rem;
+}
+@media (max-width: 768px) {
+  .admin-lot-preview__set-next-lot-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 .result-block {
@@ -832,4 +895,89 @@ html {
 }
 .winner-details[open] .winner-details__title::after {
   transform: rotate(180deg);
+}
+
+.pagination {
+  display: inline-block;
+  margin-right: auto;
+  margin-left: auto;
+}
+.pagination__link {
+  color: black;
+  float: left;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  background-color: inherit;
+}
+.pagination__link--active {
+  background-color: #f2d400;
+  border-radius: 0.3rem;
+}
+.pagination__link:hover:not(.pagination__link--active) {
+  background-color: #ddd;
+  border-radius: 0.3rem;
+}
+
+.dropDownLots__content {
+  position: absolute;
+  background-color: #f8f8f8;
+  width: 100%;
+}
+.dropDownLots__button-wrapper {
+  position: relative;
+  background-color: #f8f8f8;
+  width: 70%;
+}
+.dropDownLots__button {
+  background-color: #f8f8f8;
+  margin: 0.5rem 0 0.2rem 0;
+}
+.dropDownLots__button:active, .dropDownLots__button:focus {
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.2rem;
+}
+.dropDownLots__item {
+  border-bottom: 0.06rem solid #ccc;
+  padding: 0.3rem;
+  font-weight: 600;
+  font-size: 1rem;
+  width: 100%;
+  text-align: left;
+  background-color: inherit;
+}
+.dropDownLots__item:hover {
+  background-color: #ddd;
+}
+.dropDownLots__item:active, .dropDownLots__item:focus {
+  border-bottom: 0.06rem solid #ccc;
+}
+.dropDownLots__set-button {
+  width: 30%;
+  margin: 0.5rem 0 0.2rem 0.5rem;
+}
+
+.user-page {
+  display: block;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.user-page__item {
+  margin: 0.5rem 0;
+  padding: 0;
+}
+.user-page__item::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  border-bottom: 0.06rem solid #ccc;
+}
+.user-page__item-name {
+  font-weight: 700;
+}
+.user-page__table {
+  width: 50%;
+  margin: 0.5rem 0;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.9rem;
 }

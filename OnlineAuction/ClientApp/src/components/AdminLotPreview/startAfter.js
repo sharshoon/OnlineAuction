@@ -1,17 +1,9 @@
 import authService from "../api-authorization/AuthorizeService";
 import {lotControllerPath} from "../LotConstants";
 
-export const startAfter = async (lot, nextLot, setOperationResult, dropDown, setDropDown) => {
-    if(nextLot.lotId.toString() === nextLot.previousLotId.toString() && nextLot.lotId !==""){
-        setOperationResult({
-            successed: false,
-            message: "Cannot start this lot after itself!",
-        });
-        return;
-    }
-
+export const startAfter = async (lot, prevLot, setOperationResult, dropDown, setDropDown) => {
     if(!lot.isSold && !lot.isActive) {
-        if (nextLot.lotId) {
+        if (prevLot.id) {
             const token = await authService.getAccessToken();
             const response = await fetch(lotControllerPath, {
                 method: 'PATCH',
@@ -19,7 +11,10 @@ export const startAfter = async (lot, nextLot, setOperationResult, dropDown, set
                     'Accept': '*/*',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify(nextLot)
+                body: JSON.stringify({
+                    lotId : lot.id,
+                    previousLotId : prevLot.id
+                })
             });
 
             if (response.ok) {
@@ -34,13 +29,14 @@ export const startAfter = async (lot, nextLot, setOperationResult, dropDown, set
                 });
             }
         }
-        else{
-            setOperationResult({
-                successed: false,
-                message: "Lot is sold!",
-            });
-        }
     }
+    else{
+        setOperationResult({
+            successed: false,
+            message: "Lot is sold!",
+        });
+    }
+
     setDropDown({
         ...dropDown,
         selected : null,

@@ -22,11 +22,20 @@ export default function DropDownLots({currentLot, setOperationResult}){
     }, [])
 
     useEffect(() => {
-        fetchDropDownLots(setDropDown, dropDown.page, true, true, dropDown.isOpen);
+        fetchDropDownLots(setDropDown, dropDown.page, true, true).then((json) => {
+            if(json){
+                setDropDown({
+                    lots : json.lots,
+                    page : dropDown.page,
+                    pageCount : json.pagesCount,
+                    isOpen : dropDown.isOpen
+                })
+            }
+        })
     }, [])
 
     const dropDownContent = dropDown && dropDown.lots ?
-        dropDown.lots.map(lot => lot.id !== currentLot.id &&
+        dropDown.lots.map(lot => lot.id !== currentLot.id && !lot.isSold && !lot.isActive &&
             <button
                 key={lot.id}
                 onClick={() => setDropDown({...dropDown, selected: lot, isOpen: false})}

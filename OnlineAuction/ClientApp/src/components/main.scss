@@ -97,6 +97,10 @@
 
     &__admin-lot-preview{
         justify-content: space-between;
+
+        @media(max-width: $tablet-size){
+            justify-content: center;
+        } 
     }
 
     &__loading-page{

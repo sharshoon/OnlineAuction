@@ -49,7 +49,7 @@ export default function AdminPanel({page}){
         });
     }, [])
 
-    const multiselect =  getMultiSelect(selectedLotTypes, resetPages, page, dispatch, setSelectedLotTypes);
+    const multiselect = getMultiSelect(selectedLotTypes, resetPages, page, dispatch, setSelectedLotTypes);
 
     if(loading){
         return <LoadingPage/>
@@ -57,11 +57,19 @@ export default function AdminPanel({page}){
     if(!lotsInfo.lots){
         return <CustomMessagePage message={"Error"}/>
     }
+    if(resetPages.current){
+        resetPages.current = false;
+        return <Redirect to={"/lots"}/>
+    }
     if(!lotsInfo.lots.length){
         if(page !== 1){
             return <Redirect to={`/lots?${page - 1}`}/>
         }
-        return <CustomMessagePage message={"There are no lots on the server"}/>
+        return (
+            <div className={lotsWrapperClasses}>
+                {multiselect}
+                <div className="main__custom-message-page">There are no lots on the server that meet the filtering conditions</div>
+            </div>)
     }
     return (
         <div className={lotsWrapperClasses}>

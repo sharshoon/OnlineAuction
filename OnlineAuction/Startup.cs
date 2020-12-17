@@ -110,22 +110,21 @@ namespace OnlineAuction
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapHub<LotHub>("/lot-hub");
                 endpoints.MapHub<IncreasePriceHub>("/increase-price");
-                if (env.IsProduction())
-                {
-                    endpoints.MapFallbackToController("Index", "Home");
-                }
+               
+                endpoints.MapFallbackToController("Index", "Home");
+                
                 endpoints.MapRazorPages();
             });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
+            //app.UseSpa(spa =>
+            //{
+            //    spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
+            //    if (env.IsDevelopment())
+            //    {
+            //        spa.UseReactDevelopmentServer(npmScript: "start");
+            //    }
+            //});
         }
     }
 }

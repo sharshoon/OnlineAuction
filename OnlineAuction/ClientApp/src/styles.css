@@ -326,6 +326,11 @@ html {
 .main__admin-lot-preview {
   justify-content: space-between;
 }
+@media (max-width: 768px) {
+  .main__admin-lot-preview {
+    justify-content: center;
+  }
+}
 .main__loading-page {
   justify-content: center;
   align-items: center;
@@ -701,7 +706,7 @@ html {
 }
 
 .result-block {
-  width: 100%;
+  width: 95%;
   background-color: #54eb4c;
   padding: 0.5rem 0;
   text-align: center;

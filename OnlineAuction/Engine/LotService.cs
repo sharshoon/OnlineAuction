@@ -30,7 +30,7 @@ namespace OnlineAuction.Engine
         };
         private const long FileSizeLimit = 52428800;
         private const string DefaultImage = "default-image.jpg";
-        private int pageSize = 2;
+        private int pageSize = 8;
         private readonly IAuctionRepository _repository;
         private readonly RunningLots _runningLots;
         private readonly string _imageFolder;
