@@ -23,5 +23,6 @@ namespace OnlineAuction.Engine
         Task<ApplicationUser> GetUserAsync(string userId);
         Task<ApplicationUser> GetUserByEmailAsync(string email);
         Task<IList<string>> GetRolesAsync(ApplicationUser user);
+        public Task<UserResponse> GetUsersInfoAsync(string userId);
     }
 }

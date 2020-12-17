@@ -99,3 +99,15 @@ export function hideWinnersLoader() {
         type: HIDE_WINNERS_LOADER
     }
 }
+
+export function showUserLoader() {
+    return {
+        type: SHOW_WINNERS_LOADER
+    }
+}
+
+export function hideUserLoader() {
+    return {
+        type: HIDE_WINNERS_LOADER
+    }
+}

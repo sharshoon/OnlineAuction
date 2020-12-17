@@ -5,6 +5,7 @@ import LoadingPage from "../LoadingPage/LoadingPage";
 import classNames from "classnames";
 import {hideWinnersLoader, showWinnersLoader} from "../../redux/actions";
 import CustomMessagePage from "../CustomMessagePage/CustomMessagePage";
+import {Link, NavLink} from "react-router-dom";
 
 export default function Winners(){
     const [winners, setWinners] = useState([]);
@@ -28,7 +29,7 @@ export default function Winners(){
             mainClasses : classNames("main", "container-border", "main__winners"),
             tableClasses : classNames("table")
         }
-    }, [])
+    }, []);
 
     if(loading){
         return <LoadingPage/>
@@ -44,8 +45,7 @@ export default function Winners(){
                     <tr>
                         <th className="table__header-item">Lot ID</th>
                         <th className="table__header-item">Lot Name</th>
-                        <th className="table__header-item">Winner ID</th>
-                        <th className="table__header-item">Winner Name</th>
+                        <th className="table__header-item">Winner Page</th>
                         <th className="table__header-item">Sold Price</th>
                     </tr>
                 </thead>
@@ -55,8 +55,13 @@ export default function Winners(){
                         <tr key={winner.id}>
                             <th className="table__item">{winner.id}</th>
                             <th className="table__item">{winner.lotName}</th>
-                            <th className="table__item">{winner.userId  ?? "-"}</th>
-                            <th className="table__item">{winner.ownerName ?? "-"}</th>
+                            <th className="table__item">
+                                {
+                                    <NavLink className={classes.lotNameClasses} to={`/users/${winner.userId}`}  tag={Link}>
+                                        {winner.ownerName}
+                                    </NavLink> ?? "-"
+                                }
+                            </th>
                             <th className="table__item">{winner.priceUsd} USD</th>
                         </tr>
                     )

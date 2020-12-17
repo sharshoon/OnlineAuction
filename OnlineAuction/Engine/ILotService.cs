@@ -21,5 +21,6 @@ namespace OnlineAuction.Engine
             ModelStateDictionary modelState);
         Task<Lot> TryDeleteLotAsync(int id);
         Task<Lot> SetNextLotId(Stream stream);
+        IQueryable<object> GetWinners();
     }
 }

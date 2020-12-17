@@ -10,6 +10,7 @@ import classNames from 'classnames'
 import LotsPlug from "./components/LotsPlug/LotsPlug";
 import AddLotPage from "./components/AddLotPage/AddLotPage";
 import Winners from "./components/Winners/Winners";
+import UserPage from "./components/UserPage/UserPage";
 
 export default class App extends Component {
     static displayName = App.name;
@@ -20,6 +21,7 @@ export default class App extends Component {
             <div className={containerClasses}>
                 <Layout className='container'>
                     <Route exact path='/' component={LotsPlug} />
+                    <Route exact path='/users/:id' component={UserPage} />
                     <Route path='/lots/:id?' component={LotsPlug}/>
                     <Route path='/winners' component={Winners}/>
                     <AuthorizeRoute path='/new-lot' component={AddLotPage}/>

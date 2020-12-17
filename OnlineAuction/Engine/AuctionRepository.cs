@@ -17,15 +17,13 @@ namespace OnlineAuction.Engine
     public class AuctionRepository : IAuctionRepository
     {
         private static string _imageDir;
-        public AuctionRepository(ApplicationDbContext context, IUserManagementService userManagementService, IHostEnvironment env)
+        public AuctionRepository(ApplicationDbContext context, IHostEnvironment env)
         {
             AuctionRepository._imageDir = $"{env.ContentRootPath}\\images";
             this._context = context;
-            this.userManagementService = userManagementService;
         }
 
         private readonly ApplicationDbContext _context;
-        private readonly IUserManagementService userManagementService;
         public IQueryable<Lot> Lots => this._context.Lots;
         public IQueryable<Winner> Winners => this._context.Winners;
 
@@ -65,27 +63,6 @@ namespace OnlineAuction.Engine
         public async Task<Lot> GetLotAsync(int id)
         {
             return await this._context.Lots.FirstOrDefaultAsync(lot => lot.Id == id);
-        }
-
-        public async Task<string> GetWinnerNameAsync(int lotId)
-        {
-            Winner soldLot;
-            try
-            {
-                soldLot = this._context.Winners.FirstOrDefault(lot => lot.Id == lotId);
-            }
-            catch
-            {
-                soldLot = null;
-            }
-            
-            if (soldLot != null)
-            {
-                var user = await this.userManagementService.GetUserAsync(lotId.ToString());
-                return user?.FullName;
-            }
-
-            return null;
         }
 
         public async Task<Winner> AddWinnerAsync(Winner winner)
@@ -155,23 +132,6 @@ namespace OnlineAuction.Engine
             return lotResponse.FirstOrDefault();
         }
 
-        public IQueryable<object> GetWinners()
-        {
-              var result = from winner in this._context.Winners
-                    join user in this.userManagementService.Users on winner.UserId equals user.Id into users
-                    from m in users.DefaultIfEmpty()
-                    select new
-                    {
-                        winner.PriceUsd,
-                        winner.Id,
-                        winner.LotName,
-                        winner.UserId,
-                        OwnerName = m != null ? m.FullName : "-"
-                    };
-
-                return result;
-            }
-
         public async Task<Lot> SetNextLotId(int lotId, int previousLotId)
         {
             var lot = this._context.Lots.FirstOrDefault(currentLot => currentLot.Id == lotId);
@@ -185,6 +145,11 @@ namespace OnlineAuction.Engine
             }
 
             return null;
+        }
+
+        public IEnumerable<Winner> GetUserWonLots(string userId)
+        {
+            return this._context.Winners.Where(winner => winner.UserId == userId);
         }
     }
 }

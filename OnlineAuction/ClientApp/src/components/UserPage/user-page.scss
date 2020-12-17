@@ -1,0 +1,29 @@
+.user-page{
+    display: block;
+    text-align: center;
+    font-size: 1.1rem;
+
+    &__item{
+        margin: .5rem 0;
+        padding: 0;
+
+        &::after{
+            content: "";
+            display: block;
+            margin-top: .5rem;
+            border-bottom: .06rem solid $border-color;
+        }
+    }
+
+    &__item-name{
+        font-weight: 700;
+    }
+
+    &__table{
+        width: 50%;
+        margin: .5rem 0;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: .9rem;
+    }
+}

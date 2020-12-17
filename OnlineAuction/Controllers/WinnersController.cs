@@ -14,14 +14,14 @@ namespace OnlineAuction.Controllers
     [ApiController]
     public class WinnersController : ControllerBase
     {
-        private readonly IAuctionRepository _auctionRepository;
-        public WinnersController(IAuctionRepository auctionRepository)
+        private readonly ILotService lotService;
+        public WinnersController(ILotService lotService)
         {
-            this._auctionRepository = auctionRepository;
+            this.lotService = lotService;
         }
         public IEnumerable<object> GetWinners()
         {
-            return _auctionRepository.GetWinners();
+            return this.lotService.GetWinners();
         }
     }
 }

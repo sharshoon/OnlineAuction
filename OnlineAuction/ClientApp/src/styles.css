@@ -955,3 +955,29 @@ html {
   width: 30%;
   margin: 0.5rem 0 0.2rem 0.5rem;
 }
+
+.user-page {
+  display: block;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.user-page__item {
+  margin: 0.5rem 0;
+  padding: 0;
+}
+.user-page__item::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  border-bottom: 0.06rem solid #ccc;
+}
+.user-page__item-name {
+  font-weight: 700;
+}
+.user-page__table {
+  width: 50%;
+  margin: 0.5rem 0;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.9rem;
+}

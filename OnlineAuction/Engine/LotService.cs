@@ -35,10 +35,13 @@ namespace OnlineAuction.Engine
         private readonly RunningLots _runningLots;
         private readonly string _imageFolder;
         private readonly string _imagesPath;
-        public LotService(IAuctionRepository repository, IHostEnvironment environment, IConfiguration configuration, RunningLots runningLots)
+        private IUserManagementService _userManagementService;
+        public LotService(IAuctionRepository repository, IHostEnvironment environment, IConfiguration configuration, RunningLots runningLots,
+            IUserManagementService userManagementService)
         {
             this._repository = repository;
             _runningLots = runningLots;
+            this._userManagementService = userManagementService;
             _imageFolder = $"{environment.ContentRootPath}/images";
             _imagesPath = $"{configuration.GetConnectionString("ServerUrl")}/api/images";
         }
@@ -161,6 +164,23 @@ namespace OnlineAuction.Engine
             await using var targetStream = System.IO.File.Create($"{_imageFolder}/{fileName}");
             await targetStream.WriteAsync(streamedFileContent);
             lot.ImagePath = $"{_imagesPath}/{fileName}";
+        }
+
+        public IQueryable<object> GetWinners()
+        {
+            var result = from winner in this._repository.Winners
+                join user in this._userManagementService.Users on winner.UserId equals user.Id into users
+                from m in users.DefaultIfEmpty()
+                select new
+                {
+                    winner.PriceUsd,
+                    winner.Id,
+                    winner.LotName,
+                    winner.UserId,
+                    OwnerName = m != null ? m.FullName : "-"
+                };
+
+            return result;
         }
     }
 }

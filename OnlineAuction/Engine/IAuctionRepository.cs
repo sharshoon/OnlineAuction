@@ -14,12 +14,11 @@ namespace OnlineAuction.Engine
         Task<Lot> TryDeleteLotAsync(int id, string defaultImagePath);
         Task<Lot> UpdateLotAsync(Lot lot);
         Task<Lot> GetLotAsync(int id);
-        Task<string> GetWinnerNameAsync(int lotId);
         IQueryable<LotResponse> GetLotResponses();
         IQueryable<LotResponse> GetLotResponses(int page, int pageSize, bool showSold, bool showUnsold);
         LotResponse GetLotResponse(int id);
         Task<Winner> AddWinnerAsync(Winner winner);
-        IQueryable<object> GetWinners();
         Task<Lot> SetNextLotId(int lotId, int previousLotId);
+        public IEnumerable<Winner> GetUserWonLots(string userId);
     }
 }

@@ -15,13 +15,15 @@ namespace OnlineAuction.Engine
 		private readonly ApplicationDbContext _context;
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IAuctionRepository _auctionRepository;
 
 		public UserManagementService(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
-			RoleManager<IdentityRole> roleManager)
+			RoleManager<IdentityRole> roleManager, IAuctionRepository auctionRepository)
 		{
 			_context = context;
 			_userManager = userManager;
 			_roleManager = roleManager;
+            _auctionRepository = auctionRepository;
             Users = _userManager.Users;
 		}
 
@@ -126,6 +128,24 @@ namespace OnlineAuction.Engine
         public async Task<IList<string>> GetRolesAsync(ApplicationUser user)
         {
             return await _userManager.GetRolesAsync(user);
+        }
+
+        public async Task<UserResponse> GetUsersInfoAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                var lots = _auctionRepository.GetUserWonLots(userId);
+                return new UserResponse
+                {
+					Id = user.Id,
+					FirstName = user.FirstName,
+					LastName = user.LastName,
+					Email = user.Email,
+					WinningLots = lots
+                };
+            }
+			return null;
         }
 	}
 }
