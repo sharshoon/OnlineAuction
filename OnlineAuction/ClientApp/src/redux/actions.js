@@ -26,8 +26,10 @@ export function fetchLot(id){
     return async dispatch => {
         dispatch(showLoader());
         const response = await fetch(`${lotControllerPath}/${id}`);
-        const json = await response.json();
-        dispatch({type : FETCH_LOT, payload: json})
+        if(response.ok) {
+            const json = await response.json();
+            dispatch({type: FETCH_LOT, payload: json})
+        }
         dispatch(hideLoader());
     }
 }

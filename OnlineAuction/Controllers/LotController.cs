@@ -26,9 +26,15 @@ namespace OnlineAuction.Controllers
         }
 
         [HttpGet("{id}")]
-        public LotResponse GetLot(int id)
+        public ActionResult<LotResponse> GetLot(int id)
         {
-            return this._lotService.GetLot(id);
+            var result = this._lotService.GetLot(id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
         }
 
         [Authorize(Policy = "IsAdmin")]
