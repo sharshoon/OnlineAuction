@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\OnlineAuction"
+    "\\OnlineAuction",
+    "\\OnlineAuction\\Engine"
   ],
   "SelectedNode": "\\OnlineAuction\\OnlineAuction.sln",
   "PreviewInSolutionExplorer": false

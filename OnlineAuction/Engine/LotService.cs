@@ -29,13 +29,15 @@ namespace OnlineAuction.Engine
             "jpeg"
         };
         private const long FileSizeLimit = 52428800;
+        private const int MinLotDurationSec = 10;
+        private const int MinDescriptionLength = 20;
         private const string DefaultImage = "default-image.jpg";
         private int pageSize = 8;
         private readonly IAuctionRepository _repository;
         private readonly RunningLots _runningLots;
         private readonly string _imageFolder;
         private readonly string _imagesPath;
-        private IUserManagementService _userManagementService;
+        private readonly IUserManagementService _userManagementService;
         public LotService(IAuctionRepository repository, IHostEnvironment environment, IConfiguration configuration, RunningLots runningLots,
             IUserManagementService userManagementService)
         {
@@ -92,12 +94,17 @@ namespace OnlineAuction.Engine
                 section = await reader.ReadNextSectionAsync();
             }
 
-            // If the user has not added pictures to the lot, then set the default picture
-            if (string.IsNullOrEmpty(lot.ImagePath?.Trim()))
+            if (IsCorrectLot(lot))
             {
-                lot.ImagePath = $"{_imagesPath}/{DefaultImage}";
+                // If the user has not added pictures to the lot, then set the default picture
+                if (string.IsNullOrEmpty(lot.ImagePath?.Trim()))
+                {
+                    lot.ImagePath = $"{_imagesPath}/{DefaultImage}";
+                }
+                return await this._repository.AddNewLotAsync(lot);
             }
-            return await this._repository.AddNewLotAsync(lot);
+
+            return null;
         }
 
         public async Task<Lot> TryDeleteLotAsync(int id)
@@ -164,6 +171,11 @@ namespace OnlineAuction.Engine
             await using var targetStream = System.IO.File.Create($"{_imageFolder}/{fileName}");
             await targetStream.WriteAsync(streamedFileContent);
             lot.ImagePath = $"{_imagesPath}/{fileName}";
+        }
+
+        private static bool IsCorrectLot(Lot lot)
+        {
+            return lot.ActionTimeSec >= MinLotDurationSec && lot.MinPriceUsd >= 0 && lot.Description != null && lot.Description.Length >= MinDescriptionLength;
         }
 
         public IQueryable<object> GetWinners()

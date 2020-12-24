@@ -125,7 +125,6 @@ namespace OnlineAuction.Engine
                     MinPriceUsd = lot.MinPriceUsd,
                     ActionTimeSec = lot.ActionTimeSec,
                     ImagePath = lot.ImagePath,
-                    //OwnerName = m.OwnerName,
                     IsSold = lot.IsSold
                 });
 
