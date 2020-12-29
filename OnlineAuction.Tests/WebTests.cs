@@ -5,12 +5,12 @@ using OnlineAuction.Models;
 namespace OnlineAuction.Tests
 {
     [TestClass]
-    public class RepositoryTests
+    public class WebTests
     {
         private readonly IAuctionRepository _repository;
         private const string DefaultImage = "default-image.jpg";
         private int _addedLotId;
-        public RepositoryTests(IAuctionRepository repository)
+        public WebTests(IAuctionRepository repository)
         {
             _repository = repository;
         }
