@@ -10992,23 +10992,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Xiaomi\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Mikita.Sharshun\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Xiaomi\\source\\repos\\OnlineAuction\\OnlineAuction.ApplicationTests\\OnlineAuction.ApplicationTests.csproj",
+      "projectUniqueName": "C:\\Users\\Mikita.Sharshun\\Source\\Repos\\sharshoon\\OnlineAuction\\OnlineAuction.ApplicationTests\\OnlineAuction.ApplicationTests.csproj",
       "projectName": "OnlineAuction.ApplicationTests",
-      "projectPath": "C:\\Users\\Xiaomi\\source\\repos\\OnlineAuction\\OnlineAuction.ApplicationTests\\OnlineAuction.ApplicationTests.csproj",
-      "packagesPath": "C:\\Users\\Xiaomi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Xiaomi\\source\\repos\\OnlineAuction\\OnlineAuction.ApplicationTests\\obj\\",
+      "projectPath": "C:\\Users\\Mikita.Sharshun\\Source\\Repos\\sharshoon\\OnlineAuction\\OnlineAuction.ApplicationTests\\OnlineAuction.ApplicationTests.csproj",
+      "packagesPath": "C:\\Users\\Mikita.Sharshun\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mikita.Sharshun\\Source\\Repos\\sharshoon\\OnlineAuction\\OnlineAuction.ApplicationTests\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Xiaomi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mikita.Sharshun\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11020,9 +11016,10 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\Xiaomi\\source\\repos\\OnlineAuction\\OnlineAuction\\OnlineAuction.csproj": {
-              "projectPath": "C:\\Users\\Xiaomi\\source\\repos\\OnlineAuction\\OnlineAuction\\OnlineAuction.csproj"
+            "C:\\Users\\Mikita.Sharshun\\Source\\Repos\\sharshoon\\OnlineAuction\\OnlineAuction\\OnlineAuction.csproj": {
+              "projectPath": "C:\\Users\\Mikita.Sharshun\\Source\\Repos\\sharshoon\\OnlineAuction\\OnlineAuction\\OnlineAuction.csproj"
             }
           }
         }
@@ -11035,6 +11032,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
@@ -11075,7 +11073,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

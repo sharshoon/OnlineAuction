@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Hosting;
@@ -11,6 +12,7 @@ using OnlineAuction.Models;
 using Xunit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1;
 
 namespace OnlineAuction.ApplicationTests
@@ -67,6 +69,46 @@ namespace OnlineAuction.ApplicationTests
             var result = await lotService.AddLotAsync(stream, $"multipart/form-data; boundary={Boundary}", new ModelStateDictionary());
 
             Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task Delete_Lot_Test()
+        {
+            var repoMock = new Mock<IAuctionRepository>();
+            repoMock.Setup(repo => repo.TryDeleteLotAsync(It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(new Lot());
+            var hostMock = new Mock<IHostEnvironment>();
+            hostMock.Setup(host => host.ContentRootPath).Returns(AppDomain.CurrentDomain.BaseDirectory);
+
+            var runningLots = new RunningLots();
+            var lotService = new LotService(repoMock.Object, hostMock.Object, new Configuration(), runningLots, null);
+
+            var result = await lotService.TryDeleteLotAsync(1);
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async Task Set_Next_Lot_Id_Test()
+        {
+            var repoMock = new Mock<IAuctionRepository>();
+            repoMock.Setup(repo => repo.SetNextLotId(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(new Lot());
+            var hostMock = new Mock<IHostEnvironment>();
+            hostMock.Setup(host => host.ContentRootPath).Returns(AppDomain.CurrentDomain.BaseDirectory);
+
+            var runningLots = new RunningLots();
+            var lotService = new LotService(repoMock.Object, hostMock.Object, new Configuration(), runningLots, null);
+
+            var patch = new NexLotPatch
+            {
+                LotId = 2,
+                PreviousLotId = 1
+            };
+
+            var stringPatch = JsonConvert.SerializeObject(patch);
+            var stream = new MemoryStream(Encoding.Unicode.GetBytes(stringPatch));
+
+            var result = await lotService.SetNextLotId(stream);
+
+            Assert.NotNull(result);
         }
     }
 }

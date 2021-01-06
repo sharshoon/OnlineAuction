@@ -1,9 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\Xiaomi\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Xiaomi\\.nuget\\packages",
-      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      "C:\\Users\\Mikita.Sharshun\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Mikita.Sharshun\\.nuget\\packages"
     ]
   }
 }
