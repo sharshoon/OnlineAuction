@@ -1,0 +1,60 @@
+.form-item{
+    &__label{
+        font-size: 1rem;
+        margin-right: 1rem;
+        color: $title-color;
+        display: block;
+    }
+
+    &__input{
+        font-family: "Source Sans Pro", sans-serif;
+        width: 100%;
+        font-size: 0.9rem;
+        color: $text-input-color;
+        padding: 0 0 0 0.65rem;
+        border-radius: 0.2rem;
+        height: 2rem;
+
+        &--error{
+            border-color: red;
+        }
+    }
+
+    &__file-choose{
+        display: none;
+    }
+
+    &__buttons-wrapper{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    &__button{
+        width: 30%;
+        padding: .5rem 0;
+        text-align: center;
+
+        @media(max-width: $tablet-size){
+            width: 80%;
+        } 
+    }
+
+    &__error-wrapper{
+        width: 100%;
+        text-align: center;
+    }
+
+    &__error{
+        margin: 0;
+        color: red;
+
+        &--center{
+            text-align: center;
+        }
+    }
+
+    &__link{
+        text-align: center;
+    }
+}

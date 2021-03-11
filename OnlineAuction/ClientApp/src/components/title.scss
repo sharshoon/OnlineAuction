@@ -1,0 +1,9 @@
+.title {
+    color: $title-color;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    &--center{
+        text-align: center;
+    }
+}

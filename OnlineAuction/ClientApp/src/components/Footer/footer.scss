@@ -1,0 +1,59 @@
+.footer{
+    background-color: $background-color;
+    border-radius: .3rem;
+
+    &__card{
+        width: 40%;
+        text-align: center;
+        margin: .5rem 0;
+    }
+
+    &__card-name{
+        font-size: 1.25rem;
+        margin: .625rem;
+    }
+
+    &__card-info{
+        font-size: .875rem;
+        font-family: 'Source Sans Pro', sans-serif;
+        color: $description-color; 
+    }
+
+    &__sn-info{
+        @media(min-width:280px) and (max-width: $tablet-size){
+            display: none;
+        } 
+    }
+
+    &__sn-wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0 0 1rem 0;
+        padding: 0;
+
+        @media(min-width: $min-size) and (max-width: $tablet-size){
+            padding: 0;
+        }  
+    }
+
+    &__sn{
+        margin: 0 1rem;
+
+        @media(min-width: $min-size) and (max-width: $tablet-size){
+            margin: 0 .4rem;
+        } 
+    }
+
+    &__sn-link{
+        display: flex;
+        align-items: center;
+    }
+
+    &__sn-icon{
+        width: 1.2rem;
+        background-color: $yellow-background-color;
+        border-radius: 1.5rem;
+        margin-right: .2rem;
+    }
+}

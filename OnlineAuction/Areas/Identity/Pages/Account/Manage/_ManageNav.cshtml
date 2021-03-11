@@ -1,0 +1,7 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+
+<ul class="profile__menu">
+    <li class="profile__menu-item-wrapper"><a class="profile__menu-item @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
+    <li class="profile__menu-item-wrapper"><a class="profile__menu-item @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
+    <li class="profile__menu-item-wrapper"><a class="profile__menu-item @ManageNavPages.WinningLotsNavClass(ViewContext)" id="winning-lots" asp-page="./WinningLots">Winning Lots</a></li>
+</ul>

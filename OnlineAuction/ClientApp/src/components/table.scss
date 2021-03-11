@@ -1,0 +1,31 @@
+.table{
+    border-collapse: collapse;
+    font-family:'Source Sans Pro', sans-serif;
+    margin:0;
+    width:100%;
+
+    @media(max-width: $tablet-size){
+        font-size: .9rem;
+    } 
+    
+    &__header{
+        font-weight: bold;
+        text-transform:uppercase;
+        background-color: $title-color;
+        color: white;
+    }
+
+    &__header-item{
+        font-weight: 300;
+        padding: .7rem 0;
+    }
+
+    &__body{
+        color: $title-color;    
+    }
+
+    &__item{
+        border: .063rem solid $border-color;
+        padding: .5rem 0;
+    }
+}

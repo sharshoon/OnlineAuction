@@ -1,0 +1,20 @@
+.casing {
+    &__body {
+        margin: auto;
+        max-width: 73rem;
+    }
+
+    &__header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.3rem;
+    }
+    
+    &__footer{
+        display: flex;
+        justify-content: space-around;
+        margin: .3rem 0;
+    }
+}

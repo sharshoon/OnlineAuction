@@ -1,0 +1,96 @@
+.header {
+    height: 7rem;
+    background-color: $background-color;
+
+    &__logo{
+        margin-left: 1rem;
+
+        @media(min-width:280px) and (max-width: $desktop-size){
+            margin: 1.5rem 0rem 1.5rem 1rem;
+            max-width: 70%;
+        }   
+    }
+    
+    &__logo-description{
+        color: $description-color;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+
+        @media (min-width: $min-size) and (max-width: $phone-size) {
+            font-size: 0.6rem;
+        }
+    }
+
+    &__title{
+        margin: 0;
+        padding: 0;
+    }
+
+    &__buttons-wrapper{
+        display: flex;
+        margin-right: 2.3rem;
+
+        @media(min-width: $min-size) and (max-width: $desktop-size){
+            display: none;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        &--open{
+            @media(min-width: $min-size) and (max-width: $desktop-size){
+                display: block;
+            }
+        }
+    }
+
+    &__button{
+        color: $title-color;
+        border-radius: 0.1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 3.5rem;
+        padding: 0 1.1rem;
+        text-transform: uppercase;
+        background-color: inherit;
+        font-size: inherit;
+        font-family: inherit;
+
+        &:focus{
+            background-color: $yellow-background-color;
+        }
+
+        @media(min-width: $min-size) and (max-width: $desktop-size){
+            display: block;
+            height: 100%;
+            margin: 0;
+            padding: 1rem 2rem;
+            border-top: .0625rem solid $description-color;
+            border-radius: 0;
+        }
+    }
+
+    &__post-button{
+        width: 100%;
+        @media(min-width: $min-size) and (max-width: $desktop-size){
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+    &__menu-button{
+        &--hidden{
+            display: none;
+        }
+
+        @media(min-width: $min-size) and (max-width: $desktop-size){
+            display: block;
+            margin-right: 1.875rem;
+        }
+    }
+
+    @media(min-width: $min-size) and (max-width: $desktop-size){
+        height: auto;
+    }
+}

@@ -1,0 +1,31 @@
+.lot-info{
+    &__item{
+        padding: .5rem 0;
+        border-bottom: 0.05rem dashed $outline-color;
+        word-break: break-all;
+    }
+
+    &__name{
+        font-weight: bold;
+    }
+
+    &__time{
+        font-size: 2rem;
+    }
+
+    &__buttons{
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &__button{
+        width: 30%;
+        padding: 1rem 0;
+    }
+
+    &__error{
+        margin: 0;
+        text-align: center;
+        color: red;
+    }
+}

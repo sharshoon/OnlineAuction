@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using OnlineAuction.Models;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    string returnUrl = null;
+    var query = ViewContext.HttpContext.Request.Query;
+    if (query.ContainsKey("returnUrl"))
+    {
+        returnUrl = query["returnUrl"];
+    }
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (this.User.IsInRole("admin"))
+    {
+        <li>
+            <a class='header__button' href="/new-lot">New Lot</a>
+        </li>
+        <li>
+            <a class='header__button' href="/admin-panel">Admin Panel</a>
+        </li>
+    }
+    <li>
+        <a class="header__button" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
+    </li>
+    <li>
+        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
+            <button type="submit"class="header__button header__post-button">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <li>
+        <a class="header__button" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Register</a>
+    </li>
+    <li>
+        <a class="header__button" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Login</a>
+    </li>
+}

@@ -1,0 +1,97 @@
+.admin-lot-preview{
+    width: 90%;
+    padding: 1.5rem;
+
+    &__image-wrapper{
+        max-width: 40%;
+
+        @media(max-width: $tablet-size){
+            max-width: 75%;
+        } 
+    }
+
+    &__info{
+        width: 60%;
+    }
+
+    &__title-wrapper{
+        width: 100%;
+        justify-content: center;
+    }
+
+    &__description{
+        text-align: center;
+    }
+
+    &__buttons-wrapper{
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        @media (max-width: $tablet-size) {
+            margin-top: 1rem;
+        }
+    }
+
+    &__minor-button{
+        width: 48%;
+    }
+
+    &__major-button{
+        width: 100%;
+    }
+
+    &__button{
+        display: block;
+        font-size: 1.1rem;
+        padding: .5rem;
+        text-align: center;
+        margin: .5rem 0;
+
+        &--hidden{
+            display: none;
+        }
+
+        @media (max-width: $tablet-size) {
+            width: 100%;
+            margin-top: .5rem;
+        }
+    }
+
+    &__set-next-lot-button{
+        padding: .1rem 0;
+        margin: .2rem 0 0 0;
+        font-size: 1rem;
+        width: 100%;
+    }
+
+    &__link-wrapper{
+        @media (max-width: $tablet-size) {
+            width: 88%;
+        }
+    }
+
+    &__input-wrapper{
+        display: none;
+        width: 5rem;
+
+        &--visible{
+            display: block;
+            @media (max-width: $tablet-size) {
+                margin: .5rem 0;
+                margin-left: auto;
+                margin-right: auto;
+                width: 90%;
+            }
+        }
+    }
+
+    &__set-next-lot-input{
+        width: 85%;
+        height: 1.4rem;
+        @media (max-width: $tablet-size) {
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
+}

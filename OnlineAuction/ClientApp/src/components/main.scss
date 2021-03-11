@@ -1,0 +1,176 @@
+.main{
+    background-color: $background-color;
+    padding: 2rem 1rem;
+    display: flex;
+
+    @media(max-width: $tablet-size){
+        flex-wrap: wrap;
+    } 
+
+    &__body{
+        margin-top: 1.5rem;
+    }
+
+    &__title{
+        font-size: 1.8rem;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        float: right;
+        width: 58%;
+
+        &::after{
+            content: "";
+            display: block;
+            margin: 1rem 0;
+            height: .1rem;
+            background-color: $outline-color;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+
+        @media(max-width: $tablet-size){
+            width: 100%;
+        } 
+    }
+
+    &__lot-info{
+        width: 58%;
+        float: right;
+
+        @media(max-width: $tablet-size){
+            width: 100%;
+            text-align: center;
+        } 
+    }
+
+    &__image{
+        max-width: 40%;
+        float: left;
+
+        @media(max-width: $tablet-size){
+            max-width: 100%;
+            float: unset;
+            margin-right: auto;
+            margin-left: auto;
+            display: block;
+        } 
+    }
+
+    &__lot-info-wrapper{
+        width: 100%;
+    }
+
+    &__timer{
+        display: flex;
+        justify-content: center;
+    }
+
+    &__timer-wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__lot-preview{
+        margin-bottom: 1rem;
+        display: flex;
+        @media(max-width: $tablet-size){
+            flex-wrap: wrap;
+            justify-content: center;
+        } 
+    }
+
+    &__lot-preview-wrapper{
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    &__admin-lot-preview-wrapper{
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    &__admin-lot-preview{
+        justify-content: space-between;
+
+        @media(max-width: $tablet-size){
+            justify-content: center;
+        } 
+    }
+
+    &__loading-page{
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__lot-message{
+        padding: .5rem;
+        border-radius: .3rem;
+        font-size: 1rem;
+        margin-left: 1rem;
+
+        &--sold{
+            background-color: $error-color;
+        }
+
+        &--not-active{
+            background-color: orange;
+        }
+    }
+
+    &__winners{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    &__custom-message-page{
+        justify-content: center;
+        text-align: center;
+        color: $title-color;
+        font-size: 1.3rem;
+    }
+
+    &__form-item{
+        width: 50%;
+        margin: 0 auto 1rem auto;
+    }
+
+    &__profile{
+        display: flex;
+        &-title{
+            margin-top: 0;
+        }
+
+        @media(max-width: $tablet-size){
+            flex-wrap: wrap;
+        } 
+    }
+
+    &__pagination{
+        width: 100%;
+        margin-top: 1rem;
+        display: flex;
+    }
+
+    &__switcher-wrapper{
+        width: 100%;
+        height: 3rem;
+        margin: -1rem 0 1rem 0;
+    }
+
+    &__dropDownLots{
+        width: 100%;
+        display: flex;
+    }
+
+    &__dropDownPagination{
+        width: 100%;
+        display: flex;
+    }
+}

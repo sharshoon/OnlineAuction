@@ -1,0 +1,15 @@
+.user-page {
+  display: block;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.user-page__item {
+  margin: 0.5rem;
+}
+.user-page__item::after {
+  content: "";
+  border-bottom: 0.06rem solid;
+}
+.user-page__item-name {
+  font-weight: 700;
+}

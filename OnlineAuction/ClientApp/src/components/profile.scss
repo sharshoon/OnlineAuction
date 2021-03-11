@@ -1,0 +1,48 @@
+.profile{
+    &__menu{
+        width: 30%;
+        padding-right: 3rem;
+        border-right: 0.07rem solid $border-color;
+
+        @media(max-width: $tablet-size){
+            width: 100%;
+            padding: 0;
+            border-style: none;
+            display: flex;
+            justify-content: space-around;
+        } 
+        
+        &-item-wrapper{
+            @media(max-width: $tablet-size){
+                width: 30%;
+            } 
+        }
+
+        &-item{
+            color: $title-color;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 3rem;
+            width: 100%;
+            border-radius: .3rem;
+            &--active{
+                background-color: $yellow-background-color;
+            }
+        }
+    }
+
+    &__content{
+        width: 70%;
+
+        @media(max-width: $tablet-size){
+            width: 90%;
+            margin-right: auto;
+            margin-left: auto;
+        } 
+    }
+
+    &__form-item{
+        width: 90%;
+    }
+}

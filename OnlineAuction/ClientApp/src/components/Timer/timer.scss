@@ -1,0 +1,27 @@
+.timer {
+    text-align: center;
+
+    &__time{
+        font-size: 2rem;
+    }
+
+    &__item{
+        background-color: $title-color;
+        border-radius: .3rem;
+        padding: .5rem 0;
+        width: 5rem;
+        margin: 1rem .5rem;
+        color: white;
+
+        &--translucent{
+            background-color: $title-color-translucent
+        }
+    }
+
+    &__not-active{
+        position: absolute;
+        background-color: $yellow-background-color;
+        padding: .5rem;
+        border-radius: .3rem;
+    }
+}
